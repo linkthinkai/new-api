@@ -20,6 +20,16 @@ For commercial licensing, please contact support@quantumnous.com
 export default {
   content: ['./index.html', './src/**/*.{js,jsx,ts,tsx}'],
   theme: {
+    fontFamily: {
+      sans: [
+        '"IBM Plex Sans"',
+        '"Microsoft YaHei"',
+        'PingFang SC',
+        'system-ui',
+        'sans-serif',
+      ],
+      display: ['Syne', '"IBM Plex Sans"', 'system-ui', 'sans-serif'],
+    },
     colors: {
       'semi-color-white': 'var(--semi-color-white)',
       'semi-color-black': 'var(--semi-color-black)',
@@ -134,6 +144,16 @@ export default {
       'semi-color-data-19': 'var(--semi-color-data-19)',
     },
     extend: {
+      boxShadow: {
+        'neo-glow':
+          '0 0 0 1px rgba(34, 211, 238, 0.12), 0 0 40px -8px rgba(34, 211, 238, 0.35)',
+        'neo-glow-lg':
+          '0 0 0 1px rgba(139, 92, 246, 0.15), 0 24px 80px -24px rgba(6, 182, 212, 0.25)',
+      },
+      backgroundImage: {
+        'neo-noise':
+          "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E\")",
+      },
       borderRadius: {
         'semi-border-radius-extra-small':
           'var(--semi-border-radius-extra-small)',

@@ -7,7 +7,7 @@ import {
   Typography,
   Popconfirm,
 } from '@douyinfe/semi-ui';
-import { IconPlus, IconDelete } from '@douyinfe/semi-icons';
+import { IconPlus, IconDelete } from '@/icons/semiRemix';
 import { useTranslation } from 'react-i18next';
 import CardTable from '../../../../components/common/ui/CardTable';
 

@@ -20,8 +20,7 @@ For commercial licensing, please contact support@quantumnous.com
 import React, { useEffect, useMemo, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { getLucideIcon } from '../../helpers/render';
-import { ChevronLeft } from 'lucide-react';
+import { SidebarNavRemixIcon } from '@/icons/semiRemix';
 import { useSidebarCollapsed } from '../../hooks/common/useSidebarCollapsed';
 import { useSidebar } from '../../hooks/common/useSidebar';
 import { useMinimumLoadingTime } from '../../hooks/common/useMinimumLoadingTime';
@@ -328,7 +327,7 @@ const SiderBar = ({ onNavigate = () => {} }) => {
         }
         icon={
           <div className='sidebar-icon-container flex-shrink-0'>
-            {getLucideIcon(item.itemKey, isSelected)}
+            <SidebarNavRemixIcon itemKey={item.itemKey} selected={isSelected} />
           </div>
         }
         className={item.className}
@@ -356,7 +355,7 @@ const SiderBar = ({ onNavigate = () => {} }) => {
           }
           icon={
             <div className='sidebar-icon-container flex-shrink-0'>
-              {getLucideIcon(item.itemKey, isSelected)}
+              <SidebarNavRemixIcon itemKey={item.itemKey} selected={isSelected} />
             </div>
           }
         >
@@ -504,13 +503,16 @@ const SiderBar = ({ onNavigate = () => {} }) => {
             type='tertiary'
             size='small'
             icon={
-              <ChevronLeft
-                size={16}
-                strokeWidth={2.5}
-                color='var(--semi-color-text-2)'
+              <i
+                className={`ri-arrow-left-s-line sidebar-collapse-chevron${collapsed ? ' sidebar-collapse-chevron--collapsed' : ''}`}
                 style={{
-                  transform: collapsed ? 'rotate(180deg)' : 'rotate(0deg)',
+                  fontSize: 16,
+                  lineHeight: 1,
+                  display: 'inline-block',
+                  verticalAlign: 'middle',
+                  color: 'var(--semi-color-text-2)',
                 }}
+                aria-hidden
               />
             }
             onClick={toggleCollapsed}

@@ -99,47 +99,15 @@ export const updateChartSpec = (
   }));
 };
 
-export const getTrendSpec = (data, color) => ({
-  type: 'line',
-  data: [{ id: 'trend', values: data.map((val, idx) => ({ x: idx, y: val })) }],
-  xField: 'x',
-  yField: 'y',
-  height: 40,
-  width: 100,
-  axes: [
-    {
-      orient: 'bottom',
-      visible: false,
-    },
-    {
-      orient: 'left',
-      visible: false,
-    },
-  ],
-  padding: 0,
-  autoFit: false,
-  legends: { visible: false },
-  tooltip: { visible: false },
-  crosshair: { visible: false },
-  line: {
-    style: {
-      stroke: color,
-      lineWidth: 2,
-    },
-  },
-  point: {
-    visible: false,
-  },
-  background: {
-    fill: 'transparent',
-  },
-});
-
 // ========== UI 工具函数 ==========
-export const createSectionTitle = (Icon, text) => (
-  <div className='flex items-center gap-2'>
-    <Icon size={16} />
-    {text}
+export const createSectionTitle = (icon, text) => (
+  <div className='console-dashboard-section-title flex items-center gap-2.5'>
+    <span className='flex shrink-0 items-center text-semi-color-primary'>
+      {icon}
+    </span>
+    <span className='font-semibold tracking-tight text-semi-color-text-0'>
+      {text}
+    </span>
   </div>
 );
 

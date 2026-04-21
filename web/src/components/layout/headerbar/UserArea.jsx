@@ -20,13 +20,13 @@ For commercial licensing, please contact support@quantumnous.com
 import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Avatar, Button, Dropdown, Typography } from '@douyinfe/semi-ui';
-import { ChevronDown } from 'lucide-react';
 import {
   IconExit,
   IconUserSetting,
   IconCreditCard,
   IconKey,
-} from '@douyinfe/semi-icons';
+  IconChevronDown,
+} from '@/icons/semiRemix';
 import { stringToColor } from '../../../helpers';
 import SkeletonWrapper from '../components/SkeletonWrapper';
 
@@ -119,7 +119,7 @@ const UserArea = ({
           <Button
             theme='borderless'
             type='tertiary'
-            className='flex items-center gap-1.5 !p-1 !rounded-full hover:!bg-semi-color-fill-1 dark:hover:!bg-gray-700 !bg-semi-color-fill-0 dark:!bg-semi-color-fill-1 dark:hover:!bg-semi-color-fill-2'
+            className='neo-topbar-user-trigger flex items-center gap-1.5'
           >
             <Avatar
               size='extra-small'
@@ -133,9 +133,9 @@ const UserArea = ({
                 {userState.user.username}
               </Typography.Text>
             </span>
-            <ChevronDown
+            <IconChevronDown
               size={14}
-              className='text-xs text-semi-color-text-2 dark:text-gray-400'
+              className='text-semi-color-text-2 dark:text-gray-400'
             />
           </Button>
         </Dropdown>

@@ -26,7 +26,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import { StatusProvider } from './context/Status';
 import { ThemeProvider } from './context/Theme';
 import PageLayout from './components/layout/PageLayout';
+import NeoAmbientBackdrop from './components/layout/NeoAmbientBackdrop';
 import './i18n/i18n';
+import 'remixicon/fonts/remixicon.css';
 import './index.css';
 import { LocaleProvider } from '@douyinfe/semi-ui';
 import { useTranslation } from 'react-i18next';
@@ -66,6 +68,7 @@ root.render(
           }}
         >
           <ThemeProvider>
+            <NeoAmbientBackdrop />
             <SemiLocaleWrapper>
               <PageLayout />
             </SemiLocaleWrapper>

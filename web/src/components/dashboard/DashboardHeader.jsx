@@ -18,8 +18,8 @@ For commercial licensing, please contact support@quantumnous.com
 */
 
 import React from 'react';
-import { Button } from '@douyinfe/semi-ui';
-import { RefreshCw, Search } from 'lucide-react';
+import { Button, Tooltip } from '@douyinfe/semi-ui';
+import { IconRefresh, IconSearch } from '@/icons/semiRemix';
 
 const DashboardHeader = ({
   getGreeting,
@@ -29,30 +29,40 @@ const DashboardHeader = ({
   loading,
   t,
 }) => {
-  const ICON_BUTTON_CLASS = 'text-white hover:bg-opacity-80 !rounded-full';
-
   return (
-    <div className='flex items-center justify-between mb-4'>
+    <div className='console-dashboard-header mb-5 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between'>
       <h2
-        className='text-2xl font-semibold text-gray-800 transition-opacity duration-1000 ease-in-out'
+        className='text-xl font-semibold tracking-tight text-semi-color-text-0 transition-opacity duration-1000 ease-in-out sm:text-2xl'
         style={{ opacity: greetingVisible ? 1 : 0 }}
       >
         {getGreeting}
       </h2>
-      <div className='flex gap-3'>
-        <Button
-          type='tertiary'
-          icon={<Search size={16} />}
-          onClick={showSearchModal}
-          className={`bg-green-500 hover:bg-green-600 ${ICON_BUTTON_CLASS}`}
+      <div className='dashboard-toolbar glass-panel flex items-center gap-2 rounded-2xl px-1.5 py-1.5'>
+        <Tooltip content={t('搜索条件')} position='bottom'>
+          <Button
+            type='tertiary'
+            theme='borderless'
+            icon={<IconSearch size={18} />}
+            onClick={showSearchModal}
+            className='!rounded-xl !text-semi-color-text-1 hover:!bg-[var(--semi-color-fill-1)]'
+            aria-label={t('搜索条件')}
+          />
+        </Tooltip>
+        <span
+          className='mx-0.5 hidden h-5 w-px bg-[var(--glass-border)] sm:inline'
+          aria-hidden
         />
-        <Button
-          type='tertiary'
-          icon={<RefreshCw size={16} />}
-          onClick={refresh}
-          loading={loading}
-          className={`bg-blue-500 hover:bg-blue-600 ${ICON_BUTTON_CLASS}`}
-        />
+        <Tooltip content={t('刷新')} position='bottom'>
+          <Button
+            type='tertiary'
+            theme='borderless'
+            icon={<IconRefresh size={18} />}
+            onClick={refresh}
+            loading={loading}
+            className='!rounded-xl !text-semi-color-text-1 hover:!bg-[var(--semi-color-fill-1)]'
+            aria-label={t('刷新')}
+          />
+        </Tooltip>
       </div>
     </div>
   );

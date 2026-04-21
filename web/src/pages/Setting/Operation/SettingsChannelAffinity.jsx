@@ -43,7 +43,7 @@ import {
   IconPlus,
   IconRefresh,
   IconSearch,
-} from '@douyinfe/semi-icons';
+} from '@/icons/semiRemix';
 import {
   API,
   compareObjects,

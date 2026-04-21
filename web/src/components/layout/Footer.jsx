@@ -42,12 +42,20 @@ const FooterBar = () => {
 
   const customFooter = useMemo(
     () => (
-      <footer className='relative h-auto py-16 px-6 md:px-24 w-full flex flex-col items-center justify-between overflow-hidden'>
-        <div className='absolute hidden md:block top-[204px] left-[-100px] w-[151px] h-[151px] rounded-full bg-[#FFD166]'></div>
-        <div className='absolute md:hidden bottom-[20px] left-[-50px] w-[80px] h-[80px] rounded-full bg-[#FFD166] opacity-60'></div>
+      <footer
+        className={`relative h-auto w-full overflow-hidden border-t border-[var(--glass-border)]/60 bg-[var(--glass-bg)]/90 px-4 backdrop-blur-md md:px-8 flex flex-col items-center justify-between ${
+          isDemoSiteMode ? 'py-8 md:py-10' : 'py-2 md:py-2.5'
+        }`}
+      >
+        <div
+          className={`pointer-events-none absolute inset-0 bg-[length:48px_48px] bg-[linear-gradient(rgba(6,182,212,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(6,182,212,0.06)_1px,transparent_1px)] dark:bg-[linear-gradient(rgba(34,211,238,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(34,211,238,0.06)_1px,transparent_1px)] ${
+            isDemoSiteMode ? 'opacity-[0.32]' : 'opacity-[0.12]'
+          }`}
+          aria-hidden
+        />
 
         {isDemoSiteMode && (
-          <div className='flex flex-col md:flex-row justify-between w-full max-w-[1110px] mb-10 gap-8'>
+          <div className='relative z-[1] flex flex-col md:flex-row justify-between w-full max-w-[1110px] mb-10 gap-8'>
             <div className='flex-shrink-0'>
               <img
                 src={logo}
@@ -188,22 +196,28 @@ const FooterBar = () => {
           </div>
         )}
 
-        <div className='flex flex-col md:flex-row items-center justify-between w-full max-w-[1110px] gap-6'>
+        <div
+          className={`relative z-[1] flex w-full max-w-[1110px] flex-col items-center justify-between gap-3 md:flex-row ${
+            isDemoSiteMode ? 'md:gap-6' : 'md:gap-4'
+          }`}
+        >
           <div className='flex flex-wrap items-center gap-2'>
-            <Typography.Text className='text-sm !text-semi-color-text-1'>
+            <Typography.Text
+              className={`!text-semi-color-text-2 ${isDemoSiteMode ? 'text-sm' : 'text-xs'}`}
+            >
               © {currentYear} {systemName}. {t('版权所有')}
             </Typography.Text>
           </div>
 
-          <div className='text-sm'>
-            <span className='!text-semi-color-text-1'>
+          <div className={isDemoSiteMode ? 'text-sm' : 'text-xs'}>
+            <span className='!text-semi-color-text-2'>
               {t('设计与开发由')}{' '}
             </span>
             <a
               href='https://github.com/QuantumNous/new-api'
               target='_blank'
               rel='noopener noreferrer'
-              className='!text-semi-color-primary font-medium'
+              className='!text-semi-color-primary font-medium opacity-90 hover:opacity-100'
             >
               New API
             </a>
@@ -221,21 +235,21 @@ const FooterBar = () => {
   return (
     <div className='w-full'>
       {footer ? (
-        <footer className='relative h-auto py-4 px-6 md:px-24 w-full flex items-center justify-center overflow-hidden'>
-          <div className='flex flex-col md:flex-row items-center justify-between w-full max-w-[1110px] gap-4'>
+        <footer className='relative flex h-auto w-full items-center justify-center overflow-hidden border-t border-[var(--glass-border)]/60 bg-[var(--glass-bg)]/90 px-4 py-2 backdrop-blur-md md:px-8 md:py-2.5'>
+          <div className='flex w-full max-w-[1110px] flex-col items-center justify-between gap-2 md:flex-row md:gap-4'>
             <div
-              className='custom-footer na-cb6feafeb3990c78 text-sm !text-semi-color-text-1'
+              className='custom-footer na-cb6feafeb3990c78 text-xs !text-semi-color-text-2 md:text-sm'
               dangerouslySetInnerHTML={{ __html: footer }}
             ></div>
-            <div className='text-sm flex-shrink-0'>
-              <span className='!text-semi-color-text-1'>
+            <div className='flex-shrink-0 text-xs md:text-sm'>
+              <span className='!text-semi-color-text-2'>
                 {t('设计与开发由')}{' '}
               </span>
               <a
                 href='https://github.com/QuantumNous/new-api'
                 target='_blank'
                 rel='noopener noreferrer'
-                className='!text-semi-color-primary font-medium'
+                className='!text-semi-color-primary font-medium opacity-90 hover:opacity-100'
               >
                 New API
               </a>

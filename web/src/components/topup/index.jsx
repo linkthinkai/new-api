@@ -647,7 +647,7 @@ const TopUp = () => {
                 ? data.waffo_min_topup
                 : enableWaffoPancakeTopUp
                   ? data.waffo_pancake_min_topup
-                : 1;
+                  : 1;
           setEnableOnlineTopUp(enableOnlineTopUp);
           setEnableStripeTopUp(enableStripeTopUp);
           setEnableCreemTopUp(enableCreemTopUp);
@@ -874,7 +874,7 @@ const TopUp = () => {
   };
 
   return (
-    <div className='w-full max-w-7xl mx-auto relative min-h-screen lg:min-h-0 mt-[60px] px-2'>
+    <div className='relative mx-auto min-h-screen w-full max-w-7xl px-2 lg:min-h-0'>
       {/* 划转模态框 */}
       <TransferModal
         t={t}

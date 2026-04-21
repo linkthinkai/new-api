@@ -19,7 +19,7 @@ For commercial licensing, please contact support@quantumnous.com
 
 import React, { memo, useCallback } from 'react';
 import { Input, Button, Switch, Select, Divider } from '@douyinfe/semi-ui';
-import { IconSearch, IconCopy, IconFilter } from '@douyinfe/semi-icons';
+import { IconSearch, IconCopy, IconFilter } from '@/icons/semiRemix';
 
 const SearchActions = memo(
   ({
@@ -96,7 +96,9 @@ const SearchActions = memo(
             {/* 充值价格显示开关 */}
             {supportsCurrencyDisplay && (
               <div className='flex items-center gap-2'>
-                <span className='text-sm text-gray-600'>{t('充值价格显示')}</span>
+                <span className='text-sm text-gray-600'>
+                  {t('充值价格显示')}
+                </span>
                 <Switch
                   checked={showWithRecharge}
                   onChange={setShowWithRecharge}

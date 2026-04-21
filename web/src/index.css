@@ -1,34 +1,367 @@
-/* ==================== Tailwind CSS 配置 ==================== */
-@layer tailwind-base, semi, tailwind-components, tailwind-utils;
+/* ==================== Tailwind CSS v4 ==================== */
+@import 'tailwindcss';
+@config '../tailwind.config.js';
 
-@layer tailwind-base {
-  @tailwind base;
-}
-
-@layer tailwind-components {
-  @tailwind components;
-}
-
-@layer tailwind-utils {
-  @tailwind utilities;
-}
-
-/* ==================== 全局基础样式 ==================== */
+/* ==================== 全局基础样式 — Neo 科技毛玻璃体系 ==================== */
 :root {
-  --sidebar-width: 180px;
-  --sidebar-width-collapsed: 60px;
+  --app-header-height: 4rem;
+  --sidebar-width: 200px;
+  --sidebar-width-collapsed: 64px;
   --sidebar-current-width: var(--sidebar-width);
+
+  --neo-canvas: #e8f0f7;
+  --neo-canvas-2: #dfe8f2;
+  --neo-accent: #06b6d4;
+  --neo-accent-2: #8b5cf6;
+  --neo-ink: #0b1220;
+
+  --glass-bg: rgba(255, 255, 255, 0.42);
+  --glass-bg-hover: rgba(255, 255, 255, 0.62);
+  --glass-border: rgba(6, 182, 212, 0.22);
+  --glass-border-strong: rgba(139, 92, 246, 0.35);
+  --glass-shadow: 0 8px 32px -12px rgba(15, 23, 42, 0.25);
+  --glass-blur: blur(20px) saturate(160%);
+  --tech-glow: 0 0 0 1px rgba(6, 182, 212, 0.25),
+    0 0 48px -12px rgba(6, 182, 212, 0.45);
+  --tech-border: rgba(6, 182, 212, 0.28);
+  --neo-noise: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+html.dark {
+  --neo-canvas: #020617;
+  --neo-canvas-2: #0b1120;
+  --neo-accent: #22d3ee;
+  --neo-accent-2: #a78bfa;
+  --neo-ink: #e2e8f0;
+
+  --glass-bg: rgba(15, 23, 42, 0.55);
+  --glass-bg-hover: rgba(15, 23, 42, 0.78);
+  --glass-border: rgba(34, 211, 238, 0.14);
+  --glass-border-strong: rgba(167, 139, 250, 0.28);
+  --glass-shadow: 0 12px 48px -16px rgba(0, 0, 0, 0.65);
+  --glass-blur: blur(24px) saturate(165%);
+  --tech-glow: 0 0 0 1px rgba(34, 211, 238, 0.2),
+    0 0 56px -8px rgba(34, 211, 238, 0.35);
+  --tech-border: rgba(34, 211, 238, 0.18);
 }
 
 body.sidebar-collapsed {
   --sidebar-current-width: var(--sidebar-width-collapsed);
 }
 
+#root {
+  position: relative;
+  z-index: 1;
+  isolation: isolate;
+}
+
+/* ==================== 全局氛围背景（光晕 / 点阵 / 细环，不参与交互） ==================== */
+.neo-ambient-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.neo-ambient-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  will-change: transform;
+  opacity: 0.42;
+}
+
+.neo-ambient-orb--a {
+  width: min(56vw, 460px);
+  height: min(56vw, 460px);
+  left: -12%;
+  top: 8%;
+  background: radial-gradient(
+    circle,
+    rgba(6, 182, 212, 0.5) 0%,
+    rgba(6, 182, 212, 0.08) 52%,
+    transparent 72%
+  );
+  animation: neo-ambient-float-a 24s ease-in-out infinite alternate;
+}
+
+.neo-ambient-orb--b {
+  width: min(48vw, 400px);
+  height: min(48vw, 400px);
+  right: -10%;
+  top: 28%;
+  background: radial-gradient(
+    circle,
+    rgba(139, 92, 246, 0.42) 0%,
+    rgba(139, 92, 246, 0.06) 55%,
+    transparent 75%
+  );
+  animation: neo-ambient-float-b 32s ease-in-out infinite alternate;
+  animation-delay: -6s;
+}
+
+.neo-ambient-orb--c {
+  width: min(62vw, 520px);
+  height: min(62vw, 520px);
+  left: 18%;
+  bottom: -20%;
+  background: radial-gradient(
+    circle,
+    rgba(14, 165, 233, 0.28) 0%,
+    transparent 65%
+  );
+  animation: neo-ambient-float-c 28s ease-in-out infinite alternate;
+  animation-delay: -14s;
+}
+
+html.dark .neo-ambient-orb--a {
+  background: radial-gradient(
+    circle,
+    rgba(34, 211, 238, 0.38) 0%,
+    rgba(34, 211, 238, 0.06) 52%,
+    transparent 72%
+  );
+}
+
+html.dark .neo-ambient-orb--b {
+  background: radial-gradient(
+    circle,
+    rgba(167, 139, 250, 0.36) 0%,
+    rgba(167, 139, 250, 0.05) 55%,
+    transparent 75%
+  );
+}
+
+html.dark .neo-ambient-orb--c {
+  background: radial-gradient(
+    circle,
+    rgba(56, 189, 248, 0.22) 0%,
+    transparent 65%
+  );
+}
+
+.neo-ambient-dots {
+  position: absolute;
+  inset: -20%;
+  opacity: 0.22;
+  background-image: radial-gradient(
+    circle,
+    rgba(6, 182, 212, 0.35) 1px,
+    transparent 1.5px
+  );
+  background-size: 44px 44px;
+  animation: neo-ambient-dots-drift 80s linear infinite;
+  mask-image: radial-gradient(
+    ellipse 72% 65% at 50% 38%,
+    #000 0%,
+    transparent 78%
+  );
+}
+
+html.dark .neo-ambient-dots {
+  opacity: 0.18;
+  background-image: radial-gradient(
+    circle,
+    rgba(34, 211, 238, 0.4) 1px,
+    transparent 1.5px
+  );
+}
+
+.neo-ambient-ring {
+  position: absolute;
+  left: 50%;
+  top: 42%;
+  width: min(120vmin, 920px);
+  height: min(120vmin, 920px);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid rgba(6, 182, 212, 0.12);
+  box-shadow:
+    0 0 60px -20px rgba(6, 182, 212, 0.25),
+    inset 0 0 80px -40px rgba(139, 92, 246, 0.08);
+  opacity: 0.55;
+  animation: neo-ambient-ring-pulse 16s ease-in-out infinite alternate;
+}
+
+html.dark .neo-ambient-ring {
+  border-color: rgba(34, 211, 238, 0.14);
+  box-shadow:
+    0 0 72px -24px rgba(34, 211, 238, 0.2),
+    inset 0 0 90px -44px rgba(167, 139, 250, 0.1);
+}
+
+@keyframes neo-ambient-float-a {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    transform: translate(4vw, 5vh) scale(1.12);
+  }
+}
+
+@keyframes neo-ambient-float-b {
+  0% {
+    transform: translate(0, 0) scale(1.02);
+  }
+  100% {
+    transform: translate(-5vw, 4vh) scale(1.08);
+  }
+}
+
+@keyframes neo-ambient-float-c {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    transform: translate(3vw, -4vh) scale(1.06);
+  }
+}
+
+@keyframes neo-ambient-dots-drift {
+  to {
+    background-position: 44px 44px;
+  }
+}
+
+@keyframes neo-ambient-ring-pulse {
+  0% {
+    opacity: 0.35;
+    transform: translate(-50%, -50%) scale(0.98);
+  }
+  100% {
+    opacity: 0.62;
+    transform: translate(-50%, -50%) scale(1.02);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .neo-ambient-orb,
+  .neo-ambient-dots,
+  .neo-ambient-ring {
+    animation: none !important;
+  }
+
+  .neo-ambient-ring {
+    opacity: 0.45;
+    transform: translate(-50%, -50%);
+  }
+}
+
 body {
-  font-family: Lato, 'Helvetica Neue', Arial, Helvetica, 'Microsoft YaHei',
+  font-family: 'IBM Plex Sans', 'Microsoft YaHei', 'PingFang SC', system-ui,
     sans-serif;
   color: var(--semi-color-text-0);
-  background-color: var(--semi-color-bg-0);
+  background-color: var(--neo-canvas);
+  background-image: radial-gradient(
+      ellipse 120% 85% at 8% -15%,
+      rgba(6, 182, 212, 0.22),
+      transparent 52%
+    ),
+    radial-gradient(
+      ellipse 90% 70% at 92% 5%,
+      rgba(139, 92, 246, 0.18),
+      transparent 48%
+    ),
+    radial-gradient(
+      ellipse 55% 45% at 50% 108%,
+      rgba(14, 165, 233, 0.12),
+      transparent 42%
+    ),
+    linear-gradient(165deg, var(--neo-canvas) 0%, var(--neo-canvas-2) 100%);
+  background-attachment: fixed;
+}
+
+html.dark body {
+  background-color: var(--neo-canvas);
+  background-image: radial-gradient(
+      ellipse 110% 80% at 15% -12%,
+      rgba(34, 211, 238, 0.28),
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse 85% 55% at 100% 0%,
+      rgba(167, 139, 250, 0.22),
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse 45% 35% at 0% 100%,
+      rgba(6, 182, 212, 0.1),
+      transparent 45%
+    ),
+    linear-gradient(165deg, #020617 0%, #0b1120 45%, #020617 100%);
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image: linear-gradient(
+      rgba(6, 182, 212, 0.06) 1px,
+      transparent 1px
+    ),
+    linear-gradient(90deg, rgba(6, 182, 212, 0.06) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(
+    ellipse 75% 65% at 50% 35%,
+    #000 0%,
+    transparent 72%
+  );
+  opacity: 0.85;
+  animation: neo-grid-breathe 20s ease-in-out infinite alternate;
+}
+
+html.dark body::before {
+  background-image: linear-gradient(
+      rgba(34, 211, 238, 0.09) 1px,
+      transparent 1px
+    ),
+    linear-gradient(90deg, rgba(34, 211, 238, 0.09) 1px, transparent 1px);
+  opacity: 0.65;
+}
+
+@keyframes neo-grid-breathe {
+  from {
+    opacity: 0.58;
+  }
+  to {
+    opacity: 0.92;
+  }
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image: var(--neo-noise, none);
+  opacity: 0.9;
+}
+
+.neo-app-layout {
+  background: transparent !important;
+}
+
+.neo-app-layout .semi-layout {
+  background: transparent !important;
 }
 
 /* 桌面端禁止 body 纵向滚动 - 防止 VChart tooltip 触发页面滚动条 */
@@ -41,16 +374,379 @@ body {
 .app-layout {
   height: 100vh;
   height: 100dvh;
+  background: transparent;
 }
 
 .app-sider {
-  height: calc(100vh - 64px);
-  height: calc(100dvh - 64px);
+  height: calc(100vh - var(--app-header-height));
+  height: calc(100dvh - var(--app-header-height));
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+/* ==================== 科技感毛玻璃实用类 ==================== */
+.glass-panel {
+  background-color: var(--glass-bg) !important;
+  backdrop-filter: var(--glass-blur) !important;
+  -webkit-backdrop-filter: var(--glass-blur) !important;
+  border: 1px solid var(--glass-border) !important;
+  box-shadow: var(--glass-shadow) !important;
+  contain: layout style paint;
+}
+
+.glass-panel-hover:hover {
+  background-color: var(--glass-bg-hover) !important;
+  border-color: var(--glass-border-strong) !important;
+}
+
+.tech-border {
+  border: 1px solid var(--tech-border) !important;
+}
+
+.tech-glow {
+  box-shadow: var(--tech-glow) !important;
+}
+
+.tech-glow-hover:hover {
+  box-shadow: var(--tech-glow) !important;
+}
+
+/* ==================== 顶栏（现代简洁） ==================== */
+.neo-top-bar {
+  min-height: var(--app-header-height);
+  border-bottom: 1px solid color-mix(in srgb, var(--glass-border) 70%, transparent);
+  background: color-mix(in srgb, var(--glass-bg) 92%, transparent);
+  backdrop-filter: blur(18px) saturate(155%);
+  -webkit-backdrop-filter: blur(18px) saturate(155%);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.06) inset,
+    0 8px 32px -20px rgba(15, 23, 42, 0.2);
+  contain: layout style;
+}
+
+html.dark .neo-top-bar {
+  border-bottom-color: color-mix(in srgb, var(--glass-border) 55%, transparent);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.04) inset,
+    0 12px 40px -24px rgba(0, 0, 0, 0.55);
+}
+
+.neo-top-bar-inner {
+  min-height: inherit;
+}
+
+.neo-top-bar .semi-button.semi-button-borderless.neo-topbar-icon-btn {
+  display: inline-flex !important;
+  height: 2.25rem !important;
+  width: 2.25rem !important;
+  min-width: 2.25rem !important;
+  align-items: center;
+  justify-content: center;
+  padding: 0 !important;
+  border-radius: 9999px !important;
+  border: 1px solid transparent !important;
+  background: rgba(var(--semi-grey-5), 0.07) !important;
+  color: var(--semi-color-text-1) !important;
+  transition:
+    background 0.18s ease,
+    border-color 0.18s ease,
+    color 0.18s ease !important;
+}
+
+.neo-top-bar .semi-button.semi-button-borderless.neo-topbar-icon-btn:hover {
+  background: rgba(var(--semi-grey-5), 0.14) !important;
+  border-color: rgba(var(--semi-grey-5), 0.22) !important;
+  color: var(--semi-color-text-0) !important;
+}
+
+html.dark .neo-top-bar .semi-button.semi-button-borderless.neo-topbar-icon-btn {
+  background: rgba(var(--semi-grey-3), 0.14) !important;
+}
+
+html.dark .neo-top-bar .semi-button.semi-button-borderless.neo-topbar-icon-btn:hover {
+  background: rgba(var(--semi-grey-3), 0.22) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.neo-topbar-user-trigger.semi-button.semi-button-borderless {
+  gap: 0.35rem;
+  border-radius: 9999px !important;
+  padding: 0.2rem 0.55rem 0.2rem 0.35rem !important;
+  border: 1px solid color-mix(in srgb, var(--glass-border) 70%, transparent) !important;
+  background: color-mix(in srgb, var(--glass-bg) 38%, transparent) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: none !important;
+}
+
+.neo-topbar-user-trigger.semi-button.semi-button-borderless:hover {
+  border-color: color-mix(in srgb, var(--neo-accent) 28%, var(--glass-border)) !important;
+  background: color-mix(in srgb, var(--glass-bg-hover) 48%, transparent) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .neo-nav-link,
+  .neo-top-bar .semi-button.semi-button-borderless.neo-topbar-icon-btn {
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.neo-nav-link {
+  position: relative;
+  padding: 0.42rem 0.8rem;
+  border-radius: 0.5rem;
+  border: 1px solid transparent;
+  color: var(--semi-color-text-2);
+  background: transparent;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  transition:
+    color 0.18s ease,
+    background 0.18s ease,
+    border-color 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.neo-nav-link:hover {
+  color: var(--semi-color-text-0);
+  background: rgba(var(--semi-grey-5), 0.1);
+  border-color: rgba(var(--semi-grey-5), 0.14);
+}
+
+.neo-nav-link-active {
+  color: var(--semi-color-primary) !important;
+  background: rgba(var(--semi-blue-5), 0.12) !important;
+  border-color: rgba(var(--semi-blue-5), 0.22) !important;
+  box-shadow: 0 0 0 1px rgba(var(--semi-blue-5), 0.12);
+}
+
+html.dark .neo-nav-link-active {
+  background: rgba(var(--semi-blue-5), 0.18) !important;
+  box-shadow: 0 0 0 1px rgba(var(--semi-blue-5), 0.15);
+}
+
+.neo-hero-panel {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: 1.5rem;
+  box-shadow: var(--glass-shadow), var(--tech-glow);
+}
+
+/* ==================== 首页落地页区块 ==================== */
+.neo-home-section {
+  position: relative;
+  background: transparent;
+}
+
+.neo-home-section-inner {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 80rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 3.25rem;
+  padding-bottom: 3.25rem;
+}
+
+@media (min-width: 768px) {
+  .neo-home-section-inner {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .neo-home-section-inner {
+    padding-top: 4.5rem;
+    padding-bottom: 4.5rem;
+  }
+}
+
+.neo-home-section-head {
+  margin-bottom: 2rem;
+  max-width: 48rem;
+}
+
+.neo-home-section-title {
+  font-family:
+    Syne,
+    'IBM Plex Sans',
+    system-ui,
+    sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--semi-color-text-0);
+}
+
+@media (min-width: 768px) {
+  .neo-home-section-title {
+    font-size: 1.875rem;
+  }
+}
+
+.neo-home-section-subtitle {
+  margin-top: 0.75rem;
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: var(--semi-color-text-2);
+}
+
+@media (min-width: 768px) {
+  .neo-home-section-subtitle {
+    font-size: 1rem;
+  }
+}
+
+.neo-home-feature-card {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  border-radius: 1.25rem;
+  padding: 1.25rem 1.35rem;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
+}
+
+@media (min-width: 768px) {
+  .neo-home-feature-card {
+    padding: 1.5rem 1.6rem;
+  }
+}
+
+.neo-home-feature-card:hover {
+  border-color: rgba(var(--semi-blue-5), 0.28) !important;
+  box-shadow: var(--glass-shadow), 0 0 0 1px rgba(var(--semi-blue-5), 0.12);
+}
+
+.neo-home-feature-icon-wrap {
+  margin-bottom: 1rem;
+  display: flex;
+  height: 2.75rem;
+  width: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.875rem;
+  border: 1px solid var(--glass-border);
+  background: rgba(var(--semi-blue-5), 0.06);
+}
+
+.neo-home-feature-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--semi-color-text-0);
+}
+
+.neo-home-feature-desc {
+  margin-top: 0.5rem;
+  flex: 1;
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  color: var(--semi-color-text-2);
+}
+
+@media (min-width: 768px) {
+  .neo-home-feature-desc {
+    font-size: 0.875rem;
+  }
+}
+
+.neo-home-step-card {
+  border-radius: 1.25rem;
+  padding: 1.35rem 1.35rem 1.35rem 1.25rem;
+  min-height: 8.5rem;
+}
+
+@media (min-width: 768px) {
+  .neo-home-step-card {
+    padding: 1.5rem 1.5rem 1.5rem 1.35rem;
+    min-height: 9rem;
+  }
+}
+
+.neo-home-step-index {
+  position: absolute;
+  right: 1rem;
+  top: 0.75rem;
+  font-family: ui-monospace, monospace;
+  font-size: 2.25rem;
+  font-weight: 700;
+  line-height: 1;
+  color: rgba(var(--semi-blue-5), 0.12);
+}
+
+html.dark .neo-home-step-index {
+  color: rgba(var(--semi-light-blue-5), 0.14);
+}
+
+.neo-home-step-title {
+  position: relative;
+  z-index: 1;
+  padding-right: 3rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--semi-color-text-0);
+}
+
+.neo-home-step-desc {
+  position: relative;
+  z-index: 1;
+  margin-top: 0.5rem;
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  color: var(--semi-color-text-2);
+}
+
+.neo-home-code-panel {
+  overflow: hidden;
+  border-radius: 1.25rem;
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  box-shadow: var(--glass-shadow);
+}
+
+.neo-home-code-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  border-bottom: 1px solid var(--glass-border);
+  background: rgba(var(--semi-blue-5), 0.04);
+  padding: 0.65rem 1rem;
+}
+
+.neo-home-code-block {
+  margin: 0;
+  overflow-x: auto;
+  padding: 1rem 1.1rem 1.25rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    'Liberation Mono', 'Courier New', monospace;
+  font-size: 0.75rem;
+  line-height: 1.65;
+  color: var(--semi-color-text-1);
+}
+
+@media (min-width: 768px) {
+  .neo-home-code-block {
+    padding: 1.15rem 1.25rem 1.35rem;
+    font-size: 0.8125rem;
+  }
+}
+
+.neo-home-code-block code {
+  white-space: pre;
+  font-family: inherit;
 }
 
 /* ==================== 布局相关样式 ==================== */
@@ -67,6 +763,27 @@ code {
 .semi-sider {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+/* 顶栏下主滚动区：保留滚动条与可滚动高度（flex 子项需 min-height:0 才能出现 overflow） */
+.app-main-scroll-region.semi-layout {
+  -ms-overflow-style: auto;
+  scrollbar-width: thin;
+  /* 预留 scrollbar 空间，防止 scrollbar 出现/消失时内容宽度抖动 (CLS) */
+  scrollbar-gutter: stable;
+  /* 避免过渡期页面内容宽于视口触发横向 scrollbar */
+  overflow-x: hidden;
+}
+
+.app-main-scroll-region.semi-layout::-webkit-scrollbar {
+  display: block;
+  width: 8px;
+  height: 8px;
+}
+
+.app-main-scroll-region.semi-layout::-webkit-scrollbar-thumb {
+  background: rgba(var(--semi-grey-5), 0.45);
+  border-radius: 999px;
 }
 
 /* ==================== 导航和侧边栏样式 ==================== */
@@ -126,13 +843,17 @@ code {
   flex-direction: column;
   min-height: 0;
   transition: width 0.3s ease;
-  background: var(--semi-color-bg-0);
+  background-color: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border-right: 1px solid var(--glass-border);
+  contain: layout style paint;
 }
 
 .sidebar-nav {
   flex: 1;
   width: 100%;
-  background: var(--semi-color-bg-0);
+  background: transparent;
   height: 100%;
   overflow-x: hidden;
   border-right: none;
@@ -147,23 +868,31 @@ code {
   display: none;
 }
 
-/* 侧边栏导航项样式 */
+/* 侧边栏导航项样式 — Neo 胶囊 + 左侧能量条 */
 .sidebar-nav-item {
-  border-radius: 6px;
-  margin: 3px 8px;
-  transition: all 0.15s ease;
-  padding: 8px 12px;
+  border-radius: 9999px;
+  margin: 4px 10px;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 10px 14px;
+  border: 1px solid transparent;
 }
 
 .sidebar-nav-item:hover {
-  background-color: rgba(var(--semi-blue-0), 0.08);
+  background-color: rgba(var(--semi-blue-5), 0.08);
+  border-color: rgba(var(--semi-blue-5), 0.12);
   color: var(--semi-color-primary);
 }
 
 .sidebar-nav-item-selected {
-  background-color: rgba(var(--semi-blue-0), 0.12);
+  background: linear-gradient(
+    105deg,
+    rgba(var(--semi-blue-5), 0.18),
+    rgba(var(--semi-light-blue-5), 0.12)
+  );
+  border-color: rgba(var(--semi-blue-5), 0.35);
   color: var(--semi-color-primary);
-  font-weight: 500;
+  font-weight: 600;
+  box-shadow: var(--tech-glow);
 }
 
 /* 图标容器样式 */
@@ -212,13 +941,12 @@ code {
   padding: 12px;
   margin-top: auto;
   cursor: pointer;
-  background-color: var(--semi-color-bg-0);
+  background-color: transparent;
   position: sticky;
   bottom: 0;
   z-index: 10;
-  box-shadow: 0 -10px 10px -5px var(--semi-color-bg-0);
-  backdrop-filter: blur(4px);
-  border-top: 1px solid rgba(var(--semi-grey-0), 0.08);
+  box-shadow: none;
+  border-top: 1px solid var(--glass-border);
 }
 
 .sidebar-collapse-button-inner {
@@ -235,6 +963,14 @@ code {
 .sidebar-collapse-icon-container {
   display: inline-block;
   transition: transform 0.3s ease;
+}
+
+.sidebar-collapse-chevron {
+  transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sidebar-collapse-chevron--collapsed {
+  transform: rotate(180deg);
 }
 
 /* 侧边栏区域容器 */
@@ -367,7 +1103,9 @@ code {
   line-height: 1;
   background-color: var(--semi-color-fill-0);
   color: var(--semi-color-text-2);
-  transition: background-color 0.15s ease, color 0.15s ease;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
 }
 
 .sbg-badge-active {
@@ -692,30 +1430,32 @@ html.dark .sbg-variant-green {
 
 .shine-text {
   background: linear-gradient(
-    90deg,
-    currentColor 0%,
-    currentColor 40%,
-    rgba(255, 255, 255, 0.9) 50%,
-    currentColor 60%,
-    currentColor 100%
+    100deg,
+    var(--neo-ink) 0%,
+    var(--neo-ink) 34%,
+    var(--neo-accent) 48%,
+    var(--neo-accent-2) 54%,
+    var(--neo-ink) 66%,
+    var(--neo-ink) 100%
   );
-  background-size: 200% 100%;
+  background-size: 220% 100%;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: sweep-shine 4s linear infinite;
+  animation: sweep-shine 5.5s ease-in-out infinite;
 }
 
-.dark .shine-text {
+html.dark .shine-text {
   background: linear-gradient(
-    90deg,
-    currentColor 0%,
-    currentColor 40%,
-    #facc15 50%,
-    currentColor 60%,
-    currentColor 100%
+    100deg,
+    #f8fafc 0%,
+    #f8fafc 30%,
+    #22d3ee 47%,
+    #c4b5fd 53%,
+    #f8fafc 68%,
+    #f8fafc 100%
   );
-  background-size: 200% 100%;
+  background-size: 220% 100%;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -746,41 +1486,57 @@ html.dark .sbg-variant-green {
   padding-right: 0 !important;
 }
 
-/* ==================== Banner 背景模糊球 ==================== */
+/* ==================== Neo：首屏能量场（替代旧版晕染球） ==================== */
 .blur-ball {
   position: absolute;
-  width: 360px;
-  height: 360px;
+  width: min(56vw, 560px);
+  height: min(56vw, 560px);
   border-radius: 50%;
-  filter: blur(120px);
+  filter: blur(110px);
   pointer-events: none;
-  z-index: -1;
+  z-index: 0;
+  opacity: 0.5;
+  mix-blend-mode: multiply;
+}
+
+html.dark .blur-ball {
+  mix-blend-mode: screen;
+  opacity: 0.38;
 }
 
 .blur-ball-indigo {
-  background: #6366f1;
-  /* indigo-500 */
-  top: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  opacity: 0.5;
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(167, 139, 250, 0.95) 0%,
+    rgba(139, 92, 246, 0.35) 42%,
+    transparent 70%
+  );
+  top: -12%;
+  right: -14%;
+  left: auto;
+  transform: none;
 }
 
 .blur-ball-teal {
-  background: #14b8a6;
-  /* teal-400 */
-  top: 200px;
-  left: 30%;
-  opacity: 0.4;
+  background: radial-gradient(
+    circle at 40% 40%,
+    rgba(34, 211, 238, 0.9) 0%,
+    rgba(6, 182, 212, 0.3) 45%,
+    transparent 72%
+  );
+  bottom: -18%;
+  left: -20%;
+  top: auto;
+  width: min(50vw, 500px);
+  height: min(50vw, 500px);
 }
 
-/* 浅色主题下让模糊球更柔和 */
 html:not(.dark) .blur-ball-indigo {
-  opacity: 0.25;
+  opacity: 0.32;
 }
 
 html:not(.dark) .blur-ball-teal {
-  opacity: 0.2;
+  opacity: 0.28;
 }
 
 /* ==================== 卡片马卡龙模糊球（类封装） ==================== */
@@ -879,23 +1635,26 @@ html.dark .with-pastel-balls::before {
 
 /* ==================== 模型定价页面布局 ==================== */
 .pricing-layout {
-  height: calc(100vh - 60px);
+  height: calc(100dvh - var(--app-header-height));
   overflow: hidden;
-  margin-top: 60px;
+  margin-top: 0;
 }
 
 .pricing-sidebar {
   width: clamp(280px, 24vw, 520px) !important;
   min-width: clamp(280px, 24vw, 520px) !important;
   max-width: clamp(280px, 24vw, 520px) !important;
-  height: calc(100vh - 60px);
-  background-color: var(--semi-color-bg-0);
+  height: calc(100dvh - var(--app-header-height));
+  background-color: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border-right: 1px solid var(--glass-border);
   overflow: auto;
 }
 
 .pricing-content {
-  height: calc(100vh - 60px);
-  background-color: var(--semi-color-bg-0);
+  height: calc(100dvh - var(--app-header-height));
+  background-color: transparent;
   display: flex;
   flex-direction: column;
 }
@@ -913,7 +1672,10 @@ html.dark .with-pastel-balls::before {
 
 .pricing-search-header {
   padding: 0.5rem;
-  background-color: var(--semi-color-bg-0);
+  background-color: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border-bottom: 1px solid var(--glass-border);
   flex-shrink: 0;
   position: sticky;
   top: 0;
@@ -931,7 +1693,184 @@ html.dark .with-pastel-balls::before {
   min-height: 0;
 }
 
+/* ==================== Neo：重映射 Semi 调色盘（主色从「企业蓝」改为「电光青 + 紫外」） ==================== */
+body,
+body .semi-always-light,
+:host,
+:host .semi-always-light {
+  --semi-blue-0: 236, 254, 255;
+  --semi-blue-1: 207, 250, 254;
+  --semi-blue-2: 165, 243, 252;
+  --semi-blue-3: 103, 232, 249;
+  --semi-blue-4: 34, 211, 238;
+  --semi-blue-5: 6, 182, 212;
+  --semi-blue-6: 8, 145, 178;
+  --semi-blue-7: 14, 116, 144;
+  --semi-blue-8: 21, 94, 117;
+  --semi-blue-9: 22, 78, 99;
+  --semi-light-blue-0: 245, 243, 255;
+  --semi-light-blue-1: 237, 233, 254;
+  --semi-light-blue-2: 221, 214, 254;
+  --semi-light-blue-3: 196, 181, 253;
+  --semi-light-blue-4: 167, 139, 250;
+  --semi-light-blue-5: 139, 92, 246;
+  --semi-light-blue-6: 124, 58, 237;
+  --semi-light-blue-7: 109, 40, 217;
+  --semi-light-blue-8: 91, 33, 182;
+  --semi-light-blue-9: 76, 29, 149;
+}
+
+body[theme-mode='dark'],
+body .semi-always-dark,
+:host([theme-mode='dark']),
+:host .semi-always-dark {
+  --semi-blue-0: 8, 47, 73;
+  --semi-blue-1: 12, 74, 110;
+  --semi-blue-2: 8, 116, 148;
+  --semi-blue-3: 14, 165, 233;
+  --semi-blue-4: 56, 189, 248;
+  --semi-blue-5: 34, 211, 238;
+  --semi-blue-6: 103, 232, 249;
+  --semi-blue-7: 165, 243, 252;
+  --semi-blue-8: 207, 250, 254;
+  --semi-blue-9: 236, 254, 255;
+  --semi-light-blue-0: 76, 29, 149;
+  --semi-light-blue-1: 91, 33, 182;
+  --semi-light-blue-2: 109, 40, 217;
+  --semi-light-blue-3: 124, 58, 237;
+  --semi-light-blue-4: 139, 92, 246;
+  --semi-light-blue-5: 167, 139, 250;
+  --semi-light-blue-6: 196, 181, 253;
+  --semi-light-blue-7: 221, 214, 254;
+  --semi-light-blue-8: 237, 233, 254;
+  --semi-light-blue-9: 245, 243, 255;
+}
+
+body,
+body[theme-mode='dark'] .semi-always-light,
+:host,
+:host .semi-always-light {
+  font-family: 'IBM Plex Sans', 'Microsoft YaHei', 'PingFang SC', system-ui,
+    sans-serif !important;
+  --semi-color-bg-0: #f0f4f8;
+  --semi-color-bg-1: #e5edf5;
+  --semi-color-bg-2: #dbe4ef;
+  --semi-color-bg-3: #cfd9e8;
+  --semi-color-bg-4: #c4d0e3;
+  --semi-color-nav-bg: rgba(255, 255, 255, 0.55);
+  --semi-border-radius-medium: 10px;
+  --semi-border-radius-large: 16px;
+}
+
+body[theme-mode='dark'],
+body .semi-always-dark,
+:host([theme-mode='dark']),
+:host .semi-always-dark {
+  font-family: 'IBM Plex Sans', 'Microsoft YaHei', 'PingFang SC', system-ui,
+    sans-serif !important;
+  --semi-color-bg-0: rgba(11, 17, 32, 0.97);
+  --semi-color-bg-1: rgba(15, 23, 42, 0.96);
+  --semi-color-bg-2: rgba(23, 33, 58, 0.94);
+  --semi-color-bg-3: rgba(30, 41, 72, 0.92);
+  --semi-color-bg-4: rgba(39, 52, 84, 0.9);
+  --semi-color-nav-bg: rgba(15, 23, 42, 0.72);
+  --semi-border-radius-medium: 10px;
+  --semi-border-radius-large: 16px;
+}
+
 /* ==================== semi-ui 组件自定义样式 ==================== */
+/* Semi Glass Overrides */
+.semi-card {
+  background-color: var(--glass-bg) !important;
+  backdrop-filter: var(--glass-blur) !important;
+  -webkit-backdrop-filter: var(--glass-blur) !important;
+  border: 1px solid var(--glass-border) !important;
+  box-shadow: var(--glass-shadow) !important;
+}
+
+.semi-modal-content {
+  background-color: var(--glass-bg) !important;
+  backdrop-filter: var(--glass-blur) !important;
+  -webkit-backdrop-filter: var(--glass-blur) !important;
+  border: 1px solid var(--glass-border) !important;
+  box-shadow: 0 8px 32px -8px rgba(0, 0, 0, 0.15) !important;
+}
+
+.semi-popover-wrapper,
+.semi-select-popover,
+.semi-dropdown-menu {
+  background-color: var(--glass-bg) !important;
+  backdrop-filter: var(--glass-blur) !important;
+  -webkit-backdrop-filter: var(--glass-blur) !important;
+  border: 1px solid var(--glass-border) !important;
+}
+
+.semi-table {
+  background-color: transparent !important;
+}
+.semi-table-row {
+  background-color: transparent !important;
+}
+.semi-table-thead > .semi-table-row > .semi-table-row-head {
+  background-color: rgba(var(--semi-grey-1), 0.05) !important;
+  border-bottom: 1px solid var(--glass-border) !important;
+}
+.semi-table-tbody > .semi-table-row > .semi-table-row-cell {
+  border-bottom: 1px solid rgba(var(--semi-grey-2), 0.08) !important;
+}
+.semi-table-row:hover > .semi-table-row-cell {
+  background-color: rgba(var(--semi-grey-2), 0.1) !important;
+}
+
+/* Semi Input Tech */
+.semi-input-wrapper {
+  background-color: rgba(var(--semi-grey-1), 0.3) !important;
+  border: 1px solid transparent !important;
+  transition: all 0.2s ease !important;
+}
+.semi-input-wrapper-focus,
+.semi-input-wrapper:focus-within {
+  background-color: var(--glass-bg) !important;
+  border-color: var(--semi-color-primary) !important;
+  box-shadow: var(--tech-glow) !important;
+}
+
+.semi-button-primary:not(.semi-button-light):not(.semi-button-outline):not(
+    .semi-button-borderless
+  ) {
+  background-image: linear-gradient(
+    118deg,
+    rgba(var(--semi-blue-5), 1) 0%,
+    rgba(var(--semi-light-blue-5), 1) 100%
+  ) !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: var(--tech-glow) !important;
+}
+
+.semi-button-primary:not(.semi-button-light):not(.semi-button-outline):not(
+    .semi-button-borderless
+  ):hover {
+  background-image: linear-gradient(
+    118deg,
+    rgba(var(--semi-blue-6), 1) 0%,
+    rgba(var(--semi-light-blue-6), 1) 100%
+  ) !important;
+}
+
+.semi-tabs-bar {
+  border-bottom: 1px solid var(--glass-border) !important;
+  background: transparent !important;
+}
+
+.semi-tabs-tab-active .semi-tabs-tab-button {
+  font-weight: 600 !important;
+}
+
+.semi-tabs-tab-button:hover {
+  color: var(--semi-color-primary) !important;
+}
+
 .semi-card-header,
 .semi-card-body {
   padding: 10px !important;
@@ -979,7 +1918,7 @@ html.dark .with-pastel-balls::before {
 .semi-select,
 .semi-button,
 .semi-datepicker-range-input {
-  border-radius: 10px !important;
+  border-radius: 14px !important;
 }
 
 @keyframes slideInLeft {
@@ -1005,4 +1944,180 @@ html.dark .with-pastel-balls::before {
   }
 }
 
-.ec-dbcd0a3c01b55203 { forced-color-adjust: auto; }
+.ec-dbcd0a3c01b55203 {
+  forced-color-adjust: auto;
+}
+
+/* ==================== 控制台仪表盘（数据看板） ==================== */
+.console-dashboard .dashboard-stat-card {
+  position: relative;
+  isolation: isolate;
+}
+
+.console-dashboard .dashboard-stat-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 3px;
+  border-radius: 1rem 1rem 0 0;
+  opacity: 0.92;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.console-dashboard .dashboard-stat-card[data-dash-variant='wallet']::before {
+  background: linear-gradient(90deg, #3b82f6, #22d3ee, transparent 88%);
+}
+
+.console-dashboard .dashboard-stat-card[data-dash-variant='usage']::before {
+  background: linear-gradient(90deg, #10b981, #34d399, transparent 88%);
+}
+
+.console-dashboard .dashboard-stat-card[data-dash-variant='resource']::before {
+  background: linear-gradient(90deg, #f59e0b, #fbbf24, transparent 88%);
+}
+
+.console-dashboard
+  .dashboard-stat-card[data-dash-variant='performance']::before {
+  background: linear-gradient(90deg, #6366f1, #a78bfa, transparent 88%);
+}
+
+.console-dashboard .dashboard-stat-card .semi-card-header {
+  border-bottom: 1px solid var(--glass-border);
+  padding: 0.875rem 1rem 0.625rem;
+}
+
+.console-dashboard .dashboard-stat-card .semi-card-header-wrapper-title {
+  overflow: visible;
+}
+
+.console-dashboard .dashboard-main-card .semi-card-header,
+.console-dashboard .dashboard-side-card .semi-card-header {
+  border-bottom: 1px solid var(--glass-border);
+  padding: 0.875rem 1rem 0.625rem;
+}
+
+.console-dashboard .dashboard-main-card .semi-card-body,
+.console-dashboard .dashboard-side-card .semi-card-body {
+  background: transparent;
+}
+
+.dashboard-stat-icon-well[data-tone='blue'] {
+  background: rgba(59, 130, 246, 0.14);
+  color: rgb(37, 99, 235);
+}
+
+html.dark .dashboard-stat-icon-well[data-tone='blue'] {
+  background: rgba(59, 130, 246, 0.22);
+  color: rgb(147, 197, 253);
+}
+
+.dashboard-stat-icon-well[data-tone='purple'] {
+  background: rgba(139, 92, 246, 0.14);
+  color: rgb(109, 40, 217);
+}
+
+html.dark .dashboard-stat-icon-well[data-tone='purple'] {
+  background: rgba(139, 92, 246, 0.22);
+  color: rgb(196, 181, 253);
+}
+
+.dashboard-stat-icon-well[data-tone='green'] {
+  background: rgba(16, 185, 129, 0.14);
+  color: rgb(5, 150, 105);
+}
+
+html.dark .dashboard-stat-icon-well[data-tone='green'] {
+  background: rgba(16, 185, 129, 0.22);
+  color: rgb(110, 231, 183);
+}
+
+.dashboard-stat-icon-well[data-tone='cyan'] {
+  background: rgba(6, 182, 212, 0.14);
+  color: rgb(8, 145, 178);
+}
+
+html.dark .dashboard-stat-icon-well[data-tone='cyan'] {
+  background: rgba(6, 182, 212, 0.22);
+  color: rgb(103, 232, 249);
+}
+
+.dashboard-stat-icon-well[data-tone='yellow'] {
+  background: rgba(245, 158, 11, 0.16);
+  color: rgb(180, 83, 9);
+}
+
+html.dark .dashboard-stat-icon-well[data-tone='yellow'] {
+  background: rgba(245, 158, 11, 0.22);
+  color: rgb(252, 211, 77);
+}
+
+.dashboard-stat-icon-well[data-tone='pink'] {
+  background: rgba(236, 72, 153, 0.14);
+  color: rgb(190, 24, 93);
+}
+
+html.dark .dashboard-stat-icon-well[data-tone='pink'] {
+  background: rgba(236, 72, 153, 0.22);
+  color: rgb(249, 168, 212);
+}
+
+.dashboard-stat-icon-well[data-tone='indigo'] {
+  background: rgba(99, 102, 241, 0.14);
+  color: rgb(67, 56, 202);
+}
+
+html.dark .dashboard-stat-icon-well[data-tone='indigo'] {
+  background: rgba(99, 102, 241, 0.22);
+  color: rgb(165, 180, 252);
+}
+
+.dashboard-stat-icon-well[data-tone='orange'] {
+  background: rgba(249, 115, 22, 0.14);
+  color: rgb(194, 65, 12);
+}
+
+html.dark .dashboard-stat-icon-well[data-tone='orange'] {
+  background: rgba(249, 115, 22, 0.22);
+  color: rgb(253, 186, 116);
+}
+
+/* 模型数据分析：横向分段标签滚动条 */
+.console-dashboard .dashboard-chart-segmented {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(var(--semi-grey-5), 0.5) transparent;
+}
+
+.console-dashboard .dashboard-chart-segmented::-webkit-scrollbar {
+  height: 6px;
+}
+
+.console-dashboard .dashboard-chart-segmented::-webkit-scrollbar-thumb {
+  background: rgba(var(--semi-grey-5), 0.45);
+  border-radius: 999px;
+}
+
+/* 仪表盘图表 Tab：底部高亮条（与 prefers-reduced-motion 配合） */
+.console-dashboard .dashboard-chart-tab::after {
+  content: '';
+  position: absolute;
+  left: 0.5rem;
+  right: 0.5rem;
+  bottom: 0.2rem;
+  height: 2px;
+  border-radius: 999px;
+  background: rgba(var(--semi-blue-5), 0.55);
+  transform: scaleX(0);
+  opacity: 0;
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
+  pointer-events: none;
+}
+
+.console-dashboard .dashboard-chart-tab--active::after {
+  transform: scaleX(1);
+  opacity: 1;
+}

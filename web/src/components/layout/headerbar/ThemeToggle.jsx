@@ -19,7 +19,7 @@ For commercial licensing, please contact support@quantumnous.com
 
 import React, { useMemo } from 'react';
 import { Button, Dropdown } from '@douyinfe/semi-ui';
-import { Sun, Moon, Monitor } from 'lucide-react';
+import { RemixIcon } from '@/icons/semiRemix';
 import { useActualTheme } from '../../../context/Theme';
 
 const ThemeToggle = ({ theme, onThemeToggle, t }) => {
@@ -29,22 +29,22 @@ const ThemeToggle = ({ theme, onThemeToggle, t }) => {
     () => [
       {
         key: 'light',
-        icon: <Sun size={18} />,
-        buttonIcon: <Sun size={18} />,
+        icon: <RemixIcon icon='ri-sun-line' size={18} />,
+        buttonIcon: <RemixIcon icon='ri-sun-line' size={18} />,
         label: t('浅色模式'),
         description: t('始终使用浅色主题'),
       },
       {
         key: 'dark',
-        icon: <Moon size={18} />,
-        buttonIcon: <Moon size={18} />,
+        icon: <RemixIcon icon='ri-moon-line' size={18} />,
+        buttonIcon: <RemixIcon icon='ri-moon-line' size={18} />,
         label: t('深色模式'),
         description: t('始终使用深色主题'),
       },
       {
         key: 'auto',
-        icon: <Monitor size={18} />,
-        buttonIcon: <Monitor size={18} />,
+        icon: <RemixIcon icon='ri-computer-line' size={18} />,
+        buttonIcon: <RemixIcon icon='ri-computer-line' size={18} />,
         label: t('自动模式'),
         description: t('跟随系统主题设置'),
       },
@@ -101,7 +101,7 @@ const ThemeToggle = ({ theme, onThemeToggle, t }) => {
           aria-label={t('切换主题')}
           theme='borderless'
           type='tertiary'
-          className='!p-1.5 !text-current focus:!bg-semi-color-fill-1 !rounded-full !bg-semi-color-fill-0 hover:!bg-semi-color-fill-1'
+          className='neo-topbar-icon-btn'
         />
       </span>
     </Dropdown>

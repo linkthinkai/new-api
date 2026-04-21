@@ -18,11 +18,15 @@ For commercial licensing, please contact support@quantumnous.com
 */
 
 import react from '@vitejs/plugin-react';
+import tailwindcss from '@tailwindcss/vite';
 import { defineConfig, transformWithEsbuild } from 'vite';
+import { visualizer } from 'rollup-plugin-visualizer';
 import pkg from '@douyinfe/vite-plugin-semi';
 import path from 'path';
 import { codeInspectorPlugin } from 'code-inspector-plugin';
 const { vitePluginSemi } = pkg;
+
+const analyze = process.env.ANALYZE === 'true';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -51,12 +55,20 @@ export default defineConfig({
       },
     },
     react(),
+    tailwindcss(),
     vitePluginSemi({
       cssLayer: true,
     }),
-  ],
+    analyze &&
+      visualizer({
+        filename: 'dist/stats.html',
+        gzipSize: true,
+        brotliSize: true,
+        open: false,
+        template: 'treemap',
+      }),
+  ].filter(Boolean),
   optimizeDeps: {
-    force: true,
     esbuildOptions: {
       loader: {
         '.js': 'jsx',
@@ -69,6 +81,7 @@ export default defineConfig({
       output: {
         manualChunks: {
           'react-core': ['react', 'react-dom', 'react-router-dom'],
+          motion: ['motion/react'],
           'semi-ui': ['@douyinfe/semi-icons', '@douyinfe/semi-ui'],
           tools: ['axios', 'history', 'marked'],
           'react-components': [
@@ -83,6 +96,8 @@ export default defineConfig({
             'react-i18next',
             'i18next-browser-languagedetector',
           ],
+          vchart: ['@visactor/react-vchart', '@visactor/vchart'],
+          mermaid: ['mermaid'],
         },
       },
     },
@@ -91,15 +106,15 @@ export default defineConfig({
     host: '0.0.0.0',
     proxy: {
       '/api': {
-        target: 'http://localhost:3000',
+        target: 'https://www.linkthinkai.com',
         changeOrigin: true,
       },
       '/mj': {
-        target: 'http://localhost:3000',
+        target: 'https://www.linkthinkai.com',
         changeOrigin: true,
       },
       '/pg': {
-        target: 'http://localhost:3000',
+        target: 'https://www.linkthinkai.com',
         changeOrigin: true,
       },
     },

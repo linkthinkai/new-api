@@ -36,7 +36,7 @@ import {
   IconAlertTriangle,
   IconRefresh,
   IconCopy,
-} from '@douyinfe/semi-icons';
+} from '@/icons/semiRemix';
 import React, { useEffect, useState } from 'react';
 
 import { QRCodeSVG } from 'qrcode.react';

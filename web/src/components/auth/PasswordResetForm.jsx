@@ -28,7 +28,7 @@ import {
 } from '../../helpers';
 import Turnstile from 'react-turnstile';
 import { Button, Card, Form, Typography } from '@douyinfe/semi-ui';
-import { IconMail } from '@douyinfe/semi-icons';
+import { IconMail } from '@/icons/semiRemix';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
@@ -114,7 +114,7 @@ const PasswordResetForm = () => {
         className='blur-ball blur-ball-teal'
         style={{ top: '50%', left: '-120px' }}
       />
-      <div className='w-full max-w-sm mt-[60px]'>
+      <div className='mx-auto w-full max-w-sm'>
         <div className='flex flex-col items-center'>
           <div className='w-full max-w-md'>
             <div className='flex items-center justify-center mb-6 gap-2'>

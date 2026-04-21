@@ -34,7 +34,7 @@ import {
   IllustrationNoContentDark,
 } from '@douyinfe/semi-illustrations';
 import { StatusContext } from '../../context/Status';
-import { Bell, Megaphone } from 'lucide-react';
+import { IconBell, RemixIcon } from '@/icons/semiRemix';
 
 const NoticeModal = ({
   visible,
@@ -217,7 +217,7 @@ const NoticeModal = ({
             <TabPane
               tab={
                 <span className='flex items-center gap-1'>
-                  <Bell size={14} /> {t('通知')}
+                  <IconBell size={14} /> {t('通知')}
                 </span>
               }
               itemKey='inApp'
@@ -225,7 +225,8 @@ const NoticeModal = ({
             <TabPane
               tab={
                 <span className='flex items-center gap-1'>
-                  <Megaphone size={14} /> {t('系统公告')}
+                  <RemixIcon icon='ri-megaphone-line' size={14} />{' '}
+                  {t('系统公告')}
                 </span>
               }
               itemKey='system'

@@ -17,9 +17,7 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 For commercial licensing, please contact support@quantumnous.com
 */
 
+/** Tailwind v4 由 @tailwindcss/vite 处理；此处保留空 PostCSS 以便后续扩展插件 */
 export default {
-  plugins: {
-    tailwindcss: {},
-    autoprefixer: {},
-  },
+  plugins: {},
 };

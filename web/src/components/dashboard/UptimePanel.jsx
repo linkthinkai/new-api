@@ -27,7 +27,7 @@ import {
   Tag,
   Empty,
 } from '@douyinfe/semi-ui';
-import { Gauge, RefreshCw } from 'lucide-react';
+import { IconRefresh, RemixIcon } from '@/icons/semiRemix';
 import {
   IllustrationConstruction,
   IllustrationConstructionDark,
@@ -49,21 +49,24 @@ const UptimePanel = ({
   return (
     <Card
       {...CARD_PROPS}
-      className='shadow-sm !rounded-2xl lg:col-span-1'
+      bordered={false}
+      className='dashboard-side-card glass-panel !rounded-2xl border-0 !shadow-none lg:col-span-1'
       title={
         <div className='flex items-center justify-between w-full gap-2'>
-          <div className='flex items-center gap-2'>
-            <Gauge size={16} />
+          <div className='flex items-center gap-2 font-semibold text-semi-color-text-0'>
+            <span className='text-semi-color-primary'>
+              <RemixIcon icon='ri-speed-line' />
+            </span>
             {t('服务可用性')}
           </div>
           <Button
-            icon={<RefreshCw size={14} />}
+            icon={<IconRefresh size={14} />}
             onClick={loadUptimeData}
             loading={uptimeLoading}
             size='small'
             theme='borderless'
             type='tertiary'
-            className='text-gray-500 hover:text-blue-500 hover:bg-blue-50 !rounded-full'
+            className='!rounded-full text-semi-color-text-2 hover:bg-[var(--semi-color-fill-1)] hover:!text-semi-color-primary'
           />
         </div>
       }
@@ -89,7 +92,7 @@ const UptimePanel = ({
                   <TabPane
                     tab={
                       <span className='flex items-center gap-2'>
-                        <Gauge size={14} />
+                        <RemixIcon icon='ri-speed-line' size={14} />
                         {group.categoryName}
                         <Tag
                           color={

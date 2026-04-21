@@ -41,7 +41,7 @@ const ActionButtons = ({
   t,
 }) => {
   return (
-    <div className='flex items-center gap-2 md:gap-3'>
+    <div className='neo-topbar-actions flex items-center gap-1 sm:gap-1.5 md:gap-2'>
       <NewYearButton isNewYear={isNewYear} />
 
       <NotificationButton

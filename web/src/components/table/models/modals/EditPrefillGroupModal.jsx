@@ -32,7 +32,7 @@ import {
   Avatar,
   Spin,
 } from '@douyinfe/semi-ui';
-import { IconLayers, IconSave, IconClose } from '@douyinfe/semi-icons';
+import { IconLayers, IconSave, IconClose } from '@/icons/semiRemix';
 import { API, showError, showSuccess } from '../../../../helpers';
 import { useTranslation } from 'react-i18next';
 import { useIsMobile } from '../../../../hooks/common/useIsMobile';

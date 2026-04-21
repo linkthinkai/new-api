@@ -18,7 +18,6 @@ For commercial licensing, please contact support@quantumnous.com
 */
 
 import { useMemo } from 'react';
-import { Wallet, Activity, Zap, Gauge } from 'lucide-react';
 import {
   IconMoneyExchangeStroked,
   IconHistogram,
@@ -28,7 +27,8 @@ import {
   IconStopwatchStroked,
   IconTypograph,
   IconSend,
-} from '@douyinfe/semi-icons';
+  RemixIcon,
+} from '@/icons/semiRemix';
 import { renderQuota } from '../../helpers';
 import { createSectionTitle } from '../../helpers/dashboard';
 
@@ -45,8 +45,11 @@ export const useDashboardStats = (
   const groupedStatsData = useMemo(
     () => [
       {
-        title: createSectionTitle(Wallet, t('账户数据')),
-        color: 'bg-blue-50',
+        title: createSectionTitle(
+          <RemixIcon icon='ri-wallet-3-line' />,
+          t('账户数据'),
+        ),
+        variant: 'wallet',
         items: [
           {
             title: t('当前余额'),
@@ -67,8 +70,11 @@ export const useDashboardStats = (
         ],
       },
       {
-        title: createSectionTitle(Activity, t('使用统计')),
-        color: 'bg-green-50',
+        title: createSectionTitle(
+          <RemixIcon icon='ri-line-chart-line' />,
+          t('使用统计'),
+        ),
+        variant: 'usage',
         items: [
           {
             title: t('请求次数'),
@@ -89,8 +95,11 @@ export const useDashboardStats = (
         ],
       },
       {
-        title: createSectionTitle(Zap, t('资源消耗')),
-        color: 'bg-yellow-50',
+        title: createSectionTitle(
+          <RemixIcon icon='ri-flashlight-line' />,
+          t('资源消耗'),
+        ),
+        variant: 'resource',
         items: [
           {
             title: t('统计额度'),
@@ -111,8 +120,11 @@ export const useDashboardStats = (
         ],
       },
       {
-        title: createSectionTitle(Gauge, t('性能指标')),
-        color: 'bg-indigo-50',
+        title: createSectionTitle(
+          <RemixIcon icon='ri-speed-line' />,
+          t('性能指标'),
+        ),
+        variant: 'performance',
         items: [
           {
             title: t('平均RPM'),

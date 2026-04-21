@@ -22,7 +22,6 @@ import { Modal, Tag, Typography, Avatar } from '@douyinfe/semi-ui';
 import { copy, showSuccess } from './utils';
 import { MOBILE_BREAKPOINT } from '../hooks/common/useIsMobile';
 import { visit } from 'unist-util-visit';
-import * as LobeIcons from '@lobehub/icons';
 import {
   OpenAI,
   Claude,
@@ -56,26 +55,50 @@ import {
   Jimeng,
   Perplexity,
   Replicate,
+  Vidu,
+  AzureAI,
 } from '@lobehub/icons';
 
-import {
-  LayoutDashboard,
-  TerminalSquare,
-  MessageSquare,
-  Key,
-  BarChart3,
-  Image as ImageIcon,
-  CheckSquare,
-  CreditCard,
+import { Layers } from 'lucide-react';
+
+/** 供 getLobeHubIcon 解析；避免 import * 导致无法摇树 */
+const LOBE_HUB_ICON_COMPONENTS = {
+  OpenAI,
+  Claude,
+  Gemini,
+  Moonshot,
+  Zhipu,
+  Qwen,
+  DeepSeek,
+  Minimax,
+  Wenxin,
+  Spark,
+  Midjourney,
+  Hunyuan,
+  Cohere,
+  Cloudflare,
+  Ai360,
+  Yi,
+  Jina,
+  Mistral,
+  XAI,
+  Ollama,
+  Doubao,
+  Suno,
+  Xinference,
+  OpenRouter,
+  Dify,
+  Coze,
+  SiliconCloud,
+  FastGPT,
+  Kling,
+  Jimeng,
+  Perplexity,
+  Replicate,
+  Vidu,
+  AzureAI,
   Layers,
-  Gift,
-  User,
-  Settings,
-  CircleUser,
-  Package,
-  Server,
-  CalendarClock,
-} from 'lucide-react';
+};
 import {
   SiAtlassian,
   SiAuth0,
@@ -101,56 +124,6 @@ import {
   SiWechat,
   SiX,
 } from 'react-icons/si';
-
-// 获取侧边栏Lucide图标组件
-export function getLucideIcon(key, selected = false) {
-  const size = 16;
-  const strokeWidth = 2;
-  const SELECTED_COLOR = 'var(--semi-color-primary)';
-  const iconColor = selected ? SELECTED_COLOR : 'currentColor';
-  const commonProps = {
-    size,
-    strokeWidth,
-    className: `transition-colors duration-200 ${selected ? 'transition-transform duration-200 scale-105' : ''}`,
-  };
-
-  // 根据不同的key返回不同的图标
-  switch (key) {
-    case 'detail':
-      return <LayoutDashboard {...commonProps} color={iconColor} />;
-    case 'playground':
-      return <TerminalSquare {...commonProps} color={iconColor} />;
-    case 'chat':
-      return <MessageSquare {...commonProps} color={iconColor} />;
-    case 'token':
-      return <Key {...commonProps} color={iconColor} />;
-    case 'log':
-      return <BarChart3 {...commonProps} color={iconColor} />;
-    case 'midjourney':
-      return <ImageIcon {...commonProps} color={iconColor} />;
-    case 'task':
-      return <CheckSquare {...commonProps} color={iconColor} />;
-    case 'topup':
-      return <CreditCard {...commonProps} color={iconColor} />;
-    case 'channel':
-      return <Layers {...commonProps} color={iconColor} />;
-    case 'redemption':
-      return <Gift {...commonProps} color={iconColor} />;
-    case 'user':
-    case 'personal':
-      return <User {...commonProps} color={iconColor} />;
-    case 'models':
-      return <Package {...commonProps} color={iconColor} />;
-    case 'deployment':
-      return <Server {...commonProps} color={iconColor} />;
-    case 'subscription':
-      return <CalendarClock {...commonProps} color={iconColor} />;
-    case 'setting':
-      return <Settings {...commonProps} color={iconColor} />;
-    default:
-      return <CircleUser {...commonProps} color={iconColor} />;
-  }
-}
 
 // 获取模型分类
 export const getModelCategories = (() => {
@@ -430,7 +403,7 @@ export function getLobeHubIcon(iconName, size = 14) {
   // 解析组件路径与点号链式属性
   const segments = String(iconName).split('.');
   const baseKey = segments[0];
-  const BaseIcon = LobeIcons[baseKey];
+  const BaseIcon = LOBE_HUB_ICON_COMPONENTS[baseKey];
 
   let IconComponent = undefined;
   let propStartIndex = 1;
@@ -439,7 +412,7 @@ export function getLobeHubIcon(iconName, size = 14) {
     IconComponent = BaseIcon[segments[1]];
     propStartIndex = 2;
   } else {
-    IconComponent = LobeIcons[baseKey];
+    IconComponent = LOBE_HUB_ICON_COMPONENTS[baseKey];
     propStartIndex = 1;
   }
 
@@ -1622,10 +1595,9 @@ function renderPriceSimpleCore({
 
 export function renderTaskBillingProcess(other, content) {
   if (other?.task_id != null) {
-    return renderBillingArticle(
-      [content].filter(Boolean),
-      { showReferenceNote: false },
-    );
+    return renderBillingArticle([content].filter(Boolean), {
+      showReferenceNote: false,
+    });
   }
   return renderBillingArticle([
     buildBillingText('任务预扣费（将在任务完成后按实际token重算）'),

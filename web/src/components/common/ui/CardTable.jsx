@@ -28,7 +28,7 @@ import {
   Button,
   Collapsible,
 } from '@douyinfe/semi-ui';
-import { IconChevronDown, IconChevronUp } from '@douyinfe/semi-icons';
+import { IconChevronDown, IconChevronUp } from '@/icons/semiRemix';
 import PropTypes from 'prop-types';
 import { useIsMobile } from '../../../hooks/common/useIsMobile';
 import { useMinimumLoadingTime } from '../../../hooks/common/useMinimumLoadingTime';

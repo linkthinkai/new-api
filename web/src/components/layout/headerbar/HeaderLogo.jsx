@@ -38,17 +38,20 @@ const HeaderLogo = ({
   }
 
   return (
-    <Link to='/' className='group flex items-center gap-2'>
-      <div className='relative w-8 h-8 md:w-8 md:h-8'>
+    <Link
+      to='/'
+      className='group flex min-w-0 items-center gap-2 rounded-xl py-1 pr-1 outline-none ring-[rgba(var(--semi-blue-5),0.35)] transition-colors focus-visible:ring-2'
+    >
+      <div className='relative h-8 w-8 shrink-0 sm:h-9 sm:w-9'>
         <SkeletonWrapper loading={isLoading || !logoLoaded} type='image' />
         <img
           src={logo}
           alt='logo'
-          className={`absolute inset-0 w-full h-full transition-all duration-200 group-hover:scale-110 rounded-full ${!isLoading && logoLoaded ? 'opacity-100' : 'opacity-0'}`}
+          className={`absolute inset-0 size-full rounded-[10px] object-cover ring-1 ring-[var(--glass-border)]/90 transition-transform duration-200 group-hover:scale-[1.03] ${!isLoading && logoLoaded ? 'opacity-100' : 'opacity-0'}`}
         />
       </div>
-      <div className='hidden md:flex items-center gap-2'>
-        <div className='flex items-center gap-2'>
+      <div className='hidden min-w-0 md:flex md:items-center md:gap-2'>
+        <div className='flex min-w-0 items-center gap-2'>
           <SkeletonWrapper
             loading={isLoading}
             type='title'
@@ -57,7 +60,7 @@ const HeaderLogo = ({
           >
             <Typography.Title
               heading={4}
-              className='!text-lg !font-semibold !mb-0'
+              className='font-display !mb-0 truncate !text-[1.05rem] !font-semibold !leading-tight tracking-tight text-semi-color-text-0'
             >
               {systemName}
             </Typography.Title>

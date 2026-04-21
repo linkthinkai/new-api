@@ -33,7 +33,7 @@ import {
   IllustrationNoResultDark,
 } from '@douyinfe/semi-illustrations';
 import { Coins } from 'lucide-react';
-import { IconSearch } from '@douyinfe/semi-icons';
+import { IconSearch } from '@/icons/semiRemix';
 import { API, timestamp2string } from '../../../helpers';
 import { isAdmin } from '../../../helpers/utils';
 import { useIsMobile } from '../../../hooks/common/useIsMobile';
@@ -217,14 +217,14 @@ const TopupHistoryModal = ({ visible, onCancel, t }) => {
           if (record.status === 'pending') {
             actions.push(
               <Button
-                key="complete"
+                key='complete'
                 size='small'
                 type='primary'
                 theme='outline'
                 onClick={() => confirmAdminComplete(record.trade_no)}
               >
                 {t('补单')}
-              </Button>
+              </Button>,
             );
           }
           return actions.length > 0 ? <>{actions}</> : null;

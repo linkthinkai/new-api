@@ -50,7 +50,7 @@ import {
   IconUser,
   IconLock,
   IconKey,
-} from '@douyinfe/semi-icons';
+} from '@/icons/semiRemix';
 import {
   onGitHubOAuthClicked,
   onLinuxDOOAuthClicked,
@@ -780,9 +780,8 @@ const RegisterForm = () => {
         className='blur-ball blur-ball-teal'
         style={{ top: '50%', left: '-120px' }}
       />
-      <div className='w-full max-w-sm mt-[60px]'>
-        {showEmailRegister ||
-        !hasOAuthRegisterOptions
+      <div className='mx-auto w-full max-w-sm'>
+        {showEmailRegister || !hasOAuthRegisterOptions
           ? renderEmailRegisterForm()
           : renderOAuthOptions()}
         {renderWeChatLoginModal()}

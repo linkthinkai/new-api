@@ -18,6 +18,7 @@ For commercial licensing, please contact support@quantumnous.com
 */
 
 import React from 'react';
+import { motion, useReducedMotion } from 'motion/react';
 import { useHeaderBar } from '../../../hooks/common/useHeaderBar';
 import { useNotifications } from '../../../hooks/common/useNotifications';
 import { useNavigation } from '../../../hooks/common/useNavigation';
@@ -28,6 +29,7 @@ import Navigation from './Navigation';
 import ActionButtons from './ActionButtons';
 
 const HeaderBar = ({ onMobileMenuToggle, drawerOpen }) => {
+  const reduceMotion = useReducedMotion();
   const {
     userState,
     statusState,
@@ -65,7 +67,16 @@ const HeaderBar = ({ onMobileMenuToggle, drawerOpen }) => {
   const { mainNavLinks } = useNavigation(t, docsLink, headerNavModules);
 
   return (
-    <header className='text-semi-color-text-0 sticky top-0 z-50 transition-colors duration-300 bg-white/75 dark:bg-zinc-900/75 backdrop-blur-lg'>
+    <motion.header
+      className='neo-top-bar text-semi-color-text-0 sticky top-0 z-50 relative overflow-x-clip overflow-y-visible'
+      initial={reduceMotion ? false : { y: -12, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={
+        reduceMotion
+          ? { duration: 0 }
+          : { duration: 0.38, ease: [0.22, 1, 0.36, 1] }
+      }
+    >
       <NoticeModal
         visible={noticeVisible}
         onClose={handleNoticeClose}
@@ -74,39 +85,39 @@ const HeaderBar = ({ onMobileMenuToggle, drawerOpen }) => {
         unreadKeys={getUnreadKeys()}
       />
 
-      <div className='w-full px-2'>
-        <div className='flex items-center justify-between h-16'>
-          <div className='flex items-center'>
-            <MobileMenuButton
-              isConsoleRoute={isConsoleRoute}
-              isMobile={isMobile}
-              drawerOpen={drawerOpen}
-              collapsed={collapsed}
-              onToggle={handleMobileMenuToggle}
-              t={t}
-            />
-
-            <HeaderLogo
-              isMobile={isMobile}
-              isConsoleRoute={isConsoleRoute}
-              logo={logo}
-              logoLoaded={logoLoaded}
-              isLoading={isLoading}
-              systemName={systemName}
-              isSelfUseMode={isSelfUseMode}
-              isDemoSiteMode={isDemoSiteMode}
-              t={t}
-            />
-          </div>
-
-          <Navigation
-            mainNavLinks={mainNavLinks}
+      <div className='neo-top-bar-inner mx-auto flex w-full max-w-[min(100%,1440px)] items-center gap-3 px-3 sm:gap-4 sm:px-5 lg:px-8'>
+        <div className='flex min-w-0 shrink-0 items-center gap-1 sm:gap-2'>
+          <MobileMenuButton
+            isConsoleRoute={isConsoleRoute}
             isMobile={isMobile}
-            isLoading={isLoading}
-            userState={userState}
-            pricingRequireAuth={pricingRequireAuth}
+            drawerOpen={drawerOpen}
+            collapsed={collapsed}
+            onToggle={handleMobileMenuToggle}
+            t={t}
           />
 
+          <HeaderLogo
+            isMobile={isMobile}
+            isConsoleRoute={isConsoleRoute}
+            logo={logo}
+            logoLoaded={logoLoaded}
+            isLoading={isLoading}
+            systemName={systemName}
+            isSelfUseMode={isSelfUseMode}
+            isDemoSiteMode={isDemoSiteMode}
+            t={t}
+          />
+        </div>
+
+        <Navigation
+          mainNavLinks={mainNavLinks}
+          isMobile={isMobile}
+          isLoading={isLoading}
+          userState={userState}
+          pricingRequireAuth={pricingRequireAuth}
+        />
+
+        <div className='flex shrink-0 items-center justify-end'>
           <ActionButtons
             isNewYear={isNewYear}
             unreadCount={unreadCount}
@@ -125,7 +136,7 @@ const HeaderBar = ({ onMobileMenuToggle, drawerOpen }) => {
           />
         </div>
       </div>
-    </header>
+    </motion.header>
   );
 };
 

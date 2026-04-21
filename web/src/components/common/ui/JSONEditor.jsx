@@ -36,7 +36,7 @@ import {
   Divider,
   Tooltip,
 } from '@douyinfe/semi-ui';
-import { IconPlus, IconDelete, IconAlertTriangle } from '@douyinfe/semi-icons';
+import { IconPlus, IconDelete, IconAlertTriangle } from '@/icons/semiRemix';
 
 const { Text } = Typography;
 

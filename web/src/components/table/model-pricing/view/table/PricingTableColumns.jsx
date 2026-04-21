@@ -19,7 +19,7 @@ For commercial licensing, please contact support@quantumnous.com
 
 import React from 'react';
 import { Tag, Space, Tooltip } from '@douyinfe/semi-ui';
-import { IconHelpCircle } from '@douyinfe/semi-icons';
+import { IconHelpCircle } from '@/icons/semiRemix';
 import {
   renderModelTag,
   stringToColor,

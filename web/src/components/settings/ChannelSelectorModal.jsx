@@ -33,7 +33,7 @@ import {
   Select,
   Tag,
 } from '@douyinfe/semi-ui';
-import { IconSearch } from '@douyinfe/semi-icons';
+import { IconSearch } from '@/icons/semiRemix';
 
 const OFFICIAL_RATIO_PRESET_ID = -100;
 const MODELS_DEV_PRESET_ID = -101;

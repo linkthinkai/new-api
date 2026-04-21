@@ -19,7 +19,7 @@ For commercial licensing, please contact support@quantumnous.com
 
 import React from 'react';
 import { Button } from '@douyinfe/semi-ui';
-import { IconClose, IconMenu } from '@douyinfe/semi-icons';
+import { IconClose, IconMenu } from '@/icons/semiRemix';
 
 const MobileMenuButton = ({
   isConsoleRoute,
@@ -48,7 +48,7 @@ const MobileMenuButton = ({
       onClick={onToggle}
       theme='borderless'
       type='tertiary'
-      className='!p-2 !text-current focus:!bg-semi-color-fill-1 dark:focus:!bg-gray-700'
+      className='neo-topbar-icon-btn !h-9 !w-9 !min-w-[2.25rem]'
     />
   );
 };

@@ -44,7 +44,6 @@ import {
   UPTIME_STATUS_MAP,
 } from '../../constants/dashboard.constants';
 import {
-  getTrendSpec,
   handleCopyUrl,
   handleSpeedTest,
   getUptimeStatusColor,
@@ -151,7 +150,7 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <div className='h-full'>
+    <div className='console-dashboard h-full space-y-5 pb-6'>
       <DashboardHeader
         getGreeting={dashboardData.getGreeting}
         greetingVisible={dashboardData.greetingVisible}
@@ -177,13 +176,11 @@ const Dashboard = () => {
       <StatsCards
         groupedStatsData={groupedStatsData}
         loading={dashboardData.loading}
-        getTrendSpec={getTrendSpec}
         CARD_PROPS={CARD_PROPS}
-        CHART_CONFIG={CHART_CONFIG}
       />
 
       {/* API信息和图表面板 */}
-      <div className='mb-4'>
+      <div>
         <div
           className={`grid grid-cols-1 gap-4 ${dashboardData.hasApiInfoPanel ? 'lg:grid-cols-4' : ''}`}
         >
@@ -220,7 +217,7 @@ const Dashboard = () => {
 
       {/* 系统公告和常见问答卡片 */}
       {dashboardData.hasInfoPanels && (
-        <div className='mb-4'>
+        <div>
           <div className='grid grid-cols-1 lg:grid-cols-4 gap-4'>
             {/* 公告卡片 */}
             {dashboardData.announcementsEnabled && (

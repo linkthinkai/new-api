@@ -19,8 +19,7 @@ For commercial licensing, please contact support@quantumnous.com
 
 import React from 'react';
 import { Card, Collapse, Empty } from '@douyinfe/semi-ui';
-import { HelpCircle } from 'lucide-react';
-import { IconPlus, IconMinus } from '@douyinfe/semi-icons';
+import { IconPlus, IconMinus, IconHelpCircle } from '@/icons/semiRemix';
 import { marked } from 'marked';
 import {
   IllustrationConstruction,
@@ -38,10 +37,15 @@ const FaqPanel = ({
   return (
     <Card
       {...CARD_PROPS}
-      className='shadow-sm !rounded-2xl lg:col-span-1'
+      bordered={false}
+      className='dashboard-side-card glass-panel !rounded-2xl border-0 !shadow-none lg:col-span-1'
       title={
-        <div className={FLEX_CENTER_GAP2}>
-          <HelpCircle size={16} />
+        <div
+          className={`${FLEX_CENTER_GAP2} font-semibold text-semi-color-text-0`}
+        >
+          <span className='text-semi-color-primary'>
+            <IconHelpCircle />
+          </span>
           {t('常见问答')}
         </div>
       }

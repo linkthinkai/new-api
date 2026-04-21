@@ -28,7 +28,7 @@ import {
   Typography,
   Dropdown,
 } from '@douyinfe/semi-ui';
-import { IconMore } from '@douyinfe/semi-icons';
+import { IconMore } from '@/icons/semiRemix';
 import { renderGroup, renderNumber, renderQuota } from '../../../helpers';
 
 /**

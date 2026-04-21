@@ -28,7 +28,7 @@ import {
   Tag,
   Typography,
 } from '@douyinfe/semi-ui';
-import { IconPlusCircle } from '@douyinfe/semi-icons';
+import { IconPlusCircle } from '@/icons/semiRemix';
 import {
   IllustrationNoResult,
   IllustrationNoResultDark,

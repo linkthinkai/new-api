@@ -32,7 +32,7 @@ import {
   IllustrationNoResult,
   IllustrationNoResultDark,
 } from '@douyinfe/semi-illustrations';
-import { IconSearch } from '@douyinfe/semi-icons';
+import { IconSearch } from '@/icons/semiRemix';
 import { getModelCategories } from '../../../../helpers/render';
 
 const SingleModelSelectModal = ({

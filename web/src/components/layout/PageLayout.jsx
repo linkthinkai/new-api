@@ -50,6 +50,12 @@ const PageLayout = () => {
   const { i18n } = useTranslation();
   const location = useLocation();
 
+  // 路由切换时将主滚动区重置到顶部，避免残留控制台滚动位置
+  useEffect(() => {
+    const el = document.querySelector('.app-main-scroll-region');
+    if (el) el.scrollTop = 0;
+  }, [location.pathname]);
+
   const cardProPages = [
     '/console/channel',
     '/console/log',
@@ -146,7 +152,7 @@ const PageLayout = () => {
 
   return (
     <Layout
-      className='app-layout'
+      className='app-layout neo-app-layout'
       style={{
         display: 'flex',
         flexDirection: 'column',
@@ -170,10 +176,16 @@ const PageLayout = () => {
         />
       </Header>
       <Layout
+        className={isMobile ? undefined : 'app-main-scroll-region'}
         style={{
+          flex: 1,
+          minHeight: 0,
           overflow: isMobile ? 'visible' : 'auto',
           display: 'flex',
           flexDirection: 'column',
+          paddingTop: 'var(--app-header-height)',
+          WebkitOverflowScrolling: 'touch',
+          scrollbarGutter: isMobile ? undefined : 'stable',
         }}
       >
         {showSider && (
@@ -182,7 +194,7 @@ const PageLayout = () => {
             style={{
               position: 'fixed',
               left: 0,
-              top: '64px',
+              top: 'var(--app-header-height)',
               zIndex: 99,
               border: 'none',
               paddingRight: '0',

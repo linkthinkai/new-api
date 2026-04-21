@@ -33,7 +33,7 @@ import {
   Row,
   Col,
 } from '@douyinfe/semi-ui';
-import { IconSave, IconClose, IconUserAdd } from '@douyinfe/semi-icons';
+import { IconSave, IconClose, IconUserAdd } from '@/icons/semiRemix';
 import { useTranslation } from 'react-i18next';
 
 const { Text, Title } = Typography;

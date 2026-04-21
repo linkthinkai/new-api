@@ -19,7 +19,7 @@ For commercial licensing, please contact support@quantumnous.com
 
 import React, { useState, useRef, useEffect } from 'react';
 import { Modal, Typography, Tag, Button } from '@douyinfe/semi-ui';
-import { IconExternalOpen, IconCopy } from '@douyinfe/semi-icons';
+import { IconExternalOpen, IconCopy } from '@/icons/semiRemix';
 import { useTranslation } from 'react-i18next';
 
 const { Text, Title } = Typography;
@@ -82,7 +82,11 @@ const AudioClipCard = ({ clip }) => {
             marginBottom: '4px',
           }}
         >
-          <Text strong ellipsis={{ showTooltip: true }} style={{ fontSize: 15 }}>
+          <Text
+            strong
+            ellipsis={{ showTooltip: true }}
+            style={{ fontSize: 15 }}
+          >
             {title}
           </Text>
           {duration > 0 && (

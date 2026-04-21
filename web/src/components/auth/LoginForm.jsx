@@ -59,7 +59,7 @@ import {
   IconMail,
   IconLock,
   IconKey,
-} from '@douyinfe/semi-icons';
+} from '@/icons/semiRemix';
 import OIDCIcon from '../common/logo/OIDCIcon';
 import WeChatIcon from '../common/logo/WeChatIcon';
 import LinuxDoIcon from '../common/logo/LinuxDoIcon';
@@ -957,9 +957,8 @@ const LoginForm = () => {
         className='blur-ball blur-ball-teal'
         style={{ top: '50%', left: '-120px' }}
       />
-      <div className='w-full max-w-sm mt-[60px]'>
-        {showEmailLogin ||
-        !hasOAuthLoginOptions
+      <div className='mx-auto w-full max-w-sm'>
+        {showEmailLogin || !hasOAuthLoginOptions
           ? renderEmailLoginForm()
           : renderOAuthOptions()}
         {renderWeChatLoginModal()}

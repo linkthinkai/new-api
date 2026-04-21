@@ -19,7 +19,7 @@ For commercial licensing, please contact support@quantumnous.com
 
 import React from 'react';
 import { Card, Tag, Timeline, Empty } from '@douyinfe/semi-ui';
-import { Bell } from 'lucide-react';
+import { IconBell } from '@/icons/semiRemix';
 import { marked } from 'marked';
 import {
   IllustrationConstruction,
@@ -37,11 +37,14 @@ const AnnouncementsPanel = ({
   return (
     <Card
       {...CARD_PROPS}
-      className='shadow-sm !rounded-2xl lg:col-span-2'
+      bordered={false}
+      className='dashboard-side-card glass-panel !rounded-2xl border-0 !shadow-none lg:col-span-2'
       title={
         <div className='flex flex-col lg:flex-row lg:items-center lg:justify-between gap-2 w-full'>
-          <div className='flex items-center gap-2'>
-            <Bell size={16} />
+          <div className='flex items-center gap-2 font-semibold text-semi-color-text-0'>
+            <span className='text-semi-color-primary'>
+              <IconBell />
+            </span>
             {t('系统公告')}
             <Tag color='white' shape='circle'>
               {t('显示最新20条')}

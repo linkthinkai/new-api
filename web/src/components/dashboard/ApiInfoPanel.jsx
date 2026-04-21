@@ -19,7 +19,12 @@ For commercial licensing, please contact support@quantumnous.com
 
 import React from 'react';
 import { Card, Avatar, Tag, Divider, Empty } from '@douyinfe/semi-ui';
-import { Server, Gauge, ExternalLink, Copy } from 'lucide-react';
+import {
+  IconServer,
+  IconCopy,
+  IconExternalOpen,
+  RemixIcon,
+} from '@/icons/semiRemix';
 import {
   IllustrationConstruction,
   IllustrationConstructionDark,
@@ -38,10 +43,15 @@ const ApiInfoPanel = ({
   return (
     <Card
       {...CARD_PROPS}
-      className='bg-gray-50 border-0 !rounded-2xl'
+      bordered={false}
+      className='dashboard-side-card glass-panel !rounded-2xl border-0 !shadow-none'
       title={
-        <div className={FLEX_CENTER_GAP2}>
-          <Server size={16} />
+        <div
+          className={`${FLEX_CENTER_GAP2} font-semibold text-semi-color-text-0`}
+        >
+          <span className='text-semi-color-primary'>
+            <IconServer />
+          </span>
           {t('API信息')}
         </div>
       }
@@ -64,7 +74,7 @@ const ApiInfoPanel = ({
                     </span>
                     <div className='flex items-center gap-1 mt-1 lg:mt-0'>
                       <Tag
-                        prefixIcon={<Gauge size={12} />}
+                        prefixIcon={<RemixIcon icon='ri-speed-line' size={12} />}
                         size='small'
                         color='white'
                         shape='circle'
@@ -74,7 +84,7 @@ const ApiInfoPanel = ({
                         {t('测速')}
                       </Tag>
                       <Tag
-                        prefixIcon={<ExternalLink size={12} />}
+                        prefixIcon={<IconExternalOpen size={12} />}
                         size='small'
                         color='white'
                         shape='circle'
@@ -94,7 +104,7 @@ const ApiInfoPanel = ({
                     >
                       {api.url}
                     </span>
-                    <Copy
+                    <IconCopy
                       size={14}
                       className='flex-shrink-0 text-gray-400 hover:text-semi-color-primary cursor-pointer transition-colors'
                       onClick={() => handleCopyUrl(api.url)}

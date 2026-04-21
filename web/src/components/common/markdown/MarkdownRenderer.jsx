@@ -27,37 +27,67 @@ import RehypeKatex from 'rehype-katex';
 import RemarkGfm from 'remark-gfm';
 import RehypeHighlight from 'rehype-highlight';
 import { useRef, useState, useEffect, useMemo } from 'react';
-import mermaid from 'mermaid';
 import React from 'react';
 import { useDebouncedCallback } from 'use-debounce';
 import clsx from 'clsx';
 import { Button, Tooltip, Toast } from '@douyinfe/semi-ui';
 import { copy, rehypeSplitWordsIntoSpans } from '../../../helpers';
-import { IconCopy } from '@douyinfe/semi-icons';
+import { IconCopy } from '@/icons/semiRemix';
 import { useTranslation } from 'react-i18next';
 
-mermaid.initialize({
-  startOnLoad: false,
-  theme: 'default',
-  securityLevel: 'loose',
-});
+let mermaidModule = null;
+let mermaidLoadPromise = null;
+
+function ensureMermaid() {
+  if (mermaidModule) {
+    return Promise.resolve(mermaidModule);
+  }
+  if (!mermaidLoadPromise) {
+    mermaidLoadPromise = import('mermaid').then((mod) => {
+      const m = mod.default ?? mod;
+      m.initialize({
+        startOnLoad: false,
+        theme: 'default',
+        securityLevel: 'loose',
+      });
+      mermaidModule = m;
+      return m;
+    });
+  }
+  return mermaidLoadPromise;
+}
 
 export function Mermaid(props) {
   const ref = useRef(null);
   const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
-    if (props.code && ref.current) {
-      mermaid
-        .run({
-          nodes: [ref.current],
-          suppressErrors: true,
-        })
-        .catch((e) => {
+    if (!props.code || !ref.current) return;
+    let cancelled = false;
+    ensureMermaid()
+      .then((mermaid) => {
+        if (cancelled || !ref.current) return;
+        return mermaid
+          .run({
+            nodes: [ref.current],
+            suppressErrors: true,
+          })
+          .catch((e) => {
+            if (!cancelled) {
+              setHasError(true);
+              console.error('[Mermaid] ', e.message);
+            }
+          });
+      })
+      .catch((e) => {
+        if (!cancelled) {
           setHasError(true);
-          console.error('[Mermaid] ', e.message);
-        });
-    }
+          console.error('[Mermaid] load failed', e);
+        }
+      });
+    return () => {
+      cancelled = true;
+    };
   }, [props.code]);
 
   function viewSvgInNewWindow() {

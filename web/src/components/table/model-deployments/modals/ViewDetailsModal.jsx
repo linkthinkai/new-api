@@ -42,7 +42,7 @@ import {
   FaCopy,
   FaLink,
 } from 'react-icons/fa';
-import { IconRefresh } from '@douyinfe/semi-icons';
+import { IconRefresh } from '@/icons/semiRemix';
 import {
   API,
   showError,
