@@ -28,11 +28,79 @@ const { vitePluginSemi } = pkg;
 
 const analyze = process.env.ANALYZE === 'true';
 
+/** @param {string} id */
+function matchDep(id, pkg) {
+  const normalized = id.replace(/\\/g, '/');
+  if (!normalized.includes('/node_modules/')) return false;
+  if (pkg.startsWith('@')) {
+    const [scope, name] = pkg.split('/');
+    return normalized.includes(`/node_modules/${scope}/${name}/`);
+  }
+  return normalized.includes(`/node_modules/${pkg}/`);
+}
+
+/** Rolldown：勿用已弃用的 output.manualChunks（大项目下易卡死）；用 codeSplitting.groups */
+const VENDOR_CHUNK_GROUPS = [
+  {
+    name: 'react-core',
+    test: (id) =>
+      matchDep(id, 'react') ||
+      matchDep(id, 'react-dom') ||
+      matchDep(id, 'react-router-dom'),
+  },
+  { name: 'motion', test: (id) => matchDep(id, 'motion') },
+  {
+    name: 'semi-ui',
+    test: (id) =>
+      matchDep(id, '@douyinfe/semi-icons') ||
+      matchDep(id, '@douyinfe/semi-ui'),
+  },
+  {
+    name: 'tools',
+    test: (id) =>
+      matchDep(id, 'axios') ||
+      matchDep(id, 'history') ||
+      matchDep(id, 'marked'),
+  },
+  {
+    name: 'react-components',
+    test: (id) =>
+      matchDep(id, 'react-dropzone') ||
+      matchDep(id, 'react-fireworks') ||
+      matchDep(id, 'react-telegram-login') ||
+      matchDep(id, 'react-toastify') ||
+      matchDep(id, 'react-turnstile'),
+  },
+  {
+    name: 'i18n',
+    test: (id) =>
+      matchDep(id, 'i18next') ||
+      matchDep(id, 'react-i18next') ||
+      matchDep(id, 'i18next-browser-languagedetector'),
+  },
+  {
+    name: 'vchart',
+    test: (id) =>
+      matchDep(id, '@visactor/react-vchart') || matchDep(id, '@visactor/vchart'),
+  },
+  { name: 'mermaid', test: (id) => matchDep(id, 'mermaid') },
+];
+
 // https://vitejs.dev/config/
 export default defineConfig(({ command }) => ({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
+      // @douyinfe/semi-ui@2.90+ 的 exports 未公开 dist/css，保留历史引用路径
+      '@douyinfe/semi-ui/dist/css/semi.css': path.resolve(
+        __dirname,
+        'node_modules/@douyinfe/semi-ui/dist/css/semi.css',
+      ),
+      // roughjs 的 browser 入口为 IIFE，Rolldown 无法提供 default 导出；强制使用 ESM 构建
+      roughjs: path.resolve(
+        __dirname,
+        'node_modules/roughjs/bundled/rough.esm.js',
+      ),
     },
   },
   plugins: [
@@ -77,8 +145,8 @@ export default defineConfig(({ command }) => ({
       }),
   ].filter(Boolean),
   optimizeDeps: {
-    esbuildOptions: {
-      loader: {
+    rolldownOptions: {
+      moduleTypes: {
         '.js': 'jsx',
         '.json': 'json',
       },
@@ -86,27 +154,25 @@ export default defineConfig(({ command }) => ({
   },
   build: {
     reportCompressedSize: false,
-    rollupOptions: {
+    rolldownOptions: {
+      // lottie-web（Semi 依赖）在播放器里对表达式使用 eval，Rolldown 会报 EVAL；与业务代码无关
+      onLog(level, log, defaultHandler) {
+        if (level !== 'warn' || typeof log !== 'object' || !log) {
+          defaultHandler(level, log);
+          return;
+        }
+        if (log.code === 'EVAL') {
+          const id = log.id ?? '';
+          const file = log.loc?.file ?? '';
+          if (id.includes('lottie-web') || file.includes('lottie-web')) {
+            return;
+          }
+        }
+        defaultHandler(level, log);
+      },
       output: {
-        manualChunks: {
-          'react-core': ['react', 'react-dom', 'react-router-dom'],
-          motion: ['motion/react'],
-          'semi-ui': ['@douyinfe/semi-icons', '@douyinfe/semi-ui'],
-          tools: ['axios', 'history', 'marked'],
-          'react-components': [
-            'react-dropzone',
-            'react-fireworks',
-            'react-telegram-login',
-            'react-toastify',
-            'react-turnstile',
-          ],
-          i18n: [
-            'i18next',
-            'react-i18next',
-            'i18next-browser-languagedetector',
-          ],
-          vchart: ['@visactor/react-vchart', '@visactor/vchart'],
-          mermaid: ['mermaid'],
+        codeSplitting: {
+          groups: VENDOR_CHUNK_GROUPS,
         },
       },
     },

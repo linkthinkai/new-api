@@ -20,6 +20,7 @@ For commercial licensing, please contact support@quantumnous.com
 import React, { useMemo, useState } from 'react';
 import { MemoryRouter } from 'react-router-dom';
 import { I18nextProvider, useTranslation } from 'react-i18next';
+import '@douyinfe/semi-ui/react19-adapter';
 import { LocaleProvider } from '@douyinfe/semi-ui';
 import zh_CN from '@douyinfe/semi-ui/lib/es/locale/source/zh_CN';
 import { StatusContext } from '../context/Status';

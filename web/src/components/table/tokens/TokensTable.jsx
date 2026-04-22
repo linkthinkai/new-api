@@ -103,7 +103,7 @@ const TokensTable = (tokensData) => {
     <CardTable
       columns={tableColumns}
       dataSource={tokens}
-      scroll={compactMode ? undefined : { x: 'max-content' }}
+      scroll={{ x: 'max-content' }}
       pagination={{
         currentPage: activePage,
         pageSize: pageSize,

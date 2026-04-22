@@ -62,7 +62,7 @@ const SubscriptionsTable = (subscriptionsData) => {
     <CardTable
       columns={tableColumns}
       dataSource={plans}
-      scroll={compactMode ? undefined : { x: 'max-content' }}
+      scroll={{ x: 'max-content' }}
       pagination={false}
       hidePagination={true}
       loading={loading}

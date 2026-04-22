@@ -173,7 +173,7 @@ const UsersTable = (usersData) => {
       <CardTable
         columns={tableColumns}
         dataSource={users}
-        scroll={compactMode ? undefined : { x: 'max-content' }}
+        scroll={{ x: 'max-content' }}
         pagination={{
           currentPage: activePage,
           pageSize: pageSize,

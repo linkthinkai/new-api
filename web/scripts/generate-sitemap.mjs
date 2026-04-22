@@ -31,7 +31,42 @@ import { fileURLToPath } from 'node:url';
 import { SITEMAP_URL_ENTRIES } from '../src/seo/sitemapPublicPaths.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const distDir = join(__dirname, '../dist');
+const webRoot = join(__dirname, '..');
+
+/** 与 Vite 类似：从 web 根目录读取 .env*，不覆盖已有环境变量 */
+function loadEnvFiles(root) {
+  for (const name of [
+    '.env.production.local',
+    '.env.production',
+    '.env.local',
+    '.env',
+  ]) {
+    const p = join(root, name);
+    if (!existsSync(p)) continue;
+    const text = readFileSync(p, 'utf8');
+    for (const raw of text.split(/\r?\n/)) {
+      const line = raw.replace(/^\uFEFF/, '').trim();
+      if (!line || line.startsWith('#')) continue;
+      const eq = line.indexOf('=');
+      if (eq === -1) continue;
+      const key = line.slice(0, eq).trim();
+      let val = line.slice(eq + 1).trim();
+      if (
+        (val.startsWith('"') && val.endsWith('"')) ||
+        (val.startsWith("'") && val.endsWith("'"))
+      ) {
+        val = val.slice(1, -1);
+      }
+      if (key && process.env[key] === undefined) {
+        process.env[key] = val;
+      }
+    }
+  }
+}
+
+loadEnvFiles(webRoot);
+
+const distDir = join(webRoot, 'dist');
 const sitemapFile = join(distDir, 'sitemap.xml');
 const robotsFile = join(distDir, 'robots.txt');
 

@@ -29,6 +29,36 @@ import SkeletonWrapper from './components/SkeletonWrapper';
 
 import { Nav, Divider, Button } from '@douyinfe/semi-ui';
 
+/** 根据当前 path 在 routerMap 中解析 itemKey：精确匹配优先，否则取最长前缀（子路由） */
+function getItemKeyFromPath(pathname, map) {
+  const path =
+    pathname.replace(/\/+$/, '') === '' ? '/' : pathname.replace(/\/+$/, '');
+  let bestExact = null;
+  let bestExactLen = -1;
+  let bestPrefix = null;
+  let bestPrefixLen = -1;
+
+  for (const key of Object.keys(map)) {
+    const raw = map[key];
+    if (!raw || typeof raw !== 'string') continue;
+    const t = raw.replace(/\/+$/, '') === '' ? '/' : raw.replace(/\/+$/, '');
+    if (path === t && t.length > bestExactLen) {
+      bestExactLen = t.length;
+      bestExact = key;
+    }
+    if (
+      t !== '/' &&
+      (path === t || path.startsWith(`${t}/`)) &&
+      t.length > bestPrefixLen
+    ) {
+      bestPrefixLen = t.length;
+      bestPrefix = key;
+    }
+  }
+
+  return bestExact ?? bestPrefix;
+}
+
 const routerMap = {
   home: '/',
   channel: '/console/channel',
@@ -277,12 +307,10 @@ const SiderBar = ({ onNavigate = () => {} }) => {
     }
   }, []);
 
-  // 根据当前路径设置选中的菜单项
+  // 根据当前路径设置选中的菜单项（与 Semi Nav 的 itemKey、routerMap 一致）
   useEffect(() => {
     const currentPath = location.pathname;
-    let matchingKey = Object.keys(routerMapState).find(
-      (key) => routerMapState[key] === currentPath,
-    );
+    let matchingKey = getItemKeyFromPath(currentPath, routerMapState);
 
     // 处理聊天路由
     if (!matchingKey && currentPath.startsWith('/console/chat/')) {
@@ -294,9 +322,13 @@ const SiderBar = ({ onNavigate = () => {} }) => {
       }
     }
 
-    // 如果找到匹配的键，更新选中的键
     if (matchingKey) {
       setSelectedKeys([matchingKey]);
+      if (matchingKey.startsWith('chat') && matchingKey !== 'chat') {
+        setOpenedKeys((prev) =>
+          prev.includes('chat') ? prev : [...prev, 'chat'],
+        );
+      }
     }
   }, [location.pathname, routerMapState]);
 
@@ -412,9 +444,6 @@ const SiderBar = ({ onNavigate = () => {} }) => {
           isCollapsed={collapsed}
           onCollapseChange={toggleCollapsed}
           selectedKeys={selectedKeys}
-          itemStyle='sidebar-nav-item'
-          hoverStyle='sidebar-nav-item:hover'
-          selectedStyle='sidebar-nav-item-selected'
           renderWrapper={({ itemElement, props }) => {
             const to =
               routerMapState[props.itemKey] || routerMap[props.itemKey];

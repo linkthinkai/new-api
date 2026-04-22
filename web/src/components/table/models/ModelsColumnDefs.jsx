@@ -18,14 +18,7 @@ For commercial licensing, please contact support@quantumnous.com
 */
 
 import React from 'react';
-import {
-  Button,
-  Space,
-  Tag,
-  Typography,
-  Modal,
-  Tooltip,
-} from '@douyinfe/semi-ui';
+import { Button, Tag, Typography, Modal, Tooltip } from '@douyinfe/semi-ui';
 import {
   timestamp2string,
   getLobeHubIcon,
@@ -185,7 +178,7 @@ const renderOperations = (
   t,
 ) => {
   return (
-    <Space wrap>
+    <div className='flex flex-wrap justify-end gap-1 items-center max-w-full'>
       {record.status === 1 ? (
         <Button
           type='danger'
@@ -232,7 +225,7 @@ const renderOperations = (
       >
         {t('删除')}
       </Button>
-    </Space>
+    </div>
   );
 };
 
@@ -335,21 +328,25 @@ export const getModelsColumns = ({
     {
       title: t('已绑定渠道'),
       dataIndex: 'bound_channels',
+      minWidth: 140,
       render: renderBoundChannels,
     },
     {
       title: t('可用分组'),
       dataIndex: 'enable_groups',
+      minWidth: 120,
       render: renderGroups,
     },
     {
       title: t('计费类型'),
       dataIndex: 'quota_types',
+      minWidth: 108,
       render: (qts) => renderQuotaTypes(qts, t),
     },
     {
       title: t('创建时间'),
       dataIndex: 'created_time',
+      minWidth: 168,
       render: (text, record, index) => {
         return <div>{renderTimestamp(text)}</div>;
       },
@@ -357,6 +354,7 @@ export const getModelsColumns = ({
     {
       title: t('更新时间'),
       dataIndex: 'updated_time',
+      minWidth: 168,
       render: (text, record, index) => {
         return <div>{renderTimestamp(text)}</div>;
       },
@@ -365,6 +363,9 @@ export const getModelsColumns = ({
       title: '',
       dataIndex: 'operate',
       fixed: 'right',
+      width: 248,
+      minWidth: 248,
+      align: 'right',
       render: (text, record, index) =>
         renderOperations(
           text,

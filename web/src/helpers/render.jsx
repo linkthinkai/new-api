@@ -58,6 +58,7 @@ import {
   Replicate,
   Vidu,
   AzureAI,
+  Baichuan,
   Layers,
 } from './lobeHubIconMap';
 import {
@@ -73,7 +74,6 @@ import {
   SiGitlab,
   SiGoogle,
   SiKeycloak,
-  SiLinkedin,
   SiNextcloud,
   SiNotion,
   SiOkta,
@@ -85,6 +85,7 @@ import {
   SiWechat,
   SiX,
 } from 'react-icons/si';
+import { FaLinkedin } from 'react-icons/fa6';
 
 // 获取模型分类
 export const getModelCategories = (() => {
@@ -438,7 +439,7 @@ const oauthProviderIconMap = {
   google: SiGoogle,
   discord: SiDiscord,
   facebook: SiFacebook,
-  linkedin: SiLinkedin,
+  linkedin: FaLinkedin,
   x: SiX,
   twitter: SiX,
   slack: SiSlack,

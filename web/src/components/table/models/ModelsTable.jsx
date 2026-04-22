@@ -75,7 +75,8 @@ const ModelsTable = (modelsData) => {
     <CardTable
       columns={tableColumns}
       dataSource={models}
-      scroll={compactMode ? undefined : { x: 'max-content' }}
+      /* 紧凑模式也保留横向滚动，否则多列被压扁导致单元格「穿模」重叠 */
+      scroll={{ x: 'max-content' }}
       pagination={{
         currentPage: activePage,
         pageSize: pageSize,
@@ -99,7 +100,7 @@ const ModelsTable = (modelsData) => {
           style={{ padding: 30 }}
         />
       }
-      className='rounded-xl overflow-hidden'
+      className='rounded-xl'
       size='middle'
     />
   );

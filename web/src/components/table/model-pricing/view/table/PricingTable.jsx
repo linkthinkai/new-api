@@ -101,7 +101,7 @@ const PricingTable = ({
           dataSource={filteredModels}
           loading={loading}
           rowSelection={rowSelection}
-          scroll={compactMode ? undefined : { x: 'max-content' }}
+          scroll={{ x: 'max-content' }}
           onRow={(record) => ({
             onClick: () => openModelDetail && openModelDetail(record),
             style: { cursor: 'pointer' },
