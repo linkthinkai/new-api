@@ -36,6 +36,7 @@ const FEATURE_ICONS = [
 const HomeFeatureGrid = ({ t, reduceMotion, easeSmooth, featureKeys }) => {
   return (
     <motion.section
+      aria-labelledby='home-features-title'
       className='neo-home-section border-b border-[var(--glass-border)]'
       initial={reduceMotion ? false : { opacity: 0, y: 28 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -45,27 +46,31 @@ const HomeFeatureGrid = ({ t, reduceMotion, easeSmooth, featureKeys }) => {
       }
     >
       <div className='neo-home-section-inner'>
-        <div className='neo-home-section-head'>
-          <h2 className='neo-home-section-title'>{t('首页能力区标题')}</h2>
+        <header className='neo-home-section-head'>
+          <h2 id='home-features-title' className='neo-home-section-title'>
+            {t('首页能力区标题')}
+          </h2>
           <p className='neo-home-section-subtitle'>{t('首页能力区副标题')}</p>
-        </div>
-        <div className='grid gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5'>
+        </header>
+        <ul
+          role='list'
+          className='m-0 grid list-none gap-4 p-0 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5'
+        >
           {featureKeys.map((item, i) => {
             const Icon = FEATURE_ICONS[i] || IconLink;
             return (
-              <div
-                key={item.titleKey}
-                className='neo-home-feature-card glass-panel tech-border'
-              >
-                <div className='neo-home-feature-icon-wrap'>
-                  <Icon className='text-semi-color-primary text-2xl' />
-                </div>
-                <h3 className='neo-home-feature-title'>{t(item.titleKey)}</h3>
-                <p className='neo-home-feature-desc'>{t(item.descKey)}</p>
-              </div>
+              <li key={item.titleKey} className='min-w-0'>
+                <article className='neo-home-feature-card glass-panel tech-border h-full'>
+                  <div className='neo-home-feature-icon-wrap'>
+                    <Icon className='text-semi-color-primary text-2xl' />
+                  </div>
+                  <h3 className='neo-home-feature-title'>{t(item.titleKey)}</h3>
+                  <p className='neo-home-feature-desc'>{t(item.descKey)}</p>
+                </article>
+              </li>
             );
           })}
-        </div>
+        </ul>
       </div>
     </motion.section>
   );

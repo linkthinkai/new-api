@@ -199,14 +199,17 @@ const Home = () => {
   }, [endpointItems.length]);
 
   return (
-    <div className='w-full overflow-x-hidden'>
+    <main
+      className='w-full min-w-0 overflow-x-clip overflow-y-visible'
+      id='home-page'
+    >
       <NoticeModal
         visible={noticeVisible}
         onClose={() => setNoticeVisible(false)}
         isMobile={isMobile}
       />
       {homePageContentLoaded && homePageContent === '' ? (
-        <div className='w-full overflow-x-hidden'>
+        <>
           <HomeHero
             t={t}
             isChinese={isChinese}
@@ -253,22 +256,26 @@ const Home = () => {
             version={statusState?.status?.version}
             docsLink={docsLink}
           />
-        </div>
+        </>
       ) : (
-        <div className='w-full overflow-x-hidden'>
+        <>
           {homePageContent.startsWith('https://') ? (
-            <iframe
-              src={homePageContent}
-              className='h-screen w-full border-none'
-            />
+            <figure className='m-0 w-full min-w-0 overflow-x-clip overflow-y-visible'>
+              <iframe
+                title={t('首页内容')}
+                src={homePageContent}
+                className='h-screen w-full border-none'
+              />
+            </figure>
           ) : (
-            <div
+            <article
+              className='w-full min-w-0 overflow-x-clip overflow-y-visible'
               dangerouslySetInnerHTML={{ __html: homePageContent }}
             />
           )}
-        </div>
+        </>
       )}
-    </div>
+    </main>
   );
 };
 

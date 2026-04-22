@@ -19,13 +19,13 @@ For commercial licensing, please contact support@quantumnous.com
 
 import React from 'react';
 import { motion } from 'motion/react';
-import { Typography, Button } from '@douyinfe/semi-ui';
+import { Button } from '@douyinfe/semi-ui';
 import {
   IconGithubLogo,
   IconFile,
   IconPriceTag,
 } from '@/icons/semiRemix';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import {
   Moonshot,
   OpenAI,
@@ -57,8 +57,11 @@ const HomeProviders = ({
   version,
   docsLink,
 }) => {
+  const navigate = useNavigate();
+
   return (
     <motion.section
+      aria-labelledby='home-providers-title'
       className='neo-home-section pb-16 md:pb-20'
       initial={reduceMotion ? false : { opacity: 0, y: 32 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -68,15 +71,15 @@ const HomeProviders = ({
       }
     >
       <div className='neo-home-section-inner'>
-        <div className='mb-6 flex flex-col gap-6 md:mb-8 lg:flex-row lg:items-end lg:justify-between lg:gap-8'>
+        <header className='mb-6 flex flex-col gap-6 md:mb-8 lg:flex-row lg:items-end lg:justify-between lg:gap-8'>
           <div className='text-center lg:text-left'>
             <div className='mb-2 flex flex-col items-center gap-2 sm:flex-row sm:justify-center sm:gap-3 lg:justify-start'>
-              <Typography.Text
-                type='tertiary'
-                className='font-display text-xl font-semibold text-semi-color-text-0 md:text-2xl'
+              <h2
+                id='home-providers-title'
+                className='m-0 font-display text-xl font-semibold text-semi-color-text-0 md:text-2xl'
               >
                 {t('支持众多的大模型供应商')}
-              </Typography.Text>
+              </h2>
               <span className='font-mono text-xs uppercase tracking-[0.2em] text-semi-color-text-2'>
                 {t('首页供应商数量标签')}
               </span>
@@ -85,20 +88,25 @@ const HomeProviders = ({
               {t('首页供应商区说明')}
             </p>
           </div>
-          <div className='flex flex-wrap items-center justify-center gap-2 lg:justify-end'>
-            <Link to='/pricing'>
-              <Button
-                icon={<IconPriceTag />}
-                className='!rounded-full border border-[var(--glass-border)] bg-[var(--glass-bg)] backdrop-blur-md'
-              >
-                {t('首页查看定价')}
-              </Button>
-            </Link>
-            <Link to='/console'>
-              <Button type='primary' theme='solid' className='!rounded-full'>
-                {t('首页进入控制台')}
-              </Button>
-            </Link>
+          <nav
+            aria-labelledby='home-providers-title'
+            className='flex flex-wrap items-center justify-center gap-2 lg:justify-end'
+          >
+            <Button
+              icon={<IconPriceTag />}
+              className='!rounded-full border border-[var(--glass-border)] bg-[var(--glass-bg)] backdrop-blur-md'
+              onClick={() => navigate('/pricing')}
+            >
+              {t('首页查看定价')}
+            </Button>
+            <Button
+              type='primary'
+              theme='solid'
+              className='!rounded-full'
+              onClick={() => navigate('/console')}
+            >
+              {t('首页进入控制台')}
+            </Button>
             {isDemoSiteMode && version ? (
               <Button
                 icon={<IconGithubLogo />}
@@ -123,75 +131,78 @@ const HomeProviders = ({
                 </Button>
               )
             )}
-          </div>
-        </div>
-        <div className='glass-panel tech-border flex flex-wrap items-center justify-center gap-4 rounded-[1.25rem] p-6 sm:gap-6 sm:p-8 md:gap-8 lg:gap-10'>
-          <div className='flex h-8 w-8 items-center justify-center sm:h-10 sm:w-10 md:h-12 md:w-12'>
+          </nav>
+        </header>
+        <ul
+          role='list'
+          className='glass-panel tech-border m-0 flex list-none flex-wrap items-center justify-center gap-4 rounded-[1.25rem] p-6 sm:gap-6 sm:p-8 md:gap-8 lg:gap-10'
+        >
+          <li className='flex h-8 w-8 items-center justify-center sm:h-10 sm:w-10 md:h-12 md:w-12'>
             <Moonshot size={40} />
-          </div>
-          <div className='flex h-8 w-8 items-center justify-center sm:h-10 sm:w-10 md:h-12 md:w-12'>
+          </li>
+          <li className='flex h-8 w-8 items-center justify-center sm:h-10 sm:w-10 md:h-12 md:w-12'>
             <OpenAI size={40} />
-          </div>
-          <div className='flex h-8 w-8 items-center justify-center sm:h-10 sm:w-10 md:h-12 md:w-12'>
+          </li>
+          <li className='flex h-8 w-8 items-center justify-center sm:h-10 sm:w-10 md:h-12 md:w-12'>
             <XAI size={40} />
-          </div>
-          <div className='flex h-8 w-8 items-center justify-center sm:h-10 sm:w-10 md:h-12 md:w-12'>
+          </li>
+          <li className='flex h-8 w-8 items-center justify-center sm:h-10 sm:w-10 md:h-12 md:w-12'>
             <Zhipu.Color size={40} />
-          </div>
-          <div className='flex h-8 w-8 items-center justify-center sm:h-10 sm:w-10 md:h-12 md:w-12'>
+          </li>
+          <li className='flex h-8 w-8 items-center justify-center sm:h-10 sm:w-10 md:h-12 md:w-12'>
             <Volcengine.Color size={40} />
-          </div>
-          <div className='flex h-8 w-8 items-center justify-center sm:h-10 sm:w-10 md:h-12 md:w-12'>
+          </li>
+          <li className='flex h-8 w-8 items-center justify-center sm:h-10 sm:w-10 md:h-12 md:w-12'>
             <Cohere.Color size={40} />
-          </div>
-          <div className='flex h-8 w-8 items-center justify-center sm:h-10 sm:w-10 md:h-12 md:w-12'>
+          </li>
+          <li className='flex h-8 w-8 items-center justify-center sm:h-10 sm:w-10 md:h-12 md:w-12'>
             <Claude.Color size={40} />
-          </div>
-          <div className='flex h-8 w-8 items-center justify-center sm:h-10 sm:w-10 md:h-12 md:w-12'>
+          </li>
+          <li className='flex h-8 w-8 items-center justify-center sm:h-10 sm:w-10 md:h-12 md:w-12'>
             <Gemini.Color size={40} />
-          </div>
-          <div className='flex h-8 w-8 items-center justify-center sm:h-10 sm:w-10 md:h-12 md:w-12'>
+          </li>
+          <li className='flex h-8 w-8 items-center justify-center sm:h-10 sm:w-10 md:h-12 md:w-12'>
             <Suno size={40} />
-          </div>
-          <div className='flex h-8 w-8 items-center justify-center sm:h-10 sm:w-10 md:h-12 md:w-12'>
+          </li>
+          <li className='flex h-8 w-8 items-center justify-center sm:h-10 sm:w-10 md:h-12 md:w-12'>
             <Minimax.Color size={40} />
-          </div>
-          <div className='flex h-8 w-8 items-center justify-center sm:h-10 sm:w-10 md:h-12 md:w-12'>
+          </li>
+          <li className='flex h-8 w-8 items-center justify-center sm:h-10 sm:w-10 md:h-12 md:w-12'>
             <Wenxin.Color size={40} />
-          </div>
-          <div className='flex h-8 w-8 items-center justify-center sm:h-10 sm:w-10 md:h-12 md:w-12'>
+          </li>
+          <li className='flex h-8 w-8 items-center justify-center sm:h-10 sm:w-10 md:h-12 md:w-12'>
             <Spark.Color size={40} />
-          </div>
-          <div className='flex h-8 w-8 items-center justify-center sm:h-10 sm:w-10 md:h-12 md:w-12'>
+          </li>
+          <li className='flex h-8 w-8 items-center justify-center sm:h-10 sm:w-10 md:h-12 md:w-12'>
             <Qingyan.Color size={40} />
-          </div>
-          <div className='flex h-8 w-8 items-center justify-center sm:h-10 sm:w-10 md:h-12 md:w-12'>
+          </li>
+          <li className='flex h-8 w-8 items-center justify-center sm:h-10 sm:w-10 md:h-12 md:w-12'>
             <DeepSeek.Color size={40} />
-          </div>
-          <div className='flex h-8 w-8 items-center justify-center sm:h-10 sm:w-10 md:h-12 md:w-12'>
+          </li>
+          <li className='flex h-8 w-8 items-center justify-center sm:h-10 sm:w-10 md:h-12 md:w-12'>
             <Qwen.Color size={40} />
-          </div>
-          <div className='flex h-8 w-8 items-center justify-center sm:h-10 sm:w-10 md:h-12 md:w-12'>
+          </li>
+          <li className='flex h-8 w-8 items-center justify-center sm:h-10 sm:w-10 md:h-12 md:w-12'>
             <Midjourney size={40} />
-          </div>
-          <div className='flex h-8 w-8 items-center justify-center sm:h-10 sm:w-10 md:h-12 md:w-12'>
+          </li>
+          <li className='flex h-8 w-8 items-center justify-center sm:h-10 sm:w-10 md:h-12 md:w-12'>
             <Grok size={40} />
-          </div>
-          <div className='flex h-8 w-8 items-center justify-center sm:h-10 sm:w-10 md:h-12 md:w-12'>
+          </li>
+          <li className='flex h-8 w-8 items-center justify-center sm:h-10 sm:w-10 md:h-12 md:w-12'>
             <AzureAI.Color size={40} />
-          </div>
-          <div className='flex h-8 w-8 items-center justify-center sm:h-10 sm:w-10 md:h-12 md:w-12'>
+          </li>
+          <li className='flex h-8 w-8 items-center justify-center sm:h-10 sm:w-10 md:h-12 md:w-12'>
             <Hunyuan.Color size={40} />
-          </div>
-          <div className='flex h-8 w-8 items-center justify-center sm:h-10 sm:w-10 md:h-12 md:w-12'>
+          </li>
+          <li className='flex h-8 w-8 items-center justify-center sm:h-10 sm:w-10 md:h-12 md:w-12'>
             <Xinference.Color size={40} />
-          </div>
-          <div className='flex h-8 w-8 items-center justify-center sm:h-10 sm:w-10 md:h-12 md:w-12'>
-            <Typography.Text className='!text-lg font-display font-bold sm:!text-xl md:!text-2xl lg:!text-3xl'>
+          </li>
+          <li className='flex h-8 w-8 items-center justify-center sm:h-10 sm:w-10 md:h-12 md:w-12'>
+            <span className='font-display text-lg font-bold sm:text-xl md:text-2xl lg:text-3xl'>
               30+
-            </Typography.Text>
-          </div>
-        </div>
+            </span>
+          </li>
+        </ul>
       </div>
     </motion.section>
   );

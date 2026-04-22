@@ -95,13 +95,13 @@ const ThemeToggle = ({ theme, onThemeToggle, t }) => {
         </Dropdown.Menu>
       }
     >
-      <span className='inline-flex'>
+      <span className='inline-flex' aria-label={t('切换主题')}>
         <Button
           icon={currentButtonIcon}
-          aria-label={t('切换主题')}
           theme='borderless'
           type='tertiary'
           className='neo-topbar-icon-btn'
+          tabIndex={-1}
         />
       </span>
     </Dropdown>

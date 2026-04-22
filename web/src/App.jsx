@@ -108,7 +108,7 @@ function App() {
       >
         <motion.div
           key={location.pathname}
-          className='w-full min-h-0'
+          className='w-full min-h-0 min-w-0'
           initial={reduceMotion ? false : { opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           exit={reduceMotion ? undefined : { opacity: 0, y: -14 }}

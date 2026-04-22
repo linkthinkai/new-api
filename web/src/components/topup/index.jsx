@@ -39,6 +39,7 @@ import InvitationCard from './InvitationCard';
 import TransferModal from './modals/TransferModal';
 import PaymentConfirmModal from './modals/PaymentConfirmModal';
 import TopupHistoryModal from './modals/TopupHistoryModal';
+import TopupContactSection from './TopupContactSection';
 
 const TopUp = () => {
   const { t } = useTranslation();
@@ -996,6 +997,8 @@ const TopUp = () => {
           handleAffLinkClick={handleAffLinkClick}
         />
       </div>
+
+      <TopupContactSection t={t} />
     </div>
   );
 };

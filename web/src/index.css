@@ -9,21 +9,21 @@
   --sidebar-width-collapsed: 64px;
   --sidebar-current-width: var(--sidebar-width);
 
-  --neo-canvas: #e8f0f7;
-  --neo-canvas-2: #dfe8f2;
+  --neo-canvas: #f8fafc;
+  --neo-canvas-2: #f1f5f9;
   --neo-accent: #06b6d4;
   --neo-accent-2: #8b5cf6;
-  --neo-ink: #0b1220;
+  --neo-ink: #0f172a;
 
-  --glass-bg: rgba(255, 255, 255, 0.42);
-  --glass-bg-hover: rgba(255, 255, 255, 0.62);
-  --glass-border: rgba(6, 182, 212, 0.22);
-  --glass-border-strong: rgba(139, 92, 246, 0.35);
-  --glass-shadow: 0 8px 32px -12px rgba(15, 23, 42, 0.25);
-  --glass-blur: blur(20px) saturate(160%);
-  --tech-glow: 0 0 0 1px rgba(6, 182, 212, 0.25),
-    0 0 48px -12px rgba(6, 182, 212, 0.45);
-  --tech-border: rgba(6, 182, 212, 0.28);
+  --glass-bg: rgba(255, 255, 255, 0.65);
+  --glass-bg-hover: rgba(255, 255, 255, 0.85);
+  --glass-border: rgba(15, 23, 42, 0.08);
+  --glass-border-strong: rgba(15, 23, 42, 0.15);
+  --glass-shadow: 0 8px 32px -8px rgba(15, 23, 42, 0.08);
+  --glass-blur: blur(20px) saturate(140%);
+  --tech-glow: 0 0 0 1px rgba(6, 182, 212, 0.15),
+    0 0 48px -12px rgba(6, 182, 212, 0.25);
+  --tech-border: rgba(15, 23, 42, 0.06);
   --neo-noise: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
 }
 
@@ -84,7 +84,11 @@ body.sidebar-collapsed {
   border-radius: 50%;
   filter: blur(80px);
   will-change: transform;
-  opacity: 0.42;
+  opacity: 0.15;
+}
+
+html.dark .neo-ambient-orb {
+  opacity: 0.35;
 }
 
 .neo-ambient-orb--a {
@@ -270,17 +274,17 @@ body {
   background-color: var(--neo-canvas);
   background-image: radial-gradient(
       ellipse 120% 85% at 8% -15%,
-      rgba(6, 182, 212, 0.22),
+      rgba(6, 182, 212, 0.08),
       transparent 52%
     ),
     radial-gradient(
       ellipse 90% 70% at 92% 5%,
-      rgba(139, 92, 246, 0.18),
+      rgba(139, 92, 246, 0.06),
       transparent 48%
     ),
     radial-gradient(
       ellipse 55% 45% at 50% 108%,
-      rgba(14, 165, 233, 0.12),
+      rgba(14, 165, 233, 0.05),
       transparent 42%
     ),
     linear-gradient(165deg, var(--neo-canvas) 0%, var(--neo-canvas-2) 100%);
@@ -314,17 +318,17 @@ body::before {
   pointer-events: none;
   z-index: 0;
   background-image: linear-gradient(
-      rgba(6, 182, 212, 0.06) 1px,
+      rgba(6, 182, 212, 0.03) 1px,
       transparent 1px
     ),
-    linear-gradient(90deg, rgba(6, 182, 212, 0.06) 1px, transparent 1px);
+    linear-gradient(90deg, rgba(6, 182, 212, 0.03) 1px, transparent 1px);
   background-size: 64px 64px;
   mask-image: radial-gradient(
     ellipse 75% 65% at 50% 35%,
     #000 0%,
     transparent 72%
   );
-  opacity: 0.85;
+  opacity: 0.6;
   animation: neo-grid-breathe 20s ease-in-out infinite alternate;
 }
 
@@ -353,6 +357,10 @@ body::after {
   pointer-events: none;
   z-index: 0;
   background-image: var(--neo-noise, none);
+  opacity: 0.45;
+}
+
+html.dark body::after {
   opacity: 0.9;
 }
 
@@ -421,9 +429,7 @@ code {
   background: color-mix(in srgb, var(--glass-bg) 92%, transparent);
   backdrop-filter: blur(18px) saturate(155%);
   -webkit-backdrop-filter: blur(18px) saturate(155%);
-  box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.06) inset,
-    0 8px 32px -20px rgba(15, 23, 42, 0.2);
+  box-shadow: 0 8px 24px -12px rgba(15, 23, 42, 0.06);
   contain: layout style;
 }
 
@@ -536,6 +542,15 @@ html.dark .neo-nav-link-active {
   border: 1px solid var(--glass-border);
   border-radius: 1.5rem;
   box-shadow: var(--glass-shadow), var(--tech-glow);
+}
+
+/* 首页 Hero：两侧光晕固定在背景层，不参与前景混色 */
+.home-hero-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
 }
 
 /* ==================== 首页落地页区块 ==================== */
@@ -751,7 +766,6 @@ html.dark .neo-home-step-index {
 
 /* ==================== 布局相关样式 ==================== */
 .semi-layout::-webkit-scrollbar,
-.semi-layout-content::-webkit-scrollbar,
 .semi-sider::-webkit-scrollbar {
   display: none;
   width: 0;
@@ -759,7 +773,6 @@ html.dark .neo-home-step-index {
 }
 
 .semi-layout,
-.semi-layout-content,
 .semi-sider {
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -1532,11 +1545,25 @@ html.dark .blur-ball {
 }
 
 html:not(.dark) .blur-ball-indigo {
-  opacity: 0.32;
+  opacity: 0.12;
 }
 
 html:not(.dark) .blur-ball-teal {
-  opacity: 0.28;
+  opacity: 0.1;
+}
+
+/* Hero 专用：浅色下取消 multiply，避免光晕叠在文案/按钮上 */
+html:not(.dark) .home-hero-backdrop .blur-ball--hero {
+  mix-blend-mode: normal;
+}
+
+/* Hero 背景层内光晕略提亮（normal 混色下比 multiply 更淡） */
+html:not(.dark) .home-hero-backdrop .blur-ball-indigo.blur-ball--hero {
+  opacity: 0.22;
+}
+
+html:not(.dark) .home-hero-backdrop .blur-ball-teal.blur-ball--hero {
+  opacity: 0.18;
 }
 
 /* ==================== 卡片马卡龙模糊球（类封装） ==================== */
@@ -1553,7 +1580,7 @@ html:not(.dark) .blur-ball-teal {
   /* 薄荷 */
   --pb4: #ffe5d9;
   /* 桃 */
-  --pb-opacity: 0.55;
+  --pb-opacity: 0.25;
   --pb-blur: 60px;
 }
 
@@ -1796,13 +1823,21 @@ body .semi-always-dark,
   box-shadow: 0 8px 32px -8px rgba(0, 0, 0, 0.15) !important;
 }
 
+/* 下拉 / 气泡菜单：必须用不透明底，否则选项与下层表单叠字无法阅读 */
 .semi-popover-wrapper,
 .semi-select-popover,
 .semi-dropdown-menu {
-  background-color: var(--glass-bg) !important;
-  backdrop-filter: var(--glass-blur) !important;
-  -webkit-backdrop-filter: var(--glass-blur) !important;
-  border: 1px solid var(--glass-border) !important;
+  background-color: var(--semi-color-bg-2) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: 1px solid var(--semi-color-border) !important;
+  box-shadow: 0 12px 40px -10px rgba(15, 23, 42, 0.28) !important;
+}
+
+html.dark .semi-popover-wrapper,
+html.dark .semi-select-popover,
+html.dark .semi-dropdown-menu {
+  box-shadow: 0 14px 44px -12px rgba(0, 0, 0, 0.55) !important;
 }
 
 .semi-table {
@@ -1822,17 +1857,132 @@ body .semi-always-dark,
   background-color: rgba(var(--semi-grey-2), 0.1) !important;
 }
 
-/* Semi Input Tech */
+/* Semi Input / Select / TagInput：浅色背景下需可见描边，避免与卡片融成一片 */
 .semi-input-wrapper {
-  background-color: rgba(var(--semi-grey-1), 0.3) !important;
-  border: 1px solid transparent !important;
-  transition: all 0.2s ease !important;
+  background-color: var(--semi-color-fill-0) !important;
+  border: 1px solid var(--semi-color-border) !important;
+  box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.035) !important;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease !important;
+}
+.semi-input-wrapper:hover:not(.semi-input-wrapper-focus):not(:focus-within):not(
+    .semi-input-wrapper-disabled
+  ) {
+  background-color: var(--semi-color-fill-1) !important;
+  border-color: color-mix(
+    in srgb,
+    var(--semi-color-border) 72%,
+    rgba(var(--semi-grey-5), 1) 28%
+  ) !important;
 }
 .semi-input-wrapper-focus,
 .semi-input-wrapper:focus-within {
-  background-color: var(--glass-bg) !important;
+  background-color: var(--semi-color-bg-0) !important;
   border-color: var(--semi-color-primary) !important;
+  box-shadow:
+    var(--tech-glow),
+    inset 0 1px 2px rgba(15, 23, 42, 0.02) !important;
+}
+
+.semi-input::placeholder,
+textarea.semi-input::placeholder {
+  color: color-mix(
+    in srgb,
+    var(--semi-color-text-2) 55%,
+    var(--semi-color-text-1) 45%
+  ) !important;
+}
+
+/* Select 触发器：与 Input 同级对比度 */
+.semi-select:not(.semi-select-disabled) {
+  border: 1px solid var(--semi-color-border) !important;
+  background-color: var(--semi-color-fill-0) !important;
+  box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.035) !important;
+}
+.semi-select:hover:not(.semi-select-disabled):not(.semi-select-open):not(
+    .semi-select-focus
+  ) {
+  background-color: var(--semi-color-fill-1) !important;
+  border-color: color-mix(
+    in srgb,
+    var(--semi-color-border) 72%,
+    rgba(var(--semi-grey-5), 1) 28%
+  ) !important;
+}
+.semi-select-open,
+.semi-select-focus {
+  background-color: var(--semi-color-bg-0) !important;
+  border-color: var(--semi-color-focus-border) !important;
+  box-shadow:
+    0 0 0 1px rgba(var(--semi-blue-5), 0.12),
+    inset 0 1px 2px rgba(15, 23, 42, 0.02) !important;
+}
+
+.semi-select-selection-placeholder {
+  color: color-mix(
+    in srgb,
+    var(--semi-color-text-2) 55%,
+    var(--semi-color-text-1) 45%
+  ) !important;
+}
+
+/* 多选模型等：标签内留白与间距 */
+.semi-select-multiple .semi-select-selection .semi-tag,
+.semi-select-multiple .semi-select-selection .semi-tag-group .semi-tag {
+  margin-right: 6px !important;
+  margin-top: 3px !important;
+  margin-bottom: 3px !important;
+  padding-left: 10px !important;
+  padding-right: 8px !important;
+  min-height: 26px !important;
+  align-items: center !important;
+}
+
+.semi-tagInput:not(.semi-tagInput-disabled) {
+  border: 1px solid var(--semi-color-border) !important;
+  background-color: var(--semi-color-fill-0) !important;
+  box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.035) !important;
+}
+.semi-tagInput-hover:not(.semi-tagInput-disabled) {
+  border-color: color-mix(
+    in srgb,
+    var(--semi-color-border) 72%,
+    rgba(var(--semi-grey-5), 1) 28%
+  ) !important;
+  background-color: var(--semi-color-fill-1) !important;
+}
+.semi-tagInput-focus {
+  border-color: var(--semi-color-focus-border) !important;
+  background-color: var(--semi-color-bg-0) !important;
+  box-shadow: 0 0 0 1px rgba(var(--semi-blue-5), 0.12) !important;
+}
+
+.semi-input-textarea-wrapper:not(.semi-input-textarea-wrapper-disabled) {
+  border: 1px solid var(--semi-color-border) !important;
+  background-color: var(--semi-color-fill-0) !important;
+  box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.035) !important;
+}
+.semi-input-textarea-wrapper:hover:not(.semi-input-textarea-wrapper-disabled):not(
+    :focus-within
+  ) {
+  background-color: var(--semi-color-fill-1) !important;
+  border-color: color-mix(
+    in srgb,
+    var(--semi-color-border) 72%,
+    rgba(var(--semi-grey-5), 1) 28%
+  ) !important;
+}
+.semi-input-textarea-wrapper-focus {
+  border-color: var(--semi-color-primary) !important;
+  background-color: var(--semi-color-bg-0) !important;
   box-shadow: var(--tech-glow) !important;
+}
+
+/* 带图标的按钮：图标与文案间距（渠道弹窗底部等） */
+.semi-button-content {
+  column-gap: 0.5rem;
 }
 
 .semi-button-primary:not(.semi-button-light):not(.semi-button-outline):not(
@@ -2120,4 +2270,100 @@ html.dark .dashboard-stat-icon-well[data-tone='orange'] {
 .console-dashboard .dashboard-chart-tab--active::after {
   transform: scaleX(1);
   opacity: 1;
+}
+
+/* ========== 登录 / 注册：认证表单输入（覆盖全局 Semi Input 灰底） ========== */
+.auth-form-refined .semi-input-wrapper {
+  display: inline-flex !important;
+  align-items: center !important;
+  background-color: color-mix(
+    in srgb,
+    var(--semi-color-bg-0) 88%,
+    var(--semi-color-fill-0) 12%
+  ) !important;
+  border: 1px solid var(--semi-color-border) !important;
+  box-shadow: none !important;
+  border-radius: 12px !important;
+  padding-left: 0.875rem !important;
+  padding-right: 0.625rem !important;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
+}
+
+/* 自定义 prefix（非 Semi 官方 Icon）不会带 -prefix-icon，无 margin；用 gap 统一隔开图标、文本、后缀 */
+.auth-form-refined .semi-input-wrapper__with-prefix,
+.auth-form-refined .semi-input-wrapper__with-suffix {
+  gap: 0.625rem;
+}
+
+.auth-form-refined .semi-input-wrapper__with-prefix.semi-input-wrapper__with-suffix {
+  gap: 0.5rem;
+}
+
+.auth-form-refined .semi-input-wrapper .semi-input {
+  flex: 1 1 0%;
+  min-width: 0;
+  width: auto !important;
+  background: transparent !important;
+}
+
+.auth-form-refined .semi-input-prefix,
+.auth-form-refined .semi-input-suffix {
+  flex-shrink: 0;
+}
+
+.auth-form-refined .semi-input-prefix .semi-icon,
+.auth-form-refined .semi-input-prefix svg {
+  display: block;
+}
+
+.auth-form-refined .semi-input-wrapper__with-prefix .semi-input {
+  padding-left: 0 !important;
+}
+
+.auth-form-refined .semi-input-wrapper__with-suffix .semi-input {
+  padding-right: 0 !important;
+}
+
+.auth-form-refined .semi-input-wrapper:hover {
+  border-color: color-mix(
+    in srgb,
+    var(--semi-color-border) 50%,
+    rgba(var(--semi-blue-5), 0.75)
+  ) !important;
+}
+
+.auth-form-refined .semi-input-wrapper-focus,
+.auth-form-refined .semi-input-wrapper:focus-within {
+  background-color: var(--semi-color-bg-0) !important;
+  border-color: rgba(var(--semi-blue-5), 0.52) !important;
+  box-shadow: 0 0 0 3px rgba(var(--semi-blue-5), 0.14) !important;
+}
+
+.auth-form-refined .semi-form-field-label {
+  font-weight: 600;
+  color: var(--semi-color-text-1);
+  margin-bottom: 0.45rem;
+}
+
+.auth-form-refined .semi-form-field {
+  margin-bottom: 0.65rem;
+}
+
+/* ========== 认证页 shell：主按钮文字垂直居中、避免毛玻璃 contain:paint 裁切 ========== */
+.auth-page-shell .glass-panel {
+  contain: layout style;
+}
+
+.auth-page-shell
+  .semi-button.semi-button-primary:not(.semi-button-outline):not(
+    .semi-button-borderless
+  )
+  .semi-button-content {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.5;
 }

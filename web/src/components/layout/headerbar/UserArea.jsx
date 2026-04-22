@@ -116,28 +116,31 @@ const UserArea = ({
             </Dropdown.Menu>
           }
         >
-          <Button
-            theme='borderless'
-            type='tertiary'
-            className='neo-topbar-user-trigger flex items-center gap-1.5'
-          >
-            <Avatar
-              size='extra-small'
-              color={stringToColor(userState.user.username)}
-              className='mr-1'
+          <span className='inline-flex max-w-full' aria-label={userState.user.username}>
+            <Button
+              theme='borderless'
+              type='tertiary'
+              className='neo-topbar-user-trigger flex max-w-full items-center gap-1.5'
+              tabIndex={-1}
             >
-              {userState.user.username[0].toUpperCase()}
-            </Avatar>
-            <span className='hidden md:inline'>
-              <Typography.Text className='!text-xs !font-medium !text-semi-color-text-1 dark:!text-gray-300 mr-1'>
-                {userState.user.username}
-              </Typography.Text>
-            </span>
-            <IconChevronDown
-              size={14}
-              className='text-semi-color-text-2 dark:text-gray-400'
-            />
-          </Button>
+              <Avatar
+                size='extra-small'
+                color={stringToColor(userState.user.username)}
+                className='mr-1'
+              >
+                {userState.user.username[0].toUpperCase()}
+              </Avatar>
+              <span className='hidden min-w-0 md:inline'>
+                <Typography.Text className='!text-xs !font-medium !text-semi-color-text-1 dark:!text-gray-300 mr-1 truncate'>
+                  {userState.user.username}
+                </Typography.Text>
+              </span>
+              <IconChevronDown
+                size={14}
+                className='shrink-0 text-semi-color-text-2 dark:text-gray-400'
+              />
+            </Button>
+          </span>
         </Dropdown>
       </div>
     );

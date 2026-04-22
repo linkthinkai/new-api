@@ -50,10 +50,13 @@ const PageLayout = () => {
   const { i18n } = useTranslation();
   const location = useLocation();
 
-  // 路由切换时将主滚动区重置到顶部，避免残留控制台滚动位置
+  // 路由切换时统一重置滚动位置，避免控制台与首页之间残留嵌套滚动或 window 偏移
   useEffect(() => {
     const el = document.querySelector('.app-main-scroll-region');
     if (el) el.scrollTop = 0;
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
   }, [location.pathname]);
 
   const cardProPages = [
@@ -68,7 +71,9 @@ const PageLayout = () => {
     '/pricing',
   ];
 
-  const shouldHideFooter = cardProPages.includes(location.pathname);
+  const shouldHideFooter =
+    cardProPages.includes(location.pathname) ||
+    ['/login', '/register', '/reset'].includes(location.pathname);
 
   const shouldInnerPadding =
     location.pathname.includes('/console') &&
@@ -180,12 +185,12 @@ const PageLayout = () => {
         style={{
           flex: 1,
           minHeight: 0,
-          overflow: isMobile ? 'visible' : 'auto',
+          overflowX: isMobile ? 'visible' : 'hidden',
+          overflowY: isMobile ? 'visible' : 'auto',
           display: 'flex',
           flexDirection: 'column',
           paddingTop: 'var(--app-header-height)',
           WebkitOverflowScrolling: 'touch',
-          scrollbarGutter: isMobile ? undefined : 'stable',
         }}
       >
         {showSider && (
@@ -216,15 +221,19 @@ const PageLayout = () => {
                 ? 'var(--sidebar-current-width)'
                 : '0',
             flex: '1 1 auto',
+            minHeight: 0,
             display: 'flex',
             flexDirection: 'column',
+            overflowX: isMobile ? 'visible' : 'hidden',
+            overflowY: 'visible',
           }}
         >
           <Content
             style={{
               flex: '1 0 auto',
-              overflowY: isMobile ? 'visible' : 'hidden',
-              WebkitOverflowScrolling: 'touch',
+              minHeight: 0,
+              overflowX: 'visible',
+              overflowY: 'visible',
               padding: shouldInnerPadding ? (isMobile ? '5px' : '24px') : '0',
               position: 'relative',
             }}

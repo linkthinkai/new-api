@@ -73,13 +73,18 @@ const LanguageSelector = ({ currentLang, onLanguageChange, t }) => {
         </Dropdown.Menu>
       }
     >
-      <Button
-        icon={<RemixIcon icon='ri-translate-2' size={18} />}
+      <span
+        className='inline-flex'
         aria-label={t('common.changeLanguage')}
-        theme='borderless'
-        type='tertiary'
-        className='neo-topbar-icon-btn'
-      />
+      >
+        <Button
+          icon={<RemixIcon icon='ri-translate-2' size={18} />}
+          theme='borderless'
+          type='tertiary'
+          className='neo-topbar-icon-btn'
+          tabIndex={-1}
+        />
+      </span>
     </Dropdown>
   );
 };

@@ -21,11 +21,14 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { Button } from '@douyinfe/semi-ui';
 import { IconFile } from '@/icons/semiRemix';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const HomeQuickStart = ({ t, reduceMotion, easeSmooth, docsLink, stepKeys }) => {
+  const navigate = useNavigate();
+
   return (
     <motion.section
+      aria-labelledby='home-quickstart-title'
       className='neo-home-section border-b border-[var(--glass-border)]'
       initial={reduceMotion ? false : { opacity: 0, y: 28 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -35,19 +38,27 @@ const HomeQuickStart = ({ t, reduceMotion, easeSmooth, docsLink, stepKeys }) => 
       }
     >
       <div className='neo-home-section-inner'>
-        <div className='neo-home-section-head flex flex-col gap-4 md:flex-row md:items-end md:justify-between'>
+        <header className='neo-home-section-head flex flex-col gap-4 md:flex-row md:items-end md:justify-between'>
           <div>
-            <h2 className='neo-home-section-title'>{t('首页快速开始标题')}</h2>
+            <h2 id='home-quickstart-title' className='neo-home-section-title'>
+              {t('首页快速开始标题')}
+            </h2>
             <p className='neo-home-section-subtitle md:max-w-2xl'>
               {t('首页快速开始副标题')}
             </p>
           </div>
-          <div className='flex flex-wrap gap-2'>
-            <Link to='/console'>
-              <Button type='primary' theme='solid' className='!rounded-full'>
-                {t('首页前往控制台')}
-              </Button>
-            </Link>
+          <nav
+            aria-labelledby='home-quickstart-title'
+            className='flex flex-wrap gap-2'
+          >
+            <Button
+              type='primary'
+              theme='solid'
+              className='!rounded-full'
+              onClick={() => navigate('/console')}
+            >
+              {t('首页前往控制台')}
+            </Button>
             {docsLink ? (
               <Button
                 className='!rounded-full border border-[var(--glass-border)] bg-[var(--glass-bg)] backdrop-blur-md'
@@ -57,10 +68,10 @@ const HomeQuickStart = ({ t, reduceMotion, easeSmooth, docsLink, stepKeys }) => 
                 {t('文档')}
               </Button>
             ) : null}
-          </div>
-        </div>
+          </nav>
+        </header>
 
-        <ol className='mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-4'>
+        <ol className='mt-10 m-0 grid list-none gap-4 p-0 md:grid-cols-2 lg:grid-cols-4'>
           {stepKeys.map((step, index) => (
             <li
               key={step.titleKey}

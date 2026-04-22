@@ -42,6 +42,7 @@ const HomeCodeExample = ({
 
   return (
     <motion.section
+      aria-labelledby='home-code-title'
       className='neo-home-section border-b border-[var(--glass-border)]'
       initial={reduceMotion ? false : { opacity: 0, y: 28 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -51,13 +52,15 @@ const HomeCodeExample = ({
       }
     >
       <div className='neo-home-section-inner'>
-        <div className='neo-home-section-head'>
-          <h2 className='neo-home-section-title'>{t('首页代码示例标题')}</h2>
+        <header className='neo-home-section-head'>
+          <h2 id='home-code-title' className='neo-home-section-title'>
+            {t('首页代码示例标题')}
+          </h2>
           <p className='neo-home-section-subtitle'>{t('首页代码示例说明')}</p>
-        </div>
+        </header>
 
-        <div className='neo-home-code-panel'>
-          <div className='neo-home-code-toolbar'>
+        <figure className='neo-home-code-panel m-0'>
+          <figcaption className='neo-home-code-toolbar'>
             <span className='font-mono text-[11px] uppercase tracking-widest text-semi-color-text-2'>
               curl · chat/completions
             </span>
@@ -70,11 +73,11 @@ const HomeCodeExample = ({
             >
               {t('首页复制示例')}
             </Button>
-          </div>
+          </figcaption>
           <pre className='neo-home-code-block'>
             <code>{snippet}</code>
           </pre>
-        </div>
+        </figure>
       </div>
     </motion.section>
   );
