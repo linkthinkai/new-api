@@ -62,7 +62,7 @@
         },
         {
           "from": "../web/dist",
-          "to": "web/dist"
+          "to": "bin/dist"
         }
       ]
     },
@@ -76,6 +76,10 @@
         {
           "from": "../new-api.exe",
           "to": "bin/new-api.exe"
+        },
+        {
+          "from": "../web/dist",
+          "to": "bin/dist"
         }
       ]
     },
@@ -90,6 +94,10 @@
         {
           "from": "../new-api",
           "to": "bin/new-api"
+        },
+        {
+          "from": "../web/dist",
+          "to": "bin/dist"
         }
       ]
     },

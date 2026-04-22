@@ -270,8 +270,8 @@ function startServer() {
     console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
 
     const binaryPath = getBinaryPath();
-    const workingDir = process.resourcesPath;
-    
+    const workingDir = path.dirname(binaryPath);
+
     console.log('Starting server from:', binaryPath);
 
     serverProcess = spawn(binaryPath, [], {

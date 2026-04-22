@@ -5,6 +5,7 @@ import (
 	"io/fs"
 	"net/http"
 	"os"
+	"path/filepath"
 
 	"github.com/gin-contrib/static"
 )
@@ -39,5 +40,12 @@ func EmbedFolder(fsEmbed embed.FS, targetPath string) static.ServeFileSystem {
 	}
 	return &embedFileSystem{
 		FileSystem: http.FS(efs),
+	}
+}
+
+// DiskFolder 从磁盘目录提供静态文件（与 EmbedFolder 相同的路由行为："/" 交给 NoRoute 处理 SPA）。
+func DiskFolder(root string) static.ServeFileSystem {
+	return &embedFileSystem{
+		FileSystem: http.Dir(filepath.Clean(root)),
 	}
 }

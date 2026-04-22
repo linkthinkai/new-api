@@ -1,7 +1,6 @@
 package router
 
 import (
-	"embed"
 	"net/http"
 	"strings"
 
@@ -13,11 +12,11 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func SetWebRouter(router *gin.Engine, buildFS embed.FS, indexPage []byte) {
+func SetWebRouter(router *gin.Engine, distRoot string, indexPage []byte) {
 	router.Use(gzip.Gzip(gzip.DefaultCompression))
 	router.Use(middleware.GlobalWebRateLimit())
 	router.Use(middleware.Cache())
-	router.Use(static.Serve("/", common.EmbedFolder(buildFS, "web/dist")))
+	router.Use(static.Serve("/", common.DiskFolder(distRoot)))
 	router.NoRoute(func(c *gin.Context) {
 		c.Set(middleware.RouteTagKey, "web")
 		if strings.HasPrefix(c.Request.RequestURI, "/v1") || strings.HasPrefix(c.Request.RequestURI, "/api") || strings.HasPrefix(c.Request.RequestURI, "/assets") {

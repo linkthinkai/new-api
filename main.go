@@ -2,11 +2,11 @@ package main
 
 import (
 	"bytes"
-	"embed"
 	"fmt"
 	"log"
 	"net/http"
 	"os"
+	"path/filepath"
 	"strconv"
 	"strings"
 	"time"
@@ -33,12 +33,6 @@ import (
 
 	_ "net/http/pprof"
 )
-
-//go:embed web/dist
-var buildFS embed.FS
-
-//go:embed web/dist/index.html
-var indexPage []byte
 
 func main() {
 	startTime := time.Now()
@@ -179,11 +173,22 @@ func main() {
 	})
 	server.Use(sessions.Sessions("session", store))
 
-	InjectUmamiAnalytics()
-	InjectGoogleAnalytics()
+	distDir, err := common.ResolveFrontendDistDir()
+	if err != nil {
+		common.FatalLog(err.Error())
+		return
+	}
+	common.SysLog("前端静态资源目录: " + distDir)
+	indexPage, err := os.ReadFile(filepath.Join(distDir, "index.html"))
+	if err != nil {
+		common.FatalLog("读取 index.html 失败: " + err.Error())
+		return
+	}
+	indexPage = InjectUmamiAnalytics(indexPage)
+	indexPage = InjectGoogleAnalytics(indexPage)
 
 	// 设置路由
-	router.SetRouter(server, buildFS, indexPage)
+	router.SetRouter(server, distDir, indexPage)
 	var port = os.Getenv("PORT")
 	if port == "" {
 		port = strconv.Itoa(*common.Port)
@@ -198,7 +203,7 @@ func main() {
 	}
 }
 
-func InjectUmamiAnalytics() {
+func InjectUmamiAnalytics(indexPage []byte) []byte {
 	analyticsInjectBuilder := &strings.Builder{}
 	if os.Getenv("UMAMI_WEBSITE_ID") != "" {
 		umamiSiteID := os.Getenv("UMAMI_WEBSITE_ID")
@@ -214,10 +219,10 @@ func InjectUmamiAnalytics() {
 	}
 	analyticsInjectBuilder.WriteString("<!--Umami QuantumNous-->\n")
 	analyticsInject := analyticsInjectBuilder.String()
-	indexPage = bytes.ReplaceAll(indexPage, []byte("<!--umami-->\n"), []byte(analyticsInject))
+	return bytes.ReplaceAll(indexPage, []byte("<!--umami-->\n"), []byte(analyticsInject))
 }
 
-func InjectGoogleAnalytics() {
+func InjectGoogleAnalytics(indexPage []byte) []byte {
 	analyticsInjectBuilder := &strings.Builder{}
 	if os.Getenv("GOOGLE_ANALYTICS_ID") != "" {
 		gaID := os.Getenv("GOOGLE_ANALYTICS_ID")
@@ -236,7 +241,7 @@ func InjectGoogleAnalytics() {
 	}
 	analyticsInjectBuilder.WriteString("<!--Google Analytics QuantumNous-->\n")
 	analyticsInject := analyticsInjectBuilder.String()
-	indexPage = bytes.ReplaceAll(indexPage, []byte("<!--Google Analytics-->\n"), []byte(analyticsInject))
+	return bytes.ReplaceAll(indexPage, []byte("<!--Google Analytics-->\n"), []byte(analyticsInject))
 }
 
 func InitResources() error {
