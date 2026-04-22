@@ -27,6 +27,7 @@ import Forbidden from './pages/Forbidden';
 import { StatusContext } from './context/Status';
 import OAuth2Callback from './components/auth/OAuth2Callback';
 import SetupCheck from './components/layout/SetupCheck';
+import RouteSeo from './seo/RouteSeo';
 
 const Home = lazy(() => import('./pages/Home'));
 const Dashboard = lazy(() => import('./pages/Dashboard'));
@@ -41,6 +42,7 @@ const PasswordResetForm = lazy(() => import('./components/auth/PasswordResetForm
 const PasswordResetConfirm = lazy(
   () => import('./components/auth/PasswordResetConfirm'),
 );
+const AdminSiteDashboard = lazy(() => import('./pages/AdminSiteDashboard'));
 const Channel = lazy(() => import('./pages/Channel'));
 const Token = lazy(() => import('./pages/Token'));
 const Redemption = lazy(() => import('./pages/Redemption'));
@@ -101,6 +103,7 @@ function App() {
 
   return (
     <SetupCheck>
+      <RouteSeo />
       <AnimatePresence
         mode='wait'
         initial={false}
@@ -164,6 +167,16 @@ function App() {
                 <AdminRoute>
                   <Suspense fallback={<Loading />}>
                     <Subscription />
+                  </Suspense>
+                </AdminRoute>
+              }
+            />
+            <Route
+              path='/console/admin-dashboard'
+              element={
+                <AdminRoute>
+                  <Suspense fallback={<Loading />}>
+                    <AdminSiteDashboard />
                   </Suspense>
                 </AdminRoute>
               }

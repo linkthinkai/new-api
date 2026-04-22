@@ -25,6 +25,7 @@ import { UserProvider } from './context/User';
 import 'react-toastify/dist/ReactToastify.css';
 import { StatusProvider } from './context/Status';
 import { ThemeProvider } from './context/Theme';
+import { HelmetProvider } from 'react-helmet-async';
 import PageLayout from './components/layout/PageLayout';
 import NeoAmbientBackdrop from './components/layout/NeoAmbientBackdrop';
 import './i18n/i18n';
@@ -67,12 +68,14 @@ root.render(
             v7_relativeSplatPath: true,
           }}
         >
-          <ThemeProvider>
-            <NeoAmbientBackdrop />
-            <SemiLocaleWrapper>
-              <PageLayout />
-            </SemiLocaleWrapper>
-          </ThemeProvider>
+          <HelmetProvider>
+            <ThemeProvider>
+              <NeoAmbientBackdrop />
+              <SemiLocaleWrapper>
+                <PageLayout />
+              </SemiLocaleWrapper>
+            </ThemeProvider>
+          </HelmetProvider>
         </BrowserRouter>
       </UserProvider>
     </StatusProvider>

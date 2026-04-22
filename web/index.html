@@ -14,21 +14,60 @@
     <meta
       name="description"
       lang="zh"
-      content="统一的 AI 模型聚合与分发网关，支持将各类大语言模型跨格式转换为 OpenAI、Claude、Gemini 兼容接口，为个人与企业提供集中式模型管理与网关服务。"
+      content="一站式 AI 大模型聚合与 API 网关：将 OpenAI、Claude、Gemini、Azure 及多种 LLM 统一接入同一套接口，支持协议互转与 OpenAI 兼容端点，集中管理渠道、密钥、用量与计费。个人开发者与企业团队一套 Base URL 即可多模型灵活切换，成本与调用透明可观测、可运维，稳定高可用，适用于联调、生产与多环境隔离，让 AI 能力落地更快、更稳、更可控。"
     />
     <meta
       name="description"
       lang="en"
-      content="A unified AI model hub for aggregation & distribution. It supports cross-converting various LLMs into OpenAI-compatible, Claude-compatible, or Gemini-compatible formats. A centralized gateway for personal and enterprise model management."
+      content="One API gateway for OpenAI, Claude, Gemini & more: compatible APIs, cross-format routing, keys & usage. Switch models with one Base URL—clarity, speed, control."
+    />
+    <meta
+      name="keywords"
+      lang="zh"
+      content="AI API,大语言模型,LLM,OpenAI 兼容,Claude API,Gemini API,Azure OpenAI,模型聚合,API 网关,多模型路由,统一接口,API 代理,ChatGPT 接口,人工智能 API,模型中转,渠道管理,API 密钥,用量统计,计费,倍率,企业 AI,开发者平台,AI 基础设施,私有化部署,高可用,Base URL,协议转换,流式输出,对话补全,Embedding,视觉多模态,推理服务,限流,负载均衡,可观测"
+    />
+    <meta
+      name="keywords"
+      lang="en"
+      content="AI API gateway,LLM hub,unified API,OpenAI compatible API,Claude API,Gemini API,Azure OpenAI,multi-model routing,API proxy,model aggregation,API key management,usage billing,streaming API,chat completion API,embedding API,developer platform,enterprise AI,foundation models,API channels,observability,high availability,API relay,cross-format routing,rate limiting,load balancing,multimodal API,token usage"
     />
     <meta name="generator" content="new-api" />
+    <meta name="format-detection" content="telephone=no" />
+    <!-- 全站 Open Graph：主类型 website；主图同 web/public/logo.png（构建后为 /logo.png） -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Link Think" />
+    <meta
+      property="og:description"
+      lang="zh"
+      content="一站式 AI 大模型聚合与 API 网关：将 OpenAI、Claude、Gemini、Azure 及多种 LLM 统一接入同一套接口，支持协议互转与 OpenAI 兼容端点，集中管理渠道、密钥、用量与计费。个人开发者与企业团队一套 Base URL 即可多模型灵活切换，成本与调用透明可观测、可运维，稳定高可用，适用于联调、生产与多环境隔离，让 AI 能力落地更快、更稳、更可控。"
+    />
+    <meta
+      property="og:description"
+      lang="en"
+      content="One API gateway for OpenAI, Claude, Gemini & more: compatible APIs, cross-format routing, keys & usage. Switch models with one Base URL—clarity, speed, control."
+    />
+    <meta property="og:locale" content="zh_CN" />
+    <meta property="og:locale:alternate" content="en_US" />
+    <meta property="og:image" content="/logo.png" />
+    <meta property="og:image:width" content="1024" />
+    <meta property="og:image:height" content="1024" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:alt" content="Link Think" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="/logo.png" />
+    <meta name="twitter:image:alt" content="Link Think" />
+    <meta name="twitter:title" content="Link Think" />
+    <meta
+      name="twitter:description"
+      content="One API gateway for OpenAI, Claude, Gemini & more: compatible APIs, cross-format routing, keys & usage. Switch models with one Base URL—clarity, speed, control."
+    />
     <title>Link Think</title>
+    <!-- 路由、标题与 og:url/绝对 og:image 由客户端按当前域名补全，见 web/src/seo/RouteSeo.jsx -->
     <!--umami-->
     <!--Google Analytics-->
   </head>
 
   <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
     <script type="module" src="/src/index.jsx"></script>
   </body>

@@ -1,3 +1,14 @@
 # https://www.robotstxt.org/robotstxt.html
 User-agent: *
-Disallow:
+Disallow: /api/
+Disallow: /login
+Disallow: /register
+Disallow: /reset
+Disallow: /user/reset
+Disallow: /console
+Disallow: /setup
+Disallow: /oauth/
+Disallow: /forbidden
+Disallow: /chat2link
+
+# Sitemap: 在带 SITEMAP_BASE_URL 的构建后由 scripts/generate-sitemap.mjs 写入 dist/robots.txt

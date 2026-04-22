@@ -40,6 +40,7 @@ const routerMap = {
   log: '/console/log',
   midjourney: '/console/midjourney',
   setting: '/console/setting',
+  admin_dashboard: '/console/admin-dashboard',
   about: '/about',
   detail: '/console',
   pricing: '/pricing',
@@ -146,6 +147,12 @@ const SiderBar = ({ onNavigate = () => {} }) => {
 
   const adminItems = useMemo(() => {
     const items = [
+      {
+        text: t('仪表盘'),
+        itemKey: 'admin_dashboard',
+        to: '/admin-dashboard',
+        className: isAdmin() ? '' : 'tableHiddle',
+      },
       {
         text: t('渠道管理'),
         itemKey: 'channel',

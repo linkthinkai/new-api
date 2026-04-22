@@ -18,6 +18,7 @@ For commercial licensing, please contact support@quantumnous.com
 */
 
 import HeaderBar from './headerbar';
+import SiteVisitBeacon from '../common/SiteVisitBeacon';
 import { Layout } from '@douyinfe/semi-ui';
 import SiderBar from './SiderBar';
 import App from '../../App';
@@ -31,7 +32,6 @@ import { useTranslation } from 'react-i18next';
 import {
   API,
   getLogo,
-  getSystemName,
   showError,
   setStatusData,
 } from '../../helpers';
@@ -115,10 +115,6 @@ const PageLayout = () => {
   useEffect(() => {
     loadUser();
     loadStatus().catch(console.error);
-    let systemName = getSystemName();
-    if (systemName) {
-      document.title = systemName;
-    }
     let logo = getLogo();
     if (logo) {
       let linkElement = document.querySelector("link[rel~='icon']");
@@ -164,6 +160,7 @@ const PageLayout = () => {
         overflow: isMobile ? 'visible' : 'hidden',
       }}
     >
+      <SiteVisitBeacon />
       <Header
         style={{
           padding: 0,

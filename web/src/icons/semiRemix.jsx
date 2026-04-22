@@ -177,6 +177,7 @@ export const IconCalendarClock = createRemixIcon(
 /** 控制台 /console 侧边栏菜单项 → Remix class（与原先 Lucide 语义对应） */
 const SIDEBAR_ITEM_RI_CLASS = {
   detail: 'ri-dashboard-3-line',
+  admin_dashboard: 'ri-pie-chart-2-line',
   playground: 'ri-terminal-window-line',
   chat: 'ri-chat-3-line',
   token: 'ri-key-2-line',

@@ -28,6 +28,20 @@ func SetApiRouter(router *gin.Engine) {
 		apiRouter.GET("/user-agreement", controller.GetUserAgreement)
 		apiRouter.GET("/privacy-policy", controller.GetPrivacyPolicy)
 		apiRouter.GET("/about", controller.GetAbout)
+		// 全站访问记录（由前端上报路径；IP 在服务端解析为中文地理位置）
+		apiRouter.GET("/site_visit/ping", middleware.CriticalRateLimit(), middleware.TryUserAuth(), controller.RecordSiteVisit)
+		// 扁平单路径，与 /site_visit/stats?full=1 等价，避免部分反代/旧二进制仅注册了 stats 时无法访问子路径
+		apiRouter.GET("/site_visit_aggregate", middleware.AdminAuth(), controller.GetSiteVisitAggregate)
+		siteVisitAdmin := apiRouter.Group("/site_visit")
+		siteVisitAdmin.Use(middleware.AdminAuth())
+		{
+			siteVisitAdmin.GET("/", controller.GetSiteVisits)
+			siteVisitAdmin.GET("/stats", controller.GetSiteVisitStats)
+			siteVisitAdmin.GET("/trend", controller.GetSiteVisitTrend)
+			siteVisitAdmin.GET("/paths", controller.GetSiteVisitPathStats)
+			siteVisitAdmin.GET("/regions", controller.GetSiteVisitRegionStats)
+			siteVisitAdmin.GET("/isps", controller.GetSiteVisitIspStats)
+		}
 		//apiRouter.GET("/midjourney", controller.GetMidjourney)
 		apiRouter.GET("/home_page_content", controller.GetHomePageContent)
 		apiRouter.GET("/pricing", middleware.TryUserAuth(), controller.GetPricing)

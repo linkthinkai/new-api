@@ -112,3 +112,16 @@ export const ThemeProvider = ({ children }) => {
     </SetThemeContext.Provider>
   );
 };
+
+const noopTheme = () => {};
+
+/** 构建时首页 renderToString：无 window / localStorage */
+export function PrerenderThemeProviders({ children, actualTheme = 'light' }) {
+  return (
+    <SetThemeContext.Provider value={noopTheme}>
+      <ActualThemeContext.Provider value={actualTheme}>
+        <ThemeContext.Provider value='light'>{children}</ThemeContext.Provider>
+      </ActualThemeContext.Provider>
+    </SetThemeContext.Provider>
+  );
+}
