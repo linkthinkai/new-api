@@ -445,9 +445,17 @@ func checkAndSendQuotaNotify(relayInfo *relaycommon.RelayInfo, quota int, preCon
 				content = "{{value}}，当前剩余额度为 {{value}}，请及时充值。"
 				values = []interface{}{prompt, logger.FormatQuota(relayInfo.UserQuota)}
 			} else {
-				// 默认内容格式，适用于Email和Webhook（支持HTML）
-				content = "{{value}}，当前剩余额度为 {{value}}，为了不影响您的使用，请及时充值。<br/>充值链接：<a href='{{value}}'>{{value}}</a>"
-				values = []interface{}{prompt, logger.FormatQuota(relayInfo.UserQuota), topUpLink, topUpLink}
+				// 默认：Email / Webhook 使用结构化 HTML
+				content = `<p style="margin:0 0 14px 0;font-size:15px;line-height:1.6;color:#334155;">{{value}}</p>
+<div style="margin:0 0 18px 0;padding:18px 20px;border-radius:14px;background:linear-gradient(160deg,#fffbeb 0%,#fff7ed 100%);border:1px solid #fed7aa;">
+  <p style="margin:0 0 4px 0;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:#b45309;font-weight:600;">当前剩余额度</p>
+  <p style="margin:0;font-size:24px;font-weight:800;color:#9a3412;letter-spacing:-0.02em;">{{value}}</p>
+</div>
+<p style="margin:0 0 20px 0;font-size:14px;line-height:1.6;color:#64748b;">为不影响您的正常使用，请在额度耗尽前完成充值。</p>
+<div style="text-align:center;padding:4px 0 8px 0;">
+  <a href='{{value}}' target="_blank" rel="noopener noreferrer" style="display:inline-block;padding:12px 28px;border-radius:10px;font-size:15px;font-weight:600;text-decoration:none;color:#ffffff !important;background:linear-gradient(135deg,#ea580c 0%,#c2410c 100%);box-shadow:0 4px 14px rgba(234,88,12,0.3);">前往充值</a>
+</div>`
+				values = []interface{}{prompt, logger.FormatQuota(relayInfo.UserQuota), topUpLink}
 			}
 
 			err := NotifyUser(relayInfo.UserId, relayInfo.UserEmail, relayInfo.UserSetting, dto.NewNotify(dto.NotifyTypeQuotaExceed, prompt, content, values))
@@ -496,8 +504,16 @@ func checkAndSendSubscriptionQuotaNotify(relayInfo *relaycommon.RelayInfo) {
 			content = "{{value}}，当前剩余额度为 {{value}}，请及时充值。"
 			values = []interface{}{prompt, logger.FormatQuota(int(remaining))}
 		} else {
-			content = "{{value}}，当前剩余额度为 {{value}}，为了不影响您的使用，请及时充值。<br/>充值链接：<a href='{{value}}'>{{value}}</a>"
-			values = []interface{}{prompt, logger.FormatQuota(int(remaining)), topUpLink, topUpLink}
+			content = `<p style="margin:0 0 14px 0;font-size:15px;line-height:1.6;color:#334155;">{{value}}</p>
+<div style="margin:0 0 18px 0;padding:18px 20px;border-radius:14px;background:linear-gradient(160deg,#f0f9ff 0%,#e0f2fe 100%);border:1px solid #bae6fd;">
+  <p style="margin:0 0 4px 0;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:#0369a1;font-weight:600;">订阅剩余额度</p>
+  <p style="margin:0;font-size:24px;font-weight:800;color:#0c4a6e;letter-spacing:-0.02em;">{{value}}</p>
+</div>
+<p style="margin:0 0 20px 0;font-size:14px;line-height:1.6;color:#64748b;">为不影响您的正常使用，请在本周期或额度用尽前完成充值/续费。</p>
+<div style="text-align:center;padding:4px 0 8px 0;">
+  <a href='{{value}}' target="_blank" rel="noopener noreferrer" style="display:inline-block;padding:12px 28px;border-radius:10px;font-size:15px;font-weight:600;text-decoration:none;color:#ffffff !important;background:linear-gradient(135deg,#0284c7 0%,#0369a1 100%);box-shadow:0 4px 14px rgba(2,132,199,0.3);">前往充值</a>
+</div>`
+			values = []interface{}{prompt, logger.FormatQuota(int(remaining)), topUpLink}
 		}
 
 		if err := NotifyUser(relayInfo.UserId, relayInfo.UserEmail, relayInfo.UserSetting, dto.NewNotify(dto.NotifyTypeQuotaExceed, prompt, content, values)); err != nil {

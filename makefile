@@ -27,7 +27,7 @@ start-backend:
 	@cd $(BACKEND_DIR) && go run main.go &
 
 # 先打前端产物，再编译 Linux 可执行文件，输出目录内含 dist/；可在 macOS/Windows 上交叉编译
-build-linux: build-frontend
+build-linux: 
 	@echo "Building $(LINUX_BIN) (linux/$(GOARCH))..."
 	@mkdir -p $(LINUX_RELEASE_DIR)
 	@cd $(BACKEND_DIR) && \

@@ -857,7 +857,7 @@ func testAllChannels(notify bool) error {
 		}
 
 		if notify {
-			service.NotifyRootUser(dto.NotifyTypeChannelTest, "通道测试完成", "所有通道测试已完成")
+			service.NotifyRootUser(dto.NotifyTypeChannelTest, "通道自动化测试完成", "全部通道的连通性与响应检测已结束。请登录管理后台的「渠道」页面查看各条通道的详细结果，并对失败项进行修复或重试。")
 		}
 	})
 	return nil

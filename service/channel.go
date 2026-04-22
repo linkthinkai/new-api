@@ -27,8 +27,8 @@ func DisableChannel(channelError types.ChannelError, reason string) {
 
 	success := model.UpdateChannelStatus(channelError.ChannelId, channelError.UsingKey, common.ChannelStatusAutoDisabled, reason)
 	if success {
-		subject := fmt.Sprintf("通道「%s」（#%d）已被禁用", channelError.ChannelName, channelError.ChannelId)
-		content := fmt.Sprintf("通道「%s」（#%d）已被禁用，原因：%s", channelError.ChannelName, channelError.ChannelId, reason)
+		subject := fmt.Sprintf("【告警】通道「%s」已自动禁用", channelError.ChannelName)
+		content := fmt.Sprintf("通道「%s」（#%d）因错误策略已自动禁用。\n\n原因说明：%s\n\n请登录管理后台检查通道状态、密钥与上游服务可用性，必要时可手动改回后重新发起测试。", channelError.ChannelName, channelError.ChannelId, reason)
 		NotifyRootUser(formatNotifyType(channelError.ChannelId, common.ChannelStatusAutoDisabled), subject, content)
 	}
 }
@@ -36,8 +36,8 @@ func DisableChannel(channelError types.ChannelError, reason string) {
 func EnableChannel(channelId int, usingKey string, channelName string) {
 	success := model.UpdateChannelStatus(channelId, usingKey, common.ChannelStatusEnabled, "")
 	if success {
-		subject := fmt.Sprintf("通道「%s」（#%d）已被启用", channelName, channelId)
-		content := fmt.Sprintf("通道「%s」（#%d）已被启用", channelName, channelId)
+		subject := fmt.Sprintf("【恢复】通道「%s」已重新启用", channelName)
+		content := fmt.Sprintf("通道「%s」（#%d）已从自动禁用状态恢复为启用。若上游与密钥正常，可继续为分组提供转发服务。", channelName, channelId)
 		NotifyRootUser(formatNotifyType(channelId, common.ChannelStatusEnabled), subject, content)
 	}
 }

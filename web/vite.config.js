@@ -28,6 +28,28 @@ const { vitePluginSemi } = pkg;
 
 const analyze = process.env.ANALYZE === 'true';
 
+/**
+ * sse.js 2.x 在 ESM 文件里仍写了 `exports.SSE = SSE`，Rolldown 会报
+ * [COMMONJS_VARIABLE_IN_ESM]；在浏览器/ESM 下只需 `export { SSE }` 即可。
+ */
+function sseJsEsmPatch() {
+  const marker = 'sse.js/lib/sse.js';
+  return {
+    name: 'sse-js-esm-patch',
+    enforce: 'pre',
+    transform(code, id) {
+      const normalized = id.split('?')[0].replace(/\\/g, '/');
+      if (!normalized.includes(marker) || !code.includes('exports.SSE = SSE')) {
+        return null;
+      }
+      return code.replace(
+        /\n\/\/ Export our SSE module for npm\.js\nif \(typeof exports !== 'undefined'\) \{\n  exports\.SSE = SSE;\n\}\n/,
+        '\n',
+      );
+    },
+  };
+}
+
 /** @param {string} id */
 function matchDep(id, pkg) {
   const normalized = id.replace(/\\/g, '/');
@@ -65,7 +87,6 @@ const VENDOR_CHUNK_GROUPS = [
   {
     name: 'react-components',
     test: (id) =>
-      matchDep(id, 'react-dropzone') ||
       matchDep(id, 'react-fireworks') ||
       matchDep(id, 'react-telegram-login') ||
       matchDep(id, 'react-toastify') ||
@@ -104,6 +125,7 @@ export default defineConfig(({ command }) => ({
     },
   },
   plugins: [
+    sseJsEsmPatch(),
     command === 'serve' &&
       codeInspectorPlugin({
         bundler: 'vite',
