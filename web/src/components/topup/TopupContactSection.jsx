@@ -49,15 +49,10 @@ const TopupContactSection = ({ t }) => {
     <section className='mt-6' aria-labelledby='topup-contact-heading'>
       <Card className='!rounded-2xl overflow-hidden border-0 shadow-md ring-1 ring-[var(--semi-color-border)]'>
         {/* 顶栏：与充值卡片区分的轻量品牌带 */}
-        <div className='relative px-5 py-5 sm:px-7 sm:py-6 border-b border-[var(--semi-color-border)] bg-gradient-to-br from-[var(--semi-color-primary)]/[0.07] via-transparent to-violet-500/[0.06]'>
+        <div className='relative px-5 py-5 sm:px-7 sm:py-6 border-b border-[var(--semi-color-border)] bg-gradient-to-br from-[var(--semi-color-bg-0)] via-transparent to-[var(--semi-color-fill-0)]'>
           <div className='flex items-start gap-4'>
             <div
-              className='flex h-11 w-11 shrink-0 items-center justify-center rounded-xl shadow-sm'
-              style={{
-                background:
-                  'linear-gradient(145deg, rgba(var(--semi-blue-5), 0.22), rgba(139, 92, 246, 0.12))',
-                color: 'rgba(var(--semi-blue-5), 1)',
-              }}
+              className='flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-[var(--semi-color-border)] bg-[var(--semi-color-fill-0)] text-[var(--semi-color-text-1)] shadow-sm'
               aria-hidden
             >
               <Headphones className='h-5 w-5' strokeWidth={2} />
@@ -82,7 +77,7 @@ const TopupContactSection = ({ t }) => {
             <div className='flex flex-wrap items-center gap-2'>
               <Tag
                 size='large'
-                color='blue'
+                color='grey'
                 className='!rounded-lg !px-2.5 !font-medium'
               >
                 QQ
@@ -127,10 +122,10 @@ const TopupContactSection = ({ t }) => {
             <div className='mt-6 flex flex-1 flex-col items-center justify-end sm:mt-8'>
               <div className='relative w-full max-w-[232px]'>
                 <div
-                  className='absolute -inset-px rounded-[1.125rem] opacity-60 blur-sm'
+                  className='absolute -inset-px rounded-[1.125rem] opacity-40 blur-sm'
                   style={{
                     background:
-                      'linear-gradient(135deg, rgba(59, 130, 246, 0.35), rgba(139, 92, 246, 0.25))',
+                      'linear-gradient(135deg, rgba(var(--neo-p-rgb), 0.12), rgba(var(--neo-s-rgb), 0.08))',
                   }}
                   aria-hidden
                 />
@@ -163,21 +158,16 @@ const TopupContactSection = ({ t }) => {
           {/* Telegram：右栏 — 品牌色强调 */}
           <div className='relative flex flex-col justify-between bg-[var(--semi-color-fill-0)] p-6 sm:p-8'>
             <div
-              className='pointer-events-none absolute inset-0 opacity-[0.45] dark:opacity-[0.25]'
+              className='pointer-events-none absolute inset-0 opacity-[0.35] dark:opacity-[0.2]'
               style={{
                 background:
-                  'radial-gradient(ellipse 80% 60% at 70% 20%, rgba(0, 136, 204, 0.14), transparent 55%)',
+                  'radial-gradient(ellipse 80% 60% at 70% 20%, rgba(var(--neo-t-rgb), 0.1), transparent 55%)',
               }}
               aria-hidden
             />
             <div className='relative flex flex-1 flex-col items-center justify-center gap-5 text-center lg:py-2'>
               <div
-                className='flex h-[4.5rem] w-[4.5rem] items-center justify-center rounded-2xl shadow-md'
-                style={{
-                  background:
-                    'linear-gradient(160deg, rgba(0, 136, 204, 0.2), rgba(0, 136, 204, 0.06))',
-                  color: '#0088cc',
-                }}
+                className='flex h-[4.5rem] w-[4.5rem] items-center justify-center rounded-2xl border border-[var(--semi-color-border)] bg-[var(--semi-color-bg-0)] text-[var(--semi-color-text-0)] shadow-sm'
               >
                 <SiTelegram size={40} aria-hidden />
               </div>
@@ -199,10 +189,6 @@ const TopupContactSection = ({ t }) => {
                 icon={<SiTelegram className='text-lg' />}
                 onClick={openTelegram}
                 className='!rounded-xl !px-8 !min-h-11 !font-medium shadow-sm'
-                style={{
-                  background: 'linear-gradient(180deg, #009eeb 0%, #0088cc 100%)',
-                  borderColor: 'transparent',
-                }}
               >
                 {t('打开 Telegram')}
               </Button>

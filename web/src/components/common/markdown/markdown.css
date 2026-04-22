@@ -59,13 +59,11 @@
 }
 
 .user-message a {
-  color: #87ceeb !important;
-  /* 浅蓝色链接 */
+  color: #f0dcc8 !important;
 }
 
 .user-message a:hover {
-  color: #b0e0e6 !important;
-  /* hover时更浅的蓝色 */
+  color: #fff !important;
 }
 
 /* 表格在用户消息中的样式 */
@@ -93,8 +91,9 @@
   }
 }
 
-/* 代码高亮主题 - 适配Semi Design */
-.hljs {
+/* 代码高亮主题 - 适配 Semi；提高选择器优先级以覆盖 highlight.js 的 github.css 浅色固色，避免暗色模式下正文/变量/字符串发灰发蓝 */
+.markdown-body .hljs,
+.neo-home-code-line-tokens.hljs {
   display: block;
   overflow-x: auto;
   padding: 0;
@@ -102,88 +101,164 @@
   color: var(--semi-color-text-0);
 }
 
-.hljs-comment,
-.hljs-quote {
+.markdown-body .hljs-comment,
+.markdown-body .hljs-quote,
+.markdown-body .hljs-code,
+.markdown-body .hljs-formula,
+.neo-home-code-line-tokens .hljs-comment,
+.neo-home-code-line-tokens .hljs-quote,
+.neo-home-code-line-tokens .hljs-code,
+.neo-home-code-line-tokens .hljs-formula {
   color: var(--semi-color-text-2);
   font-style: italic;
 }
 
-.hljs-keyword,
-.hljs-selector-tag,
-.hljs-subst {
+.markdown-body .hljs-keyword,
+.markdown-body .hljs-selector-tag,
+.markdown-body .hljs-template-tag,
+.neo-home-code-line-tokens .hljs-keyword,
+.neo-home-code-line-tokens .hljs-selector-tag,
+.neo-home-code-line-tokens .hljs-template-tag {
   color: var(--semi-color-primary);
   font-weight: bold;
 }
 
-.hljs-number,
-.hljs-literal,
-.hljs-variable,
-.hljs-template-variable,
-.hljs-tag .hljs-attr {
+/* .hljs-subst：与原先一致，主色 + 非粗体 */
+.markdown-body .hljs-subst,
+.neo-home-code-line-tokens .hljs-subst {
+  color: var(--semi-color-primary);
+  font-weight: normal;
+}
+
+.markdown-body .hljs-number,
+.markdown-body .hljs-literal,
+.markdown-body .hljs-variable,
+.markdown-body .hljs-variable.language_,
+.markdown-body .hljs-template-variable,
+.markdown-body .hljs-tag .hljs-attr,
+.markdown-body .hljs-selector-attr,
+.markdown-body .hljs-selector-class,
+.neo-home-code-line-tokens .hljs-number,
+.neo-home-code-line-tokens .hljs-literal,
+.neo-home-code-line-tokens .hljs-variable,
+.neo-home-code-line-tokens .hljs-variable.language_,
+.neo-home-code-line-tokens .hljs-template-variable,
+.neo-home-code-line-tokens .hljs-tag .hljs-attr,
+.neo-home-code-line-tokens .hljs-selector-attr,
+.neo-home-code-line-tokens .hljs-selector-class {
   color: var(--semi-color-warning);
 }
 
-.hljs-string,
-.hljs-doctag {
+.markdown-body .hljs-string,
+.markdown-body .hljs-doctag,
+.neo-home-code-line-tokens .hljs-string,
+.neo-home-code-line-tokens .hljs-doctag {
   color: var(--semi-color-success);
 }
 
-.hljs-title,
-.hljs-section,
-.hljs-selector-id {
+.markdown-body .hljs-title,
+.markdown-body .hljs-title.class_,
+.markdown-body .hljs-title.function_,
+.markdown-body .hljs-title.class_.inherited__,
+.markdown-body .hljs-section,
+.markdown-body .hljs-selector-id,
+.neo-home-code-line-tokens .hljs-title,
+.neo-home-code-line-tokens .hljs-title.class_,
+.neo-home-code-line-tokens .hljs-title.function_,
+.neo-home-code-line-tokens .hljs-title.class_.inherited__,
+.neo-home-code-line-tokens .hljs-section,
+.neo-home-code-line-tokens .hljs-selector-id {
   color: var(--semi-color-primary);
   font-weight: bold;
 }
 
-.hljs-subst {
-  font-weight: normal;
-}
-
-.hljs-type,
-.hljs-class .hljs-title {
+.markdown-body .hljs-type,
+.markdown-body .hljs-class .hljs-title,
+.neo-home-code-line-tokens .hljs-type,
+.neo-home-code-line-tokens .hljs-class .hljs-title {
   color: var(--semi-color-info);
   font-weight: bold;
 }
 
-.hljs-tag,
-.hljs-name,
-.hljs-attribute {
+.markdown-body .hljs-tag,
+.markdown-body .hljs-name,
+.markdown-body .hljs-attribute,
+.neo-home-code-line-tokens .hljs-tag,
+.neo-home-code-line-tokens .hljs-name,
+.neo-home-code-line-tokens .hljs-attribute {
   color: var(--semi-color-primary);
   font-weight: normal;
 }
 
-.hljs-regexp,
-.hljs-link {
+.markdown-body .hljs-regexp,
+.markdown-body .hljs-link,
+.neo-home-code-line-tokens .hljs-regexp,
+.neo-home-code-line-tokens .hljs-link {
   color: var(--semi-color-tertiary);
 }
 
-.hljs-symbol,
-.hljs-bullet {
+.markdown-body .hljs-symbol,
+.markdown-body .hljs-bullet,
+.neo-home-code-line-tokens .hljs-symbol,
+.neo-home-code-line-tokens .hljs-bullet {
   color: var(--semi-color-warning);
 }
 
-.hljs-built_in,
-.hljs-builtin-name {
+.markdown-body .hljs-built_in,
+.markdown-body .hljs-builtin-name,
+.neo-home-code-line-tokens .hljs-built_in,
+.neo-home-code-line-tokens .hljs-builtin-name {
   color: var(--semi-color-info);
 }
 
-.hljs-meta {
+.markdown-body .hljs-meta,
+.neo-home-code-line-tokens .hljs-meta {
   color: var(--semi-color-text-2);
 }
 
-.hljs-deletion {
+.markdown-body .hljs-meta .hljs-string,
+.neo-home-code-line-tokens .hljs-meta .hljs-string {
+  color: var(--semi-color-success);
+}
+
+.markdown-body .hljs-meta .hljs-keyword,
+.neo-home-code-line-tokens .hljs-meta .hljs-keyword {
+  color: var(--semi-color-primary);
+  font-weight: bold;
+}
+
+.markdown-body .hljs-attr,
+.markdown-body .hljs-operator,
+.markdown-body .hljs-punctuation,
+.markdown-body .hljs-property,
+.markdown-body .hljs-params,
+.markdown-body .hljs-selector-pseudo,
+.neo-home-code-line-tokens .hljs-attr,
+.neo-home-code-line-tokens .hljs-operator,
+.neo-home-code-line-tokens .hljs-punctuation,
+.neo-home-code-line-tokens .hljs-property,
+.neo-home-code-line-tokens .hljs-params,
+.neo-home-code-line-tokens .hljs-selector-pseudo {
+  color: var(--semi-color-text-1);
+}
+
+.markdown-body .hljs-deletion,
+.neo-home-code-line-tokens .hljs-deletion {
   background: var(--semi-color-danger-light-default);
 }
 
-.hljs-addition {
+.markdown-body .hljs-addition,
+.neo-home-code-line-tokens .hljs-addition {
   background: var(--semi-color-success-light-default);
 }
 
-.hljs-emphasis {
+.markdown-body .hljs-emphasis,
+.neo-home-code-line-tokens .hljs-emphasis {
   font-style: italic;
 }
 
-.hljs-strong {
+.markdown-body .hljs-strong,
+.neo-home-code-line-tokens .hljs-strong {
   font-weight: bold;
 }
 
@@ -264,9 +339,20 @@ pre:hover .copy-code-button {
   text-align: center;
 }
 
-/* 链接hover效果 */
+/* 链接：使用烟茶/炭灰，避免默认蓝链 */
 .markdown-body a {
-  transition: all 0.2s ease;
+  color: var(--neo-accent-2);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: color-mix(in srgb, var(--neo-accent-2) 45%, transparent);
+  transition:
+    color 0.2s ease,
+    text-decoration-color 0.2s ease;
+}
+
+.markdown-body a:hover {
+  color: var(--neo-ink);
+  text-decoration-color: color-mix(in srgb, var(--neo-ink) 50%, transparent);
 }
 
 /* 引用块样式增强 */

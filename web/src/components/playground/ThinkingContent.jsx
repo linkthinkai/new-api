@@ -73,10 +73,9 @@ const ThinkingContent = ({
   return (
     <div className='rounded-xl sm:rounded-2xl mb-2 sm:mb-4 overflow-hidden shadow-sm backdrop-blur-sm'>
       <div
-        className='flex items-center justify-between p-3 cursor-pointer hover:bg-gradient-to-r hover:from-white/20 hover:to-purple-50/30 transition-all'
+        className='flex items-center justify-between p-3 cursor-pointer hover:opacity-95 transition-all'
         style={{
-          background:
-            'linear-gradient(135deg, #4c1d95 0%, #6d28d9 50%, #7c3aed 100%)',
+          background: 'linear-gradient(135deg, #3a3632 0%, #2a2622 50%, #1f1c19 100%)',
           position: 'relative',
         }}
         onClick={() => onToggleReasoningExpansion(message.id)}
@@ -148,7 +147,7 @@ const ThinkingContent = ({
           message.isReasoningExpanded
             ? 'max-h-96 opacity-100'
             : 'max-h-0 opacity-0'
-        } overflow-hidden bg-gradient-to-br from-purple-50 via-indigo-50 to-violet-50`}
+        } overflow-hidden bg-gradient-to-br from-stone-100 via-stone-50 to-neutral-100 dark:from-stone-900/30 dark:via-stone-900/20 dark:to-neutral-900/25`}
       >
         {message.isReasoningExpanded && (
           <div className='p-3 sm:p-5 pt-2 sm:pt-4'>
@@ -161,7 +160,7 @@ const ThinkingContent = ({
                 scrollbarColor: 'rgba(0, 0, 0, 0.3) transparent',
               }}
             >
-              <div className='prose prose-xs sm:prose-sm prose-purple max-w-none text-xs sm:text-sm'>
+              <div className='prose prose-xs sm:prose-sm prose-stone max-w-none text-xs sm:text-sm'>
                 <MarkdownRenderer
                   content={finalExtractedThinkingContent}
                   className=''

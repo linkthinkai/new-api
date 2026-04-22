@@ -90,7 +90,7 @@ export const useDashboardStats = (
             icon: <IconPulse />,
             avatarColor: 'cyan',
             trendData: trendData.times,
-            trendColor: '#06b6d4',
+            trendColor: '#0d9488',
           },
         ],
       },

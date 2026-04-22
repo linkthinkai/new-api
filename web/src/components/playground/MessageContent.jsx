@@ -218,9 +218,9 @@ const MessageContent = ({
   ) {
     return (
       <div
-        className={`${className} flex items-center gap-2 sm:gap-4 bg-gradient-to-r from-purple-50 to-indigo-50`}
+        className={`${className} flex items-center gap-2 sm:gap-4 bg-gradient-to-r from-stone-100 to-neutral-100 dark:from-stone-900/40 dark:to-neutral-900/40`}
       >
-        <div className='w-5 h-5 rounded-full bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center shadow-lg'>
+        <div className='w-5 h-5 rounded-full bg-stone-800 dark:bg-stone-600 flex items-center justify-center shadow-md'>
           <Loader2
             className='animate-spin text-white'
             size={styleState.isMobile ? 16 : 20}

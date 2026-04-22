@@ -121,7 +121,7 @@ const CustomInputRender = (props) => {
 
   // 发送按钮
   const styledSendNode = React.cloneElement(sendNode, {
-    className: `!rounded-full !bg-purple-500 hover:!bg-purple-600 flex-shrink-0 transition-all ${sendNode.props.className || ''}`,
+    className: `!rounded-full !bg-stone-800 hover:!bg-stone-900 flex-shrink-0 transition-all ${sendNode.props.className || ''}`,
     style: {
       ...sendNode.props.style,
       width: '32px',

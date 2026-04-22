@@ -25,10 +25,10 @@ const AuthBrandHeader = ({ logo, systemName, pageTitle }) => {
       <div className='flex justify-center'>
         <div className='relative'>
           <div
-            className='absolute -inset-2 rounded-xl opacity-70 blur-xl'
+            className='absolute -inset-2 rounded-xl opacity-50 blur-xl'
             style={{
               background:
-                'linear-gradient(135deg, rgba(var(--semi-blue-5), 0.32), rgba(139, 92, 246, 0.18))',
+                'linear-gradient(135deg, rgba(var(--neo-p-rgb), 0.14), rgba(var(--neo-s-rgb), 0.08))',
             }}
             aria-hidden
           />

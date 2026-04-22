@@ -132,9 +132,9 @@ const ChartsPanel = ({
                     id={`dashboard-chart-tab-${key}`}
                     onClick={() => setActiveChartTab(key)}
                     className={[
-                      'dashboard-chart-tab relative rounded-lg px-2.5 py-1.5 text-left text-xs font-medium transition-[color,background,box-shadow,transform] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(var(--semi-blue-5),0.45)] sm:px-3 sm:text-[13px]',
+                      'dashboard-chart-tab relative rounded-lg px-2.5 py-1.5 text-left text-xs font-medium transition-[color,background,box-shadow,transform] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(var(--neo-p-rgb),0.4)] sm:px-3 sm:text-[13px]',
                       active
-                        ? 'dashboard-chart-tab--active bg-[var(--semi-color-bg-1)] text-semi-color-primary shadow-[inset_0_0_0_1px_rgba(var(--semi-blue-5),0.38)] dark:bg-[var(--semi-color-bg-2)]/90'
+                        ? 'dashboard-chart-tab--active bg-[var(--semi-color-bg-1)] text-semi-color-primary shadow-[inset_0_0_0_1px_rgba(var(--neo-p-rgb),0.32)] dark:bg-[var(--semi-color-bg-2)]/90'
                         : 'text-semi-color-text-2 hover:bg-[var(--semi-color-fill-1)] hover:text-semi-color-text-0',
                     ].join(' ')}
                   >

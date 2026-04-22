@@ -104,15 +104,14 @@ const PasswordResetConfirm = () => {
   }
 
   return (
-    <div className='relative overflow-hidden bg-gray-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8'>
-      {/* 背景模糊晕染球 */}
+    <div className='relative overflow-hidden bg-[var(--semi-color-bg-1)] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8'>
       <div
-        className='blur-ball blur-ball-indigo'
-        style={{ top: '-80px', right: '-80px', transform: 'none' }}
-      />
-      <div
-        className='blur-ball blur-ball-teal'
-        style={{ top: '50%', left: '-120px' }}
+        className='pointer-events-none absolute inset-0 opacity-30'
+        style={{
+          background:
+            'radial-gradient(ellipse 80% 50% at 50% -8%, rgba(var(--neo-p-rgb), 0.08), transparent 55%)',
+        }}
+        aria-hidden
       />
       <div className='mx-auto w-full max-w-sm'>
         <div className='flex flex-col items-center'>

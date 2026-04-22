@@ -40,7 +40,7 @@ const HeaderLogo = ({
   return (
     <Link
       to='/'
-      className='group flex min-w-0 items-center gap-2 rounded-xl py-1 pr-1 outline-none ring-[rgba(var(--semi-blue-5),0.35)] transition-colors focus-visible:ring-2'
+      className='group flex min-w-0 items-center gap-2 rounded-xl py-1 pr-1 outline-none ring-[rgba(var(--neo-p-rgb),0.35)] transition-colors focus-visible:ring-2'
     >
       <div className='relative h-8 w-8 shrink-0 sm:h-9 sm:w-9'>
         <SkeletonWrapper loading={isLoading || !logoLoaded} type='image' />

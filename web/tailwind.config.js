@@ -144,11 +144,17 @@ export default {
       'semi-color-data-19': 'var(--semi-color-data-19)',
     },
     extend: {
+      colors: {
+        'neo-accent': 'var(--neo-accent)',
+        'neo-accent-2': 'var(--neo-accent-2)',
+        'neo-canvas': 'var(--neo-canvas)',
+        'neo-ink': 'var(--neo-ink)',
+      },
       boxShadow: {
         'neo-glow':
-          '0 0 0 1px rgba(34, 211, 238, 0.12), 0 0 40px -8px rgba(34, 211, 238, 0.35)',
+          '0 1px 2px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(var(--neo-grid-rgb), 0.06)',
         'neo-glow-lg':
-          '0 0 0 1px rgba(139, 92, 246, 0.15), 0 24px 80px -24px rgba(6, 182, 212, 0.25)',
+          '0 4px 24px -4px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(var(--neo-grid-rgb), 0.05)',
       },
       backgroundImage: {
         'neo-noise':

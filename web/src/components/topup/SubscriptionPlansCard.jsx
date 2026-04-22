@@ -529,7 +529,7 @@ const SubscriptionPlansCard = ({
                   <Card
                     key={plan?.id}
                     className={`!rounded-xl transition-all hover:shadow-lg w-full h-full ${
-                      isPopular ? 'ring-2 ring-purple-500' : ''
+                      isPopular ? 'ring-2 ring-[color:rgba(var(--neo-p-rgb),0.45)]' : ''
                     }`}
                     bodyStyle={{ padding: 0 }}
                   >

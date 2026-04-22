@@ -46,7 +46,7 @@ const FloatingButtons = ({
             borderRadius: '50%',
             padding: 0,
             boxShadow: '0 4px 12px rgba(0, 0, 0, 0.2)',
-            background: 'linear-gradient(to right, #8b5cf6, #6366f1)',
+            background: 'rgb(var(--semi-blue-5))',
           }}
           onClick={onToggleSettings}
           theme='solid'
@@ -73,8 +73,8 @@ const FloatingButtons = ({
             padding: 0,
             boxShadow: '0 4px 12px rgba(0, 0, 0, 0.2)',
             background: showDebugPanel
-              ? 'linear-gradient(to right, #e11d48, #be123c)'
-              : 'linear-gradient(to right, #4f46e5, #6366f1)',
+              ? 'linear-gradient(to right, #b91c1c, #991b1b)'
+              : 'rgb(var(--semi-blue-5))',
           }}
           className='lg:hidden'
         />

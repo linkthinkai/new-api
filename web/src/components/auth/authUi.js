@@ -31,8 +31,8 @@ export const AUTH_FORM_SUBMIT_CLASS =
 
 /** 次要文字链接（去注册 / 去登录） */
 export const AUTH_INLINE_LINK_CLASS =
-  'font-medium text-[rgba(var(--semi-blue-5),1)] hover:underline underline-offset-2';
+  'font-medium text-[rgb(var(--semi-blue-5))] hover:underline underline-offset-2';
 
 /** 协议内嵌链接 */
 export const AUTH_POLICY_LINK_CLASS =
-  'text-[rgba(var(--semi-blue-5),1)] hover:underline mx-0.5';
+  'text-[rgb(var(--semi-blue-5))] hover:underline mx-0.5';

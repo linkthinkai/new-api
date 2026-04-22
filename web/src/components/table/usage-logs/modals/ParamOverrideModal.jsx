@@ -231,7 +231,7 @@ const ParamOverrideModal = ({
                         lineHeight: '20px',
                         padding: '0 8px',
                         borderRadius: 999,
-                        background: 'rgba(var(--semi-blue-5), 0.12)',
+                        background: 'rgba(var(--neo-p-rgb), 0.1)',
                         color: 'var(--semi-color-primary)',
                       }}
                     >

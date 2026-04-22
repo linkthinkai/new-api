@@ -62,7 +62,7 @@ const ChatArea = ({
       {styleState.isMobile ? (
         <div className='pt-4'></div>
       ) : (
-        <div className='px-6 py-4 bg-gradient-to-r from-purple-500 to-blue-500 rounded-t-2xl'>
+        <div className='px-6 py-4 bg-gradient-to-r from-stone-800 to-neutral-900 rounded-t-2xl'>
           <div className='flex items-center justify-between'>
             <div className='flex items-center gap-3'>
               <div className='w-10 h-10 rounded-full bg-white/20 backdrop-blur flex items-center justify-center'>

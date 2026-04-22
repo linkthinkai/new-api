@@ -17,9 +17,9 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 For commercial licensing, please contact support@quantumnous.com
 */
 
-import react from '@vitejs/plugin-react';
+import react from '@vitejs/plugin-react-swc';
 import tailwindcss from '@tailwindcss/vite';
-import { defineConfig, transformWithEsbuild } from 'vite';
+import { defineConfig } from 'vite';
 import { visualizer } from 'rollup-plugin-visualizer';
 import pkg from '@douyinfe/vite-plugin-semi';
 import path from 'path';
@@ -29,32 +29,40 @@ const { vitePluginSemi } = pkg;
 const analyze = process.env.ANALYZE === 'true';
 
 // https://vitejs.dev/config/
-export default defineConfig({
+export default defineConfig(({ command }) => ({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
     },
   },
   plugins: [
-    codeInspectorPlugin({
-      bundler: 'vite',
-    }),
-    {
-      name: 'treat-js-files-as-jsx',
-      async transform(code, id) {
-        if (!/src\/.*\.js$/.test(id)) {
-          return null;
+    command === 'serve' &&
+      codeInspectorPlugin({
+        bundler: 'vite',
+      }),
+    react({
+      // 空数组为 truthy，使 build 走 SWC 分支；见 plugin-react-swc 源码
+      plugins: [],
+      parserConfig(id) {
+        const f = id.split('?')[0];
+        if (f.endsWith('.tsx')) {
+          return { syntax: 'typescript', tsx: true, decorators: false };
         }
-
-        // Use the exposed transform from vite, instead of directly
-        // transforming with esbuild
-        return transformWithEsbuild(code, id, {
-          loader: 'jsx',
-          jsx: 'automatic',
-        });
+        if (f.endsWith('.ts') || f.endsWith('.mts')) {
+          return { syntax: 'typescript', tsx: false, decorators: false };
+        }
+        if (f.endsWith('.jsx')) {
+          return { syntax: 'ecmascript', jsx: true };
+        }
+        if (f.endsWith('.mdx')) {
+          return { syntax: 'ecmascript', jsx: true };
+        }
+        if (f.endsWith('.js') && /\/src\//.test(f)) {
+          return { syntax: 'ecmascript', jsx: true };
+        }
+        return undefined;
       },
-    },
-    react(),
+    }),
     tailwindcss(),
     vitePluginSemi({
       cssLayer: true,
@@ -77,6 +85,7 @@ export default defineConfig({
     },
   },
   build: {
+    reportCompressedSize: false,
     rollupOptions: {
       output: {
         manualChunks: {
@@ -119,4 +128,4 @@ export default defineConfig({
       },
     },
   },
-});
+}));

@@ -48,7 +48,7 @@ const FooterBar = () => {
         }`}
       >
         <div
-          className={`pointer-events-none absolute inset-0 bg-[length:48px_48px] bg-[linear-gradient(rgba(6,182,212,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(6,182,212,0.06)_1px,transparent_1px)] dark:bg-[linear-gradient(rgba(34,211,238,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(34,211,238,0.06)_1px,transparent_1px)] ${
+          className={`pointer-events-none absolute inset-0 bg-[length:48px_48px] bg-[linear-gradient(rgba(var(--neo-p-rgb),0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(var(--neo-p-rgb),0.04)_1px,transparent_1px)] ${
             isDemoSiteMode ? 'opacity-[0.32]' : 'opacity-[0.12]'
           }`}
           aria-hidden

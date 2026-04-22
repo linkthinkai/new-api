@@ -28,25 +28,15 @@ const AuthPageLayout = ({ children }) => {
   return (
     <div className='auth-page-shell relative flex min-h-[calc(100dvh-var(--app-header-height))] flex-col overflow-hidden bg-[var(--semi-color-bg-1)]'>
       <div
-        className='pointer-events-none absolute inset-0 opacity-[0.4] dark:opacity-[0.22]'
+        className='pointer-events-none absolute inset-0 opacity-[0.35] dark:opacity-[0.18]'
         style={{
           background:
-            'radial-gradient(ellipse 90% 55% at 50% -12%, rgba(var(--semi-blue-5), 0.14), transparent 52%), radial-gradient(ellipse 70% 45% at 100% 40%, rgba(139, 92, 246, 0.1), transparent 48%)',
+            'radial-gradient(ellipse 80% 50% at 50% -8%, rgba(var(--neo-p-rgb), 0.08), transparent 55%)',
         }}
         aria-hidden
       />
       <div
-        className='pointer-events-none absolute inset-0 bg-neo-noise bg-[length:256px_256px] opacity-[0.35] dark:opacity-[0.2]'
-        aria-hidden
-      />
-      <div
-        className='blur-ball blur-ball-indigo'
-        style={{ top: '-80px', right: '-80px', transform: 'none' }}
-        aria-hidden
-      />
-      <div
-        className='blur-ball blur-ball-teal'
-        style={{ top: '48%', left: '-120px' }}
+        className='pointer-events-none absolute inset-0 bg-neo-noise bg-[length:256px_256px] opacity-[0.18] dark:opacity-[0.12]'
         aria-hidden
       />
 

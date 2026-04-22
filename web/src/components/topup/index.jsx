@@ -615,13 +615,13 @@ const TopUp = () => {
 
               if (!method.color) {
                 if (method.type === 'alipay') {
-                  method.color = 'rgba(var(--semi-blue-5), 1)';
+                  method.color = 'rgba(var(--neo-p-rgb), 1)';
                 } else if (method.type === 'wxpay') {
                   method.color = 'rgba(var(--semi-green-5), 1)';
                 } else if (method.type === 'stripe') {
-                  method.color = 'rgba(var(--semi-purple-5), 1)';
+                  method.color = 'rgba(var(--neo-s-rgb), 1)';
                 } else {
-                  method.color = 'rgba(var(--semi-primary-5), 1)';
+                  method.color = 'rgb(var(--semi-blue-5))';
                 }
               }
               return method;

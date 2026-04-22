@@ -44,10 +44,10 @@ const USER_COLORS = [
   '#f59e0b',
   '#8b5cf6',
   '#ec4899',
-  '#06b6d4',
+  '#0d9488',
   '#f97316',
   '#6366f1',
-  '#14b8a6',
+  '#5eead4',
 ];
 
 export const useDashboardCharts = (

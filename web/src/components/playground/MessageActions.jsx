@@ -118,7 +118,7 @@ const MessageActions = ({
               !shouldDisableActions && onRoleToggle && onRoleToggle(message)
             }
             disabled={shouldDisableActions}
-            className={`!rounded-full ${shouldDisableActions ? '!text-gray-300 !cursor-not-allowed' : message.role === 'system' ? '!text-purple-500 hover:!text-purple-700 hover:!bg-purple-50' : '!text-gray-400 hover:!text-purple-600 hover:!bg-purple-50'} ${styleState.isMobile ? '!w-6 !h-6' : '!w-7 !h-7'} !p-0 transition-all`}
+            className={`!rounded-full ${shouldDisableActions ? '!text-gray-300 !cursor-not-allowed' : message.role === 'system' ? '!text-stone-600 hover:!text-stone-800 hover:!bg-stone-100 dark:!text-stone-300 dark:hover:!bg-stone-800/60' : '!text-gray-400 hover:!text-stone-600 hover:!bg-stone-100 dark:hover:!bg-stone-800/40'} ${styleState.isMobile ? '!w-6 !h-6' : '!w-7 !h-7'} !p-0 transition-all`}
             aria-label={
               message.role === 'assistant'
                 ? t('切换为System角色')

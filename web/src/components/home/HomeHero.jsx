@@ -95,9 +95,9 @@ const HomeHero = ({
             variants={heroItemVariants}
           >
             <p
-              className={`mb-6 inline-flex items-center gap-2 rounded-full border border-[var(--glass-border)] bg-[var(--glass-bg)] px-4 py-1.5 text-[11px] font-semibold text-semi-color-text-2 shadow-neo-glow backdrop-blur-md ${isChinese ? 'tracking-wide' : 'uppercase tracking-[0.28em]'}`}
+              className={`mb-6 inline-flex items-center gap-2 rounded-full border border-[var(--glass-border)] bg-[var(--glass-bg)] px-4 py-1.5 text-[11px] font-semibold text-semi-color-text-2 shadow-sm backdrop-blur-md ${isChinese ? 'tracking-wide' : 'uppercase tracking-[0.28em]'}`}
             >
-              <span className='h-2 w-2 shrink-0 animate-pulse rounded-full bg-semi-color-primary shadow-neo-glow' />
+              <span className='h-2 w-2 shrink-0 animate-pulse rounded-full bg-semi-color-primary' />
               {t('首页徽章')}
             </p>
 
@@ -119,7 +119,7 @@ const HomeHero = ({
               {heroHighlights.map((key) => (
                 <li key={key} className='flex items-start gap-2'>
                   <span
-                    className='mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-semi-color-primary shadow-neo-glow'
+                    className='mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-semi-color-primary'
                     aria-hidden
                   />
                   <span>{t(key)}</span>
@@ -135,7 +135,7 @@ const HomeHero = ({
                 theme='solid'
                 type='primary'
                 size={isMobile ? 'default' : 'large'}
-                className='!rounded-full px-8 font-semibold shadow-neo-glow'
+                className='!rounded-full px-8 font-semibold shadow-sm'
                 icon={<IconPlay />}
                 onClick={() => navigate('/console')}
               >

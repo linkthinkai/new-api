@@ -24,30 +24,29 @@ import {
   IconGithubLogo,
   IconFile,
   IconPriceTag,
+  IconLayers,
+  IconApps,
+  IconHistogram,
 } from '@/icons/semiRemix';
 import { useNavigate } from 'react-router-dom';
-import {
-  Moonshot,
-  OpenAI,
-  XAI,
-  Zhipu,
-  Volcengine,
-  Cohere,
-  Claude,
-  Gemini,
-  Suno,
-  Minimax,
-  Wenxin,
-  Spark,
-  Qingyan,
-  DeepSeek,
-  Qwen,
-  Midjourney,
-  Grok,
-  AzureAI,
-  Hunyuan,
-  Xinference,
-} from '@lobehub/icons';
+
+const UPSTREAM_CARDS = [
+  {
+    titleKey: '首页上游卡片1标题',
+    descKey: '首页上游卡片1说明',
+    Icon: IconLayers,
+  },
+  {
+    titleKey: '首页上游卡片2标题',
+    descKey: '首页上游卡片2说明',
+    Icon: IconApps,
+  },
+  {
+    titleKey: '首页上游卡片3标题',
+    descKey: '首页上游卡片3说明',
+    Icon: IconHistogram,
+  },
+];
 
 const HomeProviders = ({
   t,
@@ -71,26 +70,21 @@ const HomeProviders = ({
       }
     >
       <div className='neo-home-section-inner'>
-        <header className='mb-6 flex flex-col gap-6 md:mb-8 lg:flex-row lg:items-end lg:justify-between lg:gap-8'>
-          <div className='text-center lg:text-left'>
-            <div className='mb-2 flex flex-col items-center gap-2 sm:flex-row sm:justify-center sm:gap-3 lg:justify-start'>
-              <h2
-                id='home-providers-title'
-                className='m-0 font-display text-xl font-semibold text-semi-color-text-0 md:text-2xl'
-              >
-                {t('支持众多的大模型供应商')}
-              </h2>
-              <span className='font-mono text-xs uppercase tracking-[0.2em] text-semi-color-text-2'>
-                {t('首页供应商数量标签')}
-              </span>
-            </div>
-            <p className='mx-auto mt-2 max-w-xl text-sm text-semi-color-text-2 lg:mx-0 lg:text-base'>
-              {t('首页供应商区说明')}
+        <header className='neo-home-section-head mb-8 flex flex-col gap-6 md:mb-10 md:flex-row md:items-end md:justify-between md:gap-8'>
+          <div className='min-w-0 text-center md:text-left'>
+            <h2
+              id='home-providers-title'
+              className='neo-home-section-title'
+            >
+              {t('首页上游生态标题')}
+            </h2>
+            <p className='neo-home-section-subtitle md:max-w-2xl'>
+              {t('首页上游生态说明')}
             </p>
           </div>
           <nav
-            aria-labelledby='home-providers-title'
-            className='flex flex-wrap items-center justify-center gap-2 lg:justify-end'
+            aria-label={t('首页上游生态标题')}
+            className='flex flex-shrink-0 flex-wrap items-center justify-center gap-2 md:justify-end'
           >
             <Button
               icon={<IconPriceTag />}
@@ -135,73 +129,22 @@ const HomeProviders = ({
         </header>
         <ul
           role='list'
-          className='glass-panel tech-border m-0 flex list-none flex-wrap items-center justify-center gap-4 rounded-[1.25rem] p-6 sm:gap-6 sm:p-8 md:gap-8 lg:gap-10'
+          className='m-0 grid list-none gap-4 p-0 sm:grid-cols-2 lg:grid-cols-3 lg:gap-5'
         >
-          <li className='flex h-8 w-8 items-center justify-center sm:h-10 sm:w-10 md:h-12 md:w-12'>
-            <Moonshot size={40} />
-          </li>
-          <li className='flex h-8 w-8 items-center justify-center sm:h-10 sm:w-10 md:h-12 md:w-12'>
-            <OpenAI size={40} />
-          </li>
-          <li className='flex h-8 w-8 items-center justify-center sm:h-10 sm:w-10 md:h-12 md:w-12'>
-            <XAI size={40} />
-          </li>
-          <li className='flex h-8 w-8 items-center justify-center sm:h-10 sm:w-10 md:h-12 md:w-12'>
-            <Zhipu.Color size={40} />
-          </li>
-          <li className='flex h-8 w-8 items-center justify-center sm:h-10 sm:w-10 md:h-12 md:w-12'>
-            <Volcengine.Color size={40} />
-          </li>
-          <li className='flex h-8 w-8 items-center justify-center sm:h-10 sm:w-10 md:h-12 md:w-12'>
-            <Cohere.Color size={40} />
-          </li>
-          <li className='flex h-8 w-8 items-center justify-center sm:h-10 sm:w-10 md:h-12 md:w-12'>
-            <Claude.Color size={40} />
-          </li>
-          <li className='flex h-8 w-8 items-center justify-center sm:h-10 sm:w-10 md:h-12 md:w-12'>
-            <Gemini.Color size={40} />
-          </li>
-          <li className='flex h-8 w-8 items-center justify-center sm:h-10 sm:w-10 md:h-12 md:w-12'>
-            <Suno size={40} />
-          </li>
-          <li className='flex h-8 w-8 items-center justify-center sm:h-10 sm:w-10 md:h-12 md:w-12'>
-            <Minimax.Color size={40} />
-          </li>
-          <li className='flex h-8 w-8 items-center justify-center sm:h-10 sm:w-10 md:h-12 md:w-12'>
-            <Wenxin.Color size={40} />
-          </li>
-          <li className='flex h-8 w-8 items-center justify-center sm:h-10 sm:w-10 md:h-12 md:w-12'>
-            <Spark.Color size={40} />
-          </li>
-          <li className='flex h-8 w-8 items-center justify-center sm:h-10 sm:w-10 md:h-12 md:w-12'>
-            <Qingyan.Color size={40} />
-          </li>
-          <li className='flex h-8 w-8 items-center justify-center sm:h-10 sm:w-10 md:h-12 md:w-12'>
-            <DeepSeek.Color size={40} />
-          </li>
-          <li className='flex h-8 w-8 items-center justify-center sm:h-10 sm:w-10 md:h-12 md:w-12'>
-            <Qwen.Color size={40} />
-          </li>
-          <li className='flex h-8 w-8 items-center justify-center sm:h-10 sm:w-10 md:h-12 md:w-12'>
-            <Midjourney size={40} />
-          </li>
-          <li className='flex h-8 w-8 items-center justify-center sm:h-10 sm:w-10 md:h-12 md:w-12'>
-            <Grok size={40} />
-          </li>
-          <li className='flex h-8 w-8 items-center justify-center sm:h-10 sm:w-10 md:h-12 md:w-12'>
-            <AzureAI.Color size={40} />
-          </li>
-          <li className='flex h-8 w-8 items-center justify-center sm:h-10 sm:w-10 md:h-12 md:w-12'>
-            <Hunyuan.Color size={40} />
-          </li>
-          <li className='flex h-8 w-8 items-center justify-center sm:h-10 sm:w-10 md:h-12 md:w-12'>
-            <Xinference.Color size={40} />
-          </li>
-          <li className='flex h-8 w-8 items-center justify-center sm:h-10 sm:w-10 md:h-12 md:w-12'>
-            <span className='font-display text-lg font-bold sm:text-xl md:text-2xl lg:text-3xl'>
-              30+
-            </span>
-          </li>
+          {UPSTREAM_CARDS.map(({ titleKey, descKey, Icon }) => (
+            <li key={titleKey} className='min-w-0'>
+              <article className='neo-home-feature-card glass-panel tech-border h-full'>
+                <div className='neo-home-feature-icon-wrap'>
+                  <Icon
+                    className='text-semi-color-primary text-2xl'
+                    aria-hidden
+                  />
+                </div>
+                <h3 className='neo-home-feature-title'>{t(titleKey)}</h3>
+                <p className='neo-home-feature-desc'>{t(descKey)}</p>
+              </article>
+            </li>
+          ))}
         </ul>
       </div>
     </motion.section>

@@ -23,46 +23,7 @@ import { copy, showSuccess } from './utils';
 import { MOBILE_BREAKPOINT } from '../hooks/common/useIsMobile';
 import { visit } from 'unist-util-visit';
 import {
-  OpenAI,
-  Claude,
-  Gemini,
-  Moonshot,
-  Zhipu,
-  Qwen,
-  DeepSeek,
-  Minimax,
-  Wenxin,
-  Spark,
-  Midjourney,
-  Hunyuan,
-  Cohere,
-  Cloudflare,
-  Ai360,
-  Yi,
-  Jina,
-  Mistral,
-  XAI,
-  Ollama,
-  Doubao,
-  Suno,
-  Xinference,
-  OpenRouter,
-  Dify,
-  Coze,
-  SiliconCloud,
-  FastGPT,
-  Kling,
-  Jimeng,
-  Perplexity,
-  Replicate,
-  Vidu,
-  AzureAI,
-} from '@lobehub/icons';
-
-import { Layers } from 'lucide-react';
-
-/** 供 getLobeHubIcon 解析；避免 import * 导致无法摇树 */
-const LOBE_HUB_ICON_COMPONENTS = {
+  LOBE_HUB_ICON_COMPONENTS,
   OpenAI,
   Claude,
   Gemini,
@@ -98,7 +59,7 @@ const LOBE_HUB_ICON_COMPONENTS = {
   Vidu,
   AzureAI,
   Layers,
-};
+} from './lobeHubIconMap';
 import {
   SiAtlassian,
   SiAuth0,
