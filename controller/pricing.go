@@ -4,6 +4,7 @@ import (
 	"github.com/QuantumNous/new-api/common"
 	"github.com/QuantumNous/new-api/model"
 	"github.com/QuantumNous/new-api/service"
+	"github.com/QuantumNous/new-api/setting/operation_setting"
 	"github.com/QuantumNous/new-api/setting/ratio_setting"
 
 	"github.com/gin-gonic/gin"
@@ -57,6 +58,15 @@ func GetPricing(c *gin.Context) {
 
 	usableGroup = service.GetUserUsableGroups(group)
 	pricing = filterPricingByUsableGroups(pricing, usableGroup)
+	if operation_setting.DisallowUnsetRatioModelEnabled {
+		filtered := make([]model.Pricing, 0, len(pricing))
+		for _, item := range pricing {
+			if ratio_setting.IsModelPricingConfigured(item.ModelName) {
+				filtered = append(filtered, item)
+			}
+		}
+		pricing = filtered
+	}
 	// check groupRatio contains usableGroup
 	for group := range ratio_setting.GetGroupRatioCopy() {
 		if _, ok := usableGroup[group]; !ok {

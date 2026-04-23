@@ -75,17 +75,23 @@ const renderGroups = (groups) => {
   });
 };
 
-// Render tags
-const renderTags = (text) => {
+// Render tags（与模型广场一致：数据库存中文 key，展示走 i18n）
+const renderTags = (text, t) => {
   if (!text) return '-';
-  const tagsArr = text.split(',').filter(Boolean);
+  const tagsArr = text
+    .split(/[,;|]+/)
+    .map((s) => s.trim())
+    .filter(Boolean);
   return renderLimitedItems({
     items: tagsArr,
-    renderItem: (tag, idx) => (
-      <Tag key={idx} size='small' shape='circle' color={stringToColor(tag)}>
-        {tag}
-      </Tag>
-    ),
+    renderItem: (tag, idx) => {
+      const raw = tag.trim();
+      return (
+        <Tag key={idx} size='small' shape='circle' color={stringToColor(raw)}>
+          {t(raw)}
+        </Tag>
+      );
+    },
   });
 };
 
@@ -318,7 +324,7 @@ export const getModelsColumns = ({
     {
       title: t('标签'),
       dataIndex: 'tags',
-      render: renderTags,
+      render: (text) => renderTags(text, t),
     },
     {
       title: t('端点'),

@@ -47,7 +47,10 @@ const ModelBasicInfo = ({ modelData, vendorsMap = {}, t }) => {
     const tags = [];
 
     if (modelData?.tags) {
-      const customTags = modelData.tags.split(',').filter((tag) => tag.trim());
+      const customTags = modelData.tags
+        .split(/[,;|]+/)
+        .map((tag) => tag.trim())
+        .filter(Boolean);
       customTags.forEach((tag) => {
         const tagText = tag.trim();
         tags.push({ text: tagText, color: stringToColor(tagText) });
@@ -76,7 +79,7 @@ const ModelBasicInfo = ({ modelData, vendorsMap = {}, t }) => {
           <Space wrap>
             {getModelTags().map((tag, index) => (
               <Tag key={index} color={tag.color} shape='circle' size='small'>
-                {tag.text}
+                {t(tag.text)}
               </Tag>
             ))}
           </Space>

@@ -64,6 +64,10 @@ func HandleGroupRatio(ctx *gin.Context, relayInfo *relaycommon.RelayInfo) types.
 func ModelPriceHelper(c *gin.Context, info *relaycommon.RelayInfo, promptTokens int, meta *types.TokenCountMeta) (types.PriceData, error) {
 	modelPrice, usePrice := ratio_setting.GetModelPrice(info.OriginModelName, false)
 
+	if operation_setting.DisallowUnsetRatioModelEnabled && !ratio_setting.IsModelPricingConfigured(info.OriginModelName) {
+		return types.PriceData{}, modelPriceNotConfiguredError(info.OriginModelName, info.UserId)
+	}
+
 	groupRatioInfo := HandleGroupRatio(c, info)
 
 	var preConsumedQuota int
@@ -157,6 +161,10 @@ func ModelPriceHelper(c *gin.Context, info *relaycommon.RelayInfo, promptTokens 
 
 // ModelPriceHelperPerCall 按次/按量计费的 PriceHelper (MJ、Task)
 func ModelPriceHelperPerCall(c *gin.Context, info *relaycommon.RelayInfo) (types.PriceData, error) {
+	if operation_setting.DisallowUnsetRatioModelEnabled && !ratio_setting.IsModelPricingConfigured(info.OriginModelName) {
+		return types.PriceData{}, modelPriceNotConfiguredError(info.OriginModelName, info.UserId)
+	}
+
 	groupRatioInfo := HandleGroupRatio(c, info)
 
 	modelPrice, success := ratio_setting.GetModelPrice(info.OriginModelName, true)

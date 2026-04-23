@@ -726,6 +726,30 @@ func FormatMatchingModelName(name string) string {
 	return name
 }
 
+// IsModelPricingConfigured 判断模型是否在站点持久化的 ModelPrice / ModelRatio 映射中有配置。
+// 不包含代码内置默认价目表（与「未设置价格模型」管理页一致：仅看已保存的定价 JSON），
+// 也不包含自用模式下对未配置模型使用的回落倍率。
+func IsModelPricingConfigured(model string) bool {
+	name := FormatMatchingModelName(model)
+	if _, ok := modelPriceMap.Get(name); ok {
+		return true
+	}
+	if strings.HasSuffix(name, CompactModelSuffix) {
+		if _, ok := modelPriceMap.Get(CompactWildcardModelKey); ok {
+			return true
+		}
+	}
+	if _, ok := modelRatioMap.Get(name); ok {
+		return true
+	}
+	if strings.HasSuffix(name, CompactModelSuffix) {
+		if _, ok := modelRatioMap.Get(CompactWildcardModelKey); ok {
+			return true
+		}
+	}
+	return false
+}
+
 // result: 倍率or价格， usePrice， exist
 func GetModelRatioOrPrice(model string) (float64, bool, bool) { // price or ratio
 	price, usePrice := GetModelPrice(model, false)

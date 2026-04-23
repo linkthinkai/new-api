@@ -176,16 +176,21 @@ const PricingCardView = ({
     // 自定义标签（右边）
     const customTags = [];
     if (record.tags) {
-      const tagArr = record.tags.split(',').filter(Boolean);
+      const tagArr = record.tags
+        .split(/[,;|]+/)
+        .map((s) => s.trim())
+        .filter(Boolean);
       tagArr.forEach((tg, idx) => {
+        const raw = tg.trim();
+        if (!raw) return;
         customTags.push(
           <Tag
             key={`custom-${idx}`}
             shape='circle'
-            color={stringToColor(tg)}
+            color={stringToColor(raw)}
             size='small'
           >
-            {tg}
+            {t(raw)}
           </Tag>,
         );
       });

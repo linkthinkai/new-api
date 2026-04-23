@@ -113,7 +113,7 @@ func ListModels(c *gin.Context, modelType int) {
 	userOpenAiModels := make([]dto.OpenAIModels, 0)
 
 	acceptUnsetRatioModel := operation_setting.SelfUseModeEnabled
-	if !acceptUnsetRatioModel {
+	if !operation_setting.DisallowUnsetRatioModelEnabled && !acceptUnsetRatioModel {
 		userId := c.GetInt("id")
 		if userId > 0 {
 			userSettings, _ := model.GetUserSetting(userId, false)
@@ -133,7 +133,11 @@ func ListModels(c *gin.Context, modelType int) {
 			tokenModelLimit = map[string]bool{}
 		}
 		for allowModel, _ := range tokenModelLimit {
-			if !acceptUnsetRatioModel {
+			if operation_setting.DisallowUnsetRatioModelEnabled {
+				if !ratio_setting.IsModelPricingConfigured(allowModel) {
+					continue
+				}
+			} else if !acceptUnsetRatioModel {
 				_, _, exist := ratio_setting.GetModelRatioOrPrice(allowModel)
 				if !exist {
 					continue
@@ -181,7 +185,11 @@ func ListModels(c *gin.Context, modelType int) {
 			models = model.GetGroupEnabledModels(group)
 		}
 		for _, modelName := range models {
-			if !acceptUnsetRatioModel {
+			if operation_setting.DisallowUnsetRatioModelEnabled {
+				if !ratio_setting.IsModelPricingConfigured(modelName) {
+					continue
+				}
+			} else if !acceptUnsetRatioModel {
 				_, _, exist := ratio_setting.GetModelRatioOrPrice(modelName)
 				if !exist {
 					continue

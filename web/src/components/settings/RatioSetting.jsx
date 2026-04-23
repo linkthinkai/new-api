@@ -18,7 +18,7 @@ For commercial licensing, please contact support@quantumnous.com
 */
 
 import React, { useEffect, useState } from 'react';
-import { Card, Spin, Tabs } from '@douyinfe/semi-ui';
+import { Card, Form, Spin, Switch, Tabs, Typography } from '@douyinfe/semi-ui';
 import { useTranslation } from 'react-i18next';
 
 import ModelPricingCombined from '../../pages/Setting/Ratio/ModelPricingCombined';
@@ -26,7 +26,9 @@ import GroupRatioSettings from '../../pages/Setting/Ratio/GroupRatioSettings';
 import ModelRatioNotSetEditor from '../../pages/Setting/Ratio/ModelRationNotSetEditor';
 import UpstreamRatioSync from '../../pages/Setting/Ratio/UpstreamRatioSync';
 
-import { API, showError, toBoolean } from '../../helpers';
+import { API, showError, showSuccess, toBoolean } from '../../helpers';
+
+const { Text } = Typography;
 
 const RatioSetting = () => {
   const { t } = useTranslation();
@@ -64,7 +66,13 @@ const RatioSetting = () => {
             // 如果后端返回的不是合法 JSON，直接展示
           }
         }
-        if (['DefaultUseAutoGroup', 'ExposeRatioEnabled'].includes(item.key)) {
+        if (
+          [
+            'DefaultUseAutoGroup',
+            'ExposeRatioEnabled',
+            'DisallowUnsetRatioModelEnabled',
+          ].includes(item.key)
+        ) {
           newInputs[item.key] = toBoolean(item.value);
         } else {
           newInputs[item.key] = item.value;
@@ -92,9 +100,46 @@ const RatioSetting = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const onDisallowUnsetChange = (checked) => {
+    setInputs((prev) => ({ ...prev, DisallowUnsetRatioModelEnabled: checked }));
+    API.put('/api/option/', {
+      key: 'DisallowUnsetRatioModelEnabled',
+      value: String(checked),
+    })
+      .then((res) => {
+        const { success, message } = res.data || {};
+        if (success) {
+          showSuccess(t('保存成功'));
+          onRefresh();
+        } else {
+          showError(message || t('保存失败'));
+        }
+      })
+      .catch(() => {
+        showError(t('保存失败'));
+      });
+  };
+
   return (
     <Spin spinning={loading} size='large'>
       <Card style={{ marginTop: '10px' }}>
+        <div style={{ marginBottom: 16, padding: '4px 4px 0' }}>
+          <Form layout='vertical'>
+            <Form.Slot label={t('禁止未定价模型调用与展示')}>
+              <Switch
+                checked={toBoolean(inputs.DisallowUnsetRatioModelEnabled)}
+                onChange={onDisallowUnsetChange}
+              />
+            </Form.Slot>
+          </Form>
+          <Text
+            type='tertiary'
+            size='small'
+            style={{ display: 'block', marginTop: 4, lineHeight: 1.6 }}
+          >
+            {t('禁止未定价模型调用与展示说明')}
+          </Text>
+        </div>
         <Tabs type='card' defaultActiveKey='pricing'>
           <Tabs.TabPane tab={t('模型定价设置')} itemKey='pricing'>
             <ModelPricingCombined options={inputs} refresh={onRefresh} />

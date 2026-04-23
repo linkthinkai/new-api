@@ -37,21 +37,25 @@ const PricingTags = ({
   loading = false,
   t,
 }) => {
-  // 提取系统所有标签
-  const getAllTags = React.useMemo(() => {
-    const tagSet = new Set();
+  // 提取系统所有标签：value 用小写便于匹配，i18nKey 保留首次出现的原文以作为翻译 key
+  const tagFilterEntries = React.useMemo(() => {
+    const byLower = new Map();
 
     (allModels.length > 0 ? allModels : models).forEach((model) => {
-      if (model.tags) {
-        model.tags
-          .split(/[,;|]+/) // 逗号、分号或竖线（保留空格，允许多词标签如 "open weights"）
-          .map((tag) => tag.trim())
-          .filter(Boolean)
-          .forEach((tag) => tagSet.add(tag.toLowerCase()));
-      }
+      if (!model.tags) return;
+      model.tags
+        .split(/[,;|]+/) // 逗号、分号或竖线（保留空格，允许多词标签如 "open weights"）
+        .map((tag) => tag.trim())
+        .filter(Boolean)
+        .forEach((tag) => {
+          const lower = tag.toLowerCase();
+          if (!byLower.has(lower)) byLower.set(lower, tag);
+        });
     });
 
-    return Array.from(tagSet).sort((a, b) => a.localeCompare(b));
+    return Array.from(byLower.entries())
+      .sort((a, b) => a[0].localeCompare(b[0]))
+      .map(([valueLower, i18nKey]) => ({ value: valueLower, i18nKey }));
   }, [allModels, models]);
 
   // 计算标签对应的模型数量
@@ -81,17 +85,17 @@ const PricingTags = ({
       },
     ];
 
-    getAllTags.forEach((tag) => {
-      const count = getTagCount(tag);
+    tagFilterEntries.forEach(({ value, i18nKey }) => {
+      const count = getTagCount(value);
       result.push({
-        value: tag,
-        label: tag,
+        value,
+        label: t(i18nKey),
         tagCount: count,
       });
     });
 
     return result;
-  }, [getAllTags, getTagCount, t, models.length]);
+  }, [tagFilterEntries, getTagCount, t, models.length]);
 
   return (
     <SelectableButtonGroup

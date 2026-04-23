@@ -61,27 +61,33 @@ const renderVendor = (vendorName, vendorIcon, t) => {
       shape='circle'
       prefixIcon={getLobeHubIcon(vendorIcon || 'Layers', 14)}
     >
-      {vendorName}
+      {t(vendorName)}
     </Tag>
   );
 };
 
-// Render tags list using RenderUtils
-const renderTags = (text) => {
+// Render tags list using RenderUtils（标签文案与数据库一致，通过 t(key) 走 i18n）
+const renderTags = (text, t) => {
   if (!text) return '-';
-  const tagsArr = text.split(',').filter((tag) => tag.trim());
+  const tagsArr = text
+    .split(/[,;|]+/)
+    .map((tag) => tag.trim())
+    .filter(Boolean);
   return renderLimitedItems({
     items: tagsArr,
-    renderItem: (tag, idx) => (
-      <Tag
-        key={idx}
-        color={stringToColor(tag.trim())}
-        shape='circle'
-        size='small'
-      >
-        {tag.trim()}
-      </Tag>
-    ),
+    renderItem: (tag, idx) => {
+      const raw = tag.trim();
+      return (
+        <Tag
+          key={idx}
+          color={stringToColor(raw)}
+          shape='circle'
+          size='small'
+        >
+          {t(raw)}
+        </Tag>
+      );
+    },
     maxDisplay: 3,
   });
 };
@@ -174,7 +180,7 @@ export const getPricingTableColumns = ({
   const tagsColumn = {
     title: t('标签'),
     dataIndex: 'tags',
-    render: renderTags,
+    render: (text) => renderTags(text, t),
   };
 
   const vendorColumn = {
